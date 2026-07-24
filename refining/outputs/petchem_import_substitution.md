@@ -1,42 +1,83 @@
-# Petrochemical imports India can substitute with domestic petrol/naphtha feedstock
+# Petrochemical imports India can substitute from petrol/naphtha — the full ICIS tree
 
-India imports **₹631,898 cr (~$73 bn) of chemicals & petrochemicals** a year (excl. pharma/fertilizer; MoC) and **~$22 bn of plastics** (HS-39, 2025). Much of it is polymers and intermediates whose feedstock is exactly what India's refineries make: **naphtha** (co-produced with petrol; the steam-cracker feed for ethylene/propylene) and **reformate aromatics** (a petrol octane component; the source of benzene→styrene and paraxylene→PET). Redirecting those petrol-range streams into petrochemicals — crude-to-chemicals — substitutes the imports below.
+Product tree from the **ICIS Petrochemicals Flowchart** (crude → building blocks → end products), scored for India's import dependence. India imports **₹631,898 cr (~$73 bn)** of chemicals & petrochemicals a year; the list below is the slice whose feedstock is the **petrol-range refinery streams** India already makes — naphtha (→ ethylene/propylene/C4) and reformate aromatics (→ benzene/toluene/xylenes).
 
-## 1. The major substitutable imports
+**25 import-relevant products across 7 building blocks** — expanded from the headline polymers using the flowchart's full downstream chain.
 
-| Product | Import dependence | Import value | Feedstock (petrol-linked) | Link |
-|---|---|--:|---|:--:|
-| **PVC (poly-vinyl chloride)** | ~55-75% | ₹19,000 cr ($2.2 bn) | ethylene (naphtha) + chlorine → EDC/VCM | High |
-| **Polyethylene (HDPE/LLDPE/LDPE)** | ~20% | ₹13,000 cr ($1.5 bn) | ethylene ← naphtha/ethane cracking | High |
-| **Polypropylene (PP)** | ~20% (closing) | ₹11,000 cr ($1.3 bn) | propylene ← refinery FCC / naphtha | High |
-| **Styrene monomer (SM)** | ~100% | ₹10,150 cr ($1.2 bn) | benzene (reformate) + ethylene | High |
-| **ABS / SAN / polystyrene / others** | partial | ₹8,000 cr ($0.9 bn) | styrene + butadiene/acrylonitrile | Med |
-| **Methanol** | ~90% | ₹7,524 cr ($0.9 bn) | syngas (gas / petcoke gasification) | Low-Med |
-| **Mono-ethylene glycol (MEG)** | high | ₹6,666 cr ($0.8 bn) | ethylene → ethylene-oxide → MEG | High |
-| **PTA / paraxylene / PET** | partial | ₹5,000 cr ($0.6 bn) | paraxylene ← catalytic reformate aromatics | High |
+## Ethylene  ←  naphtha / ethane (steam cracker)
 
-- **Directly petroleum-feedstock-linked imports ≈ ₹72,816 cr (~$8 bn/yr)** — of which the high-linkage core (PVC, PE, PP, styrene, MEG, PX/PET) is ≈ ₹64,816 cr.
-- **PVC is the single biggest gap** (~55-75% imported): ethylene + chlorine, a clear domestic cracker + chlor-alkali opportunity. **Styrene is ~fully imported** — India has essentially no styrene-monomer capacity, yet benzene (its feedstock) sits in the petrol reformate pool.
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| PVC (via EDC/VCM + chlorine) | ~55-75% | ₹19,000 cr ($2.2 bn) | High | Biggest polymer gap; capacity ~2.5x by FY30 |
+| Polyethylene (LDPE/HDPE/LLDPE) | ~20% | ₹13,000 cr ($1.5 bn) | High | ~1.4 MT imported of ~7 MT demand |
+| Styrene monomer (via ethylbenzene + benzene) | ~100% | ₹10,150 cr ($1.2 bn) | High | ≈ no domestic SM capacity |
+| Mono-ethylene glycol (MEG) | high | ₹6,666 cr ($0.8 bn) | High | Polyester/PET chain |
+| Vinyl acetate monomer (VAM) | high | ₹2,000 cr ($0.2 bn) | High | Adhesives, EVA, films — largely imported |
+| Ethanolamines (MEA/DEA/TEA) | partial | *indic.* | Med | Gas treating, surfactants |
 
-## 2. The feedstock loop — petrol → petrochemicals
+## Propylene  ←  naphtha crack / FCC / PDH
 
-| Petrol-range refinery stream | Cracks/reforms to | Substitutes import of |
-|---|---|---|
-| Naphtha (steam cracker) | ethylene, propylene | PE, PP, PVC (via EDC), MEG |
-| Reformate / aromatics (BTX) | benzene, paraxylene | styrene, PTA→PET, ABS |
-| Refinery propylene (FCC) | propylene | polypropylene directly |
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| Polypropylene (PP) | ~20% (closing) | ₹11,000 cr ($1.3 bn) | High | 1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30 |
+| Phenol + Acetone (via cumene) | high | ₹4,000 cr ($0.5 bn) | High | Cumene ← benzene + propylene |
+| Polyols → Polyurethane | high | ₹4,000 cr ($0.5 bn) | High | Propylene-oxide route; PU foams |
+| Oxo-alcohols (2-EH, n-butanol) | high | ₹4,000 cr ($0.5 bn) | High | Plasticiser alcohols — largely imported |
+| Acrylonitrile (ACN) | ~100% | ₹3,000 cr ($0.3 bn) | High | For ABS, acrylic fibre, NBR — no domestic ACN |
+| Acrylic acid → superabsorbents (SAP) | high | ₹2,500 cr ($0.3 bn) | High | Diapers/hygiene — imported |
+| PMMA / MMA (acrylic) | high | ₹1,500 cr ($0.2 bn) | Med | Optical/acrylic sheet |
+| Isopropanol (IPA) | partial | *indic.* | Med | Solvent |
 
-This is the same molecule India currently either **burns as petrol** or **exports as fuel** at ~$85/bbl. Cracked into polymers it fetches the petrochemical premium instead (Digital Refining: +$1.5-2/bbl GRM marginal, $60-80/bbl full COTC) **and** erases an import — a double win.
+## C4 (butadiene/isobutylene)  ←  naphtha crack C4 stream
 
-## 3. The strategic loop with ethanol & the fuel peak
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| Butadiene → SBR/PBR/NBR rubber | high | ₹6,000 cr ($0.7 bn) | High | Synthetic rubber — big import |
+| BDO → PBT / spandex | high | ₹2,000 cr ($0.2 bn) | Med | Engineering plastic/fibre |
 
-The pieces connect: **ethanol blending frees petrol-range volume** (E20 ≈ 10.8 bn L, E30 ≈ 16 bn L in the sibling models); as EVs and ethanol cap domestic fuel demand, that freed naphtha/reformate is better **cracked into import-substituting petrochemicals** than exported as low-margin fuel. It turns three problems into one answer — a fuel-demand peak, a ~$74 bn chem import bill, and a normalised refining margin — via **crude-to-chemicals**.
+## Benzene  ←  reformate / pygas aromatics
 
-## 4. Reality check
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| Bisphenol-A → Polycarbonate (PC) | ~90-100% | ₹5,000 cr ($0.6 bn) | High | Engineering plastic — near-fully imported |
+| Aniline → MDI (polyurethane) | ~85-90% | ₹5,000 cr ($0.6 bn) | High | Rigid PU foam — largely imported |
+| Epoxy resins (via BPA) | high | ₹4,000 cr ($0.5 bn) | High | Coatings, composites |
+| Caprolactam → Nylon-6 / Adipic → Nylon-6,6 | high | ₹4,000 cr ($0.5 bn) | High | Via cyclohexane; nylon/fibre |
+| LAB (alkylbenzene) → surfactants | partial | *indic.* | Med | Detergents — India fairly self-sufficient |
 
-- Capacity is already responding: **PP capacity ~1.7-1.8x by FY30** (could end PP imports), **PVC ~2.5x** — the substitution is underway but demand grows too, so imports persist near-term.
-- Not all imports are petrol-substitutable: **methanol** is largely gas/syngas-based (low petrol link); some specialty/engineering chemicals need dedicated units, not just a cracker.
-- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25; product-level figures move with price). Use Tradestat HS-39 (plastics) and HS-29 (organic chemicals) for exact product×year values. ₹→$ at ₹86.
+## Toluene  ←  reformate aromatics
+
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| TDI (di-isocyanate) | ~85-90% | ₹4,000 cr ($0.5 bn) | High | Flexible PU foam — largely imported |
+
+## Xylenes  ←  reformate aromatics
+
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| Paraxylene → PTA/DMT → PET/polyester | partial | ₹5,000 cr ($0.6 bn) | High | India strong (RIL) but net-imports some grades |
+| Orthoxylene → Phthalic anhydride → plasticisers/UPR | partial | ₹2,000 cr ($0.2 bn) | High | Plasticisers, unsat. polyester resin |
+
+## Methanol  ←  syngas (gas/coal) — weak petrol link
+
+| Product | Import dep. | Import value | Link | Note |
+|---|---|--:|:--:|---|
+| Methanol → formaldehyde/acetic acid/MTBE | ~90% | ₹7,524 cr ($0.9 bn) | Low | Gas/coal-based — petrol link only via petcoke COTC |
+
+## The petrol → petrochemicals substitution prize
+
+- **High-petrol-link substitutable imports quantified ≈ ₹114,316 cr (~$13 bn/yr)**; with the indicative long-tail, the petroleum-feedstock-linked chemical import bill is well into double-digit $ bn.
+- **Newly surfaced via the flowchart (missed by a headline-polymer view):** polycarbonate, MDI & TDI (isocyanates → polyurethane), caprolactam/nylon, phenol/bisphenol-A, acrylonitrile, butadiene & synthetic rubber, oxo-alcohols/2-EH, VAM, epoxy, PBT/BDO — most **~85-100% imported** and all rooted in benzene/propylene/C4 from naphtha & reformate.
+- **The engineering-plastics & PU cluster** (PC, nylon, MDI/TDI, epoxy, ABS, PBT) is India's deepest, highest-value gap — exactly the higher-margin end of the ICIS tree, and the natural target for crude-to-chemicals.
+
+## Why it ties back to fuel
+
+Every block above starts from **naphtha or reformate** — the same petrol-range material India **burns as petrol** or **exports as fuel** at ~$85/bbl. As ethanol/EV cap fuel demand and free that volume (E20 ≈ 10.8 bn L, E30 ≈ 16 bn L in the sibling models), redirecting it into these products **erases imports and captures the petrochemical premium** (Digital Refining: +$1.5-2/bbl marginal GRM, $60-80/bbl full COTC) instead of a thin fuel margin.
+
+## Caveats
+
+- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25); the long-tail (*indic.*) rows are directional. Use **Tradestat** HS-29 (organic chemicals) & HS-39 (plastics) for exact product×year figures; the ICIS flowchart gives the chain, not the tonnage.
+- Methanol and some surfactants are gas-based (weak petrol link). Substitution also needs downstream units (crackers, aromatics, chlor-alkali, isocyanate plants), not just feedstock. ₹→$ at ₹86.
 
 ---
-*Import-substitution scan from official chem-trade data + feedstock chemistry; indicative, not a project plan.*
+*Import-substitution map from the ICIS petrochemicals tree + official trade data; indicative, not a project plan.*

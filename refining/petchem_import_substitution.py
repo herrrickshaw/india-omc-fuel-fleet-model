@@ -1,108 +1,142 @@
 #!/usr/bin/env python3
-"""Which petrochemical imports India can substitute with domestic petroleum-
-feedstock (naphtha + reformate aromatics) — the crude-to-chemicals import-
-substitution prize. Values from Ministry of Chemicals 'Statistics at a Glance',
+"""Which petrochemical products India imports that could be substituted with
+domestic petroleum feedstock (naphtha + reformate aromatics). Product tree from
+the ICIS Petrochemicals Flowchart (crude -> building blocks -> end products);
+import dependence/values from Ministry of Chemicals 'Statistics at a Glance',
 DGCIS/Tradestat and industry reporting (2023-25). Pure stdlib.
 
-The petrol link: naphtha (co-produced with petrol) is the steam-cracker feedstock
-for ethylene/propylene; catalytic reformate (a petrol octane component) is the
-aromatics source (benzene->styrene, paraxylene->PET). Diverting these petrol-range
-streams into petrochemicals — and ethanol blending frees exactly this material —
-substitutes the imports below.
+Petrol link: naphtha (co-produced with petrol) steam-cracks to ethylene/propylene/
+C4/pygas; catalytic reformate (a petrol octane stream) is the BTX-aromatics source
+(benzene, toluene, xylenes). Every block below traces to those petrol-range cuts.
 """
 import csv
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / "outputs"; OUT.mkdir(parents=True, exist_ok=True)
+TOTAL_CHEM_IMPORT_CR = 631898          # FY24-25 chem+petchem imports (excl pharma/fert), ₹ cr
+USD_INR = 86.0; CR = 1e7
 
-# context (Ministry of Chemicals & Petrochemicals)
-TOTAL_CHEM_IMPORT_CR = 631898          # FY24-25 chem+petchem imports (excl pharma, fert), ₹ cr (~$74bn)
-PLASTICS_IMPORT_USDBN = 22.0           # 2025 (HS-39)
+# building block  -> feedstock root (all petrol-range unless noted)
+BLOCKS = {
+    "Ethylene":  "naphtha / ethane (steam cracker)",
+    "Propylene": "naphtha crack / FCC / PDH",
+    "C4 (butadiene/isobutylene)": "naphtha crack C4 stream",
+    "Benzene":   "reformate / pygas aromatics",
+    "Toluene":   "reformate aromatics",
+    "Xylenes":   "reformate aromatics",
+    "Methanol":  "syngas (gas/coal) — weak petrol link",
+}
 
-# product, import_dependence, approx import value ₹cr, feedstock, petrol-linkage
-# (values approximate: MoC Statistics-at-a-Glance / DGCIS / industry 2023-25)
+# product, block, import_dependence, approx import value ₹cr (None=indicative),
+# petrol_link (High/Med/Low), note
 PRODUCTS = [
-    ("PVC (poly-vinyl chloride)", "~55-75%", 19000, "ethylene (naphtha) + chlorine → EDC/VCM", "High", "Biggest single polymer gap; capacity set to rise ~2.5x by FY30"),
-    ("Polyethylene (HDPE/LLDPE/LDPE)", "~20%", 13000, "ethylene ← naphtha/ethane cracking", "High", "~1.4 MT imported of ~7 MT demand"),
-    ("Polypropylene (PP)", "~20% (closing)", 11000, "propylene ← refinery FCC / naphtha", "High", "1.2 MT+ imported (2025, record); capacity 1.7-1.8x by FY30 could end imports"),
-    ("Styrene monomer (SM)", "~100%", 10150, "benzene (reformate) + ethylene", "High", "No domestic SM plant historically — near-fully imported"),
-    ("Mono-ethylene glycol (MEG)", "high", 6666, "ethylene → ethylene-oxide → MEG", "High", "Polyester/PET chain"),
-    ("Methanol", "~90%", 7524, "syngas (gas / petcoke gasification)", "Low-Med", "Mostly gas-based — petrol link only via petcoke/COTC"),
-    ("PTA / paraxylene / PET", "partial", 5000, "paraxylene ← catalytic reformate aromatics", "High", "India has PX/PTA (RIL) but still net-imports some grades"),
-    ("ABS / SAN / polystyrene / others", "partial", 8000, "styrene + butadiene/acrylonitrile", "Med", "Engineering-plastic gap"),
+    # ── Ethylene chain ──
+    ("Polyethylene (LDPE/HDPE/LLDPE)", "Ethylene", "~20%", 13000, "High", "~1.4 MT imported of ~7 MT demand"),
+    ("PVC (via EDC/VCM + chlorine)", "Ethylene", "~55-75%", 19000, "High", "Biggest polymer gap; capacity ~2.5x by FY30"),
+    ("Mono-ethylene glycol (MEG)", "Ethylene", "high", 6666, "High", "Polyester/PET chain"),
+    ("Styrene monomer (via ethylbenzene + benzene)", "Ethylene", "~100%", 10150, "High", "≈ no domestic SM capacity"),
+    ("Vinyl acetate monomer (VAM)", "Ethylene", "high", 2000, "High", "Adhesives, EVA, films — largely imported"),
+    ("Ethanolamines (MEA/DEA/TEA)", "Ethylene", "partial", None, "Med", "Gas treating, surfactants"),
+    # ── Propylene chain ──
+    ("Polypropylene (PP)", "Propylene", "~20% (closing)", 11000, "High", "1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30"),
+    ("Acrylonitrile (ACN)", "Propylene", "~100%", 3000, "High", "For ABS, acrylic fibre, NBR — no domestic ACN"),
+    ("Phenol + Acetone (via cumene)", "Propylene", "high", 4000, "High", "Cumene ← benzene + propylene"),
+    ("Polyols → Polyurethane", "Propylene", "high", 4000, "High", "Propylene-oxide route; PU foams"),
+    ("Oxo-alcohols (2-EH, n-butanol)", "Propylene", "high", 4000, "High", "Plasticiser alcohols — largely imported"),
+    ("Acrylic acid → superabsorbents (SAP)", "Propylene", "high", 2500, "High", "Diapers/hygiene — imported"),
+    ("PMMA / MMA (acrylic)", "Propylene", "high", 1500, "Med", "Optical/acrylic sheet"),
+    ("Isopropanol (IPA)", "Propylene", "partial", None, "Med", "Solvent"),
+    # ── C4 chain ──
+    ("Butadiene → SBR/PBR/NBR rubber", "C4 (butadiene/isobutylene)", "high", 6000, "High", "Synthetic rubber — big import"),
+    ("BDO → PBT / spandex", "C4 (butadiene/isobutylene)", "high", 2000, "Med", "Engineering plastic/fibre"),
+    # ── Benzene chain (reformate) ──
+    ("Bisphenol-A → Polycarbonate (PC)", "Benzene", "~90-100%", 5000, "High", "Engineering plastic — near-fully imported"),
+    ("Epoxy resins (via BPA)", "Benzene", "high", 4000, "High", "Coatings, composites"),
+    ("Caprolactam → Nylon-6 / Adipic → Nylon-6,6", "Benzene", "high", 4000, "High", "Via cyclohexane; nylon/fibre"),
+    ("Aniline → MDI (polyurethane)", "Benzene", "~85-90%", 5000, "High", "Rigid PU foam — largely imported"),
+    ("LAB (alkylbenzene) → surfactants", "Benzene", "partial", None, "Med", "Detergents — India fairly self-sufficient"),
+    # ── Toluene chain ──
+    ("TDI (di-isocyanate)", "Toluene", "~85-90%", 4000, "High", "Flexible PU foam — largely imported"),
+    # ── Xylenes chain (reformate) ──
+    ("Paraxylene → PTA/DMT → PET/polyester", "Xylenes", "partial", 5000, "High", "India strong (RIL) but net-imports some grades"),
+    ("Orthoxylene → Phthalic anhydride → plasticisers/UPR", "Xylenes", "partial", 2000, "High", "Plasticisers, unsat. polyester resin"),
+    # ── Methanol chain (weak petrol link) ──
+    ("Methanol → formaldehyde/acetic acid/MTBE", "Methanol", "~90%", 7524, "Low", "Gas/coal-based — petrol link only via petcoke COTC"),
 ]
-CR = 1e7; USD_INR = 86.0
 
 
 def main():
-    petrol_linked = [p for p in PRODUCTS if p[4] in ("High", "Med")]
-    sub_cr = sum(p[2] for p in petrol_linked)
-    high_cr = sum(p[2] for p in PRODUCTS if p[4] == "High")
+    firm = [p for p in PRODUCTS if p[3] is not None]
+    high = [p for p in PRODUCTS if p[4] == "High"]
+    high_petrol_val = sum(p[3] for p in PRODUCTS if p[4] == "High" and p[3])
+    all_val = sum(p[3] for p in PRODUCTS if p[3])
 
     with (OUT / "petchem_import_substitution.csv").open("w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow(["product", "import_dependence", "import_value_cr", "import_value_usdbn",
-                    "feedstock", "petrol_linkage", "note"])
-        for name, dep, cr, feed, link, note in PRODUCTS:
-            w.writerow([name, dep, cr, round(cr*CR/USD_INR/1e9, 2), feed, link, note])
+        w.writerow(["product", "building_block", "feedstock_root", "import_dependence",
+                    "import_value_cr", "import_value_usdbn", "petrol_link", "note"])
+        for name, blk, dep, cr, link, note in PRODUCTS:
+            w.writerow([name, blk, BLOCKS[blk], dep, cr or "",
+                        round(cr*CR/USD_INR/1e9, 2) if cr else "", link, note])
 
     L = []
-    L.append("# Petrochemical imports India can substitute with domestic petrol/naphtha feedstock\n")
-    L.append("India imports **₹%s cr (~$%.0f bn) of chemicals & petrochemicals** a year (excl. pharma/"
-             "fertilizer; MoC) and **~$%.0f bn of plastics** (HS-39, 2025). Much of it is polymers and "
-             "intermediates whose feedstock is exactly what India's refineries make: **naphtha** "
-             "(co-produced with petrol; the steam-cracker feed for ethylene/propylene) and **reformate "
-             "aromatics** (a petrol octane component; the source of benzene→styrene and paraxylene→PET). "
-             "Redirecting those petrol-range streams into petrochemicals — crude-to-chemicals — substitutes "
-             "the imports below.\n" % (f"{TOTAL_CHEM_IMPORT_CR:,}", TOTAL_CHEM_IMPORT_CR*CR/USD_INR/1e9, PLASTICS_IMPORT_USDBN))
+    L.append("# Petrochemical imports India can substitute from petrol/naphtha — the full ICIS tree\n")
+    L.append("Product tree from the **ICIS Petrochemicals Flowchart** (crude → building blocks → end "
+             "products), scored for India's import dependence. India imports **₹%s cr (~$%.0f bn)** of "
+             "chemicals & petrochemicals a year; the list below is the slice whose feedstock is the "
+             "**petrol-range refinery streams** India already makes — naphtha (→ ethylene/propylene/C4) and "
+             "reformate aromatics (→ benzene/toluene/xylenes).\n"
+             % (f"{TOTAL_CHEM_IMPORT_CR:,}", TOTAL_CHEM_IMPORT_CR*CR/USD_INR/1e9))
+    L.append(f"**{len(PRODUCTS)} import-relevant products across 7 building blocks** — expanded from the "
+             "headline polymers using the flowchart's full downstream chain.\n")
 
-    L.append("## 1. The major substitutable imports\n")
-    L.append("| Product | Import dependence | Import value | Feedstock (petrol-linked) | Link |")
-    L.append("|---|---|--:|---|:--:|")
-    for name, dep, cr, feed, link, note in sorted(PRODUCTS, key=lambda p: -p[2]):
-        L.append(f"| **{name}** | {dep} | ₹{cr:,} cr (${cr*CR/USD_INR/1e9:.1f} bn) | {feed} | {link} |")
-    L.append("")
-    L.append(f"- **Directly petroleum-feedstock-linked imports ≈ ₹{sub_cr:,} cr (~${sub_cr*CR/USD_INR/1e9:.0f} bn/yr)** "
-             f"— of which the high-linkage core (PVC, PE, PP, styrene, MEG, PX/PET) is ≈ ₹{high_cr:,} cr.")
-    L.append("- **PVC is the single biggest gap** (~55-75% imported): ethylene + chlorine, a clear domestic "
-             "cracker + chlor-alkali opportunity. **Styrene is ~fully imported** — India has essentially no "
-             "styrene-monomer capacity, yet benzene (its feedstock) sits in the petrol reformate pool.\n")
+    # group by block
+    for blk, feed in BLOCKS.items():
+        rows = [p for p in PRODUCTS if p[1] == blk]
+        L.append(f"## {blk}  ←  {feed}\n")
+        L.append("| Product | Import dep. | Import value | Link | Note |")
+        L.append("|---|---|--:|:--:|---|")
+        for name, _, dep, cr, link, note in sorted(rows, key=lambda p: -(p[3] or 0)):
+            val = f"₹{cr:,} cr (${cr*CR/USD_INR/1e9:.1f} bn)" if cr else "*indic.*"
+            L.append(f"| {name} | {dep} | {val} | {link} | {note} |")
+        L.append("")
 
-    L.append("## 2. The feedstock loop — petrol → petrochemicals\n")
-    L.append("| Petrol-range refinery stream | Cracks/reforms to | Substitutes import of |")
-    L.append("|---|---|---|")
-    L.append("| Naphtha (steam cracker) | ethylene, propylene | PE, PP, PVC (via EDC), MEG |")
-    L.append("| Reformate / aromatics (BTX) | benzene, paraxylene | styrene, PTA→PET, ABS |")
-    L.append("| Refinery propylene (FCC) | propylene | polypropylene directly |")
-    L.append("")
-    L.append("This is the same molecule India currently either **burns as petrol** or **exports as fuel** at "
-             "~$85/bbl. Cracked into polymers it fetches the petrochemical premium instead (Digital Refining: "
-             "+$1.5-2/bbl GRM marginal, $60-80/bbl full COTC) **and** erases an import — a double win.\n")
+    L.append("## The petrol → petrochemicals substitution prize\n")
+    L.append(f"- **High-petrol-link substitutable imports quantified ≈ ₹{high_petrol_val:,} cr "
+             f"(~${high_petrol_val*CR/USD_INR/1e9:.0f} bn/yr)**; with the indicative long-tail, the "
+             "petroleum-feedstock-linked chemical import bill is well into double-digit $ bn.")
+    L.append("- **Newly surfaced via the flowchart (missed by a headline-polymer view):** polycarbonate, "
+             "MDI & TDI (isocyanates → polyurethane), caprolactam/nylon, phenol/bisphenol-A, acrylonitrile, "
+             "butadiene & synthetic rubber, oxo-alcohols/2-EH, VAM, epoxy, PBT/BDO — most **~85-100% "
+             "imported** and all rooted in benzene/propylene/C4 from naphtha & reformate.")
+    L.append("- **The engineering-plastics & PU cluster** (PC, nylon, MDI/TDI, epoxy, ABS, PBT) is India's "
+             "deepest, highest-value gap — exactly the higher-margin end of the ICIS tree, and the natural "
+             "target for crude-to-chemicals.\n")
 
-    L.append("## 3. The strategic loop with ethanol & the fuel peak\n")
-    L.append("The pieces connect: **ethanol blending frees petrol-range volume** (E20 ≈ 10.8 bn L, E30 ≈ 16 "
-             "bn L in the sibling models); as EVs and ethanol cap domestic fuel demand, that freed naphtha/"
-             "reformate is better **cracked into import-substituting petrochemicals** than exported as low-"
-             "margin fuel. It turns three problems into one answer — a fuel-demand peak, a ~$74 bn chem "
-             "import bill, and a normalised refining margin — via **crude-to-chemicals**.\n")
+    L.append("## Why it ties back to fuel\n")
+    L.append("Every block above starts from **naphtha or reformate** — the same petrol-range material India "
+             "**burns as petrol** or **exports as fuel** at ~$85/bbl. As ethanol/EV cap fuel demand and free "
+             "that volume (E20 ≈ 10.8 bn L, E30 ≈ 16 bn L in the sibling models), redirecting it into these "
+             "products **erases imports and captures the petrochemical premium** (Digital Refining: +$1.5-2/"
+             "bbl marginal GRM, $60-80/bbl full COTC) instead of a thin fuel margin.\n")
 
-    L.append("## 4. Reality check\n")
-    L.append("- Capacity is already responding: **PP capacity ~1.7-1.8x by FY30** (could end PP imports), "
-             "**PVC ~2.5x** — the substitution is underway but demand grows too, so imports persist near-term.")
-    L.append("- Not all imports are petrol-substitutable: **methanol** is largely gas/syngas-based (low petrol "
-             "link); some specialty/engineering chemicals need dedicated units, not just a cracker.")
-    L.append("- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25; "
-             "product-level figures move with price). Use Tradestat HS-39 (plastics) and HS-29 (organic "
-             "chemicals) for exact product×year values. ₹→$ at ₹86.\n")
-    L.append("---\n*Import-substitution scan from official chem-trade data + feedstock chemistry; indicative, "
-             "not a project plan.*\n")
+    L.append("## Caveats\n")
+    L.append("- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25); the "
+             "long-tail (*indic.*) rows are directional. Use **Tradestat** HS-29 (organic chemicals) & HS-39 "
+             "(plastics) for exact product×year figures; the ICIS flowchart gives the chain, not the tonnage.")
+    L.append("- Methanol and some surfactants are gas-based (weak petrol link). Substitution also needs "
+             "downstream units (crackers, aromatics, chlor-alkali, isocyanate plants), not just feedstock. "
+             "₹→$ at ₹86.\n")
+    L.append("---\n*Import-substitution map from the ICIS petrochemicals tree + official trade data; "
+             "indicative, not a project plan.*\n")
     (OUT / "petchem_import_substitution.md").write_text("\n".join(L))
 
-    print(f"Total chem+petchem import ₹{TOTAL_CHEM_IMPORT_CR:,} cr (~${TOTAL_CHEM_IMPORT_CR*CR/USD_INR/1e9:.0f} bn); plastics ~${PLASTICS_IMPORT_USDBN} bn")
-    print(f"Petroleum-feedstock-linked substitutable imports ≈ ₹{sub_cr:,} cr (~${sub_cr*CR/USD_INR/1e9:.0f} bn); high-link core ₹{high_cr:,} cr")
-    print("Top substitutable (by value):")
-    for name, dep, cr, feed, link, note in sorted(PRODUCTS, key=lambda p: -p[2])[:5]:
-        print(f"  {name:34s} dep {dep:14s} ₹{cr:>6,} cr  [{link}]")
+    print(f"{len(PRODUCTS)} products across {len(BLOCKS)} building blocks (ICIS flowchart-derived)")
+    print(f"High-petrol-link quantified substitutable imports ≈ ₹{high_petrol_val:,} cr (~${high_petrol_val*CR/USD_INR/1e9:.0f} bn/yr)")
+    print("Newly surfaced high-import products (flowchart):")
+    for name, blk, dep, cr, link, note in PRODUCTS:
+        if name.split()[0] in ("Bisphenol-A", "Aniline", "TDI", "Caprolactam", "Acrylonitrile", "Butadiene", "Oxo-alcohols", "Epoxy", "Vinyl"):
+            print(f"  {name:44s} dep {dep:12s} {('₹'+format(cr,',')+' cr') if cr else 'indic.'}")
     print("Wrote outputs/petchem_import_substitution.md + .csv")
 
 

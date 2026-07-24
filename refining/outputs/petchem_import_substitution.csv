@@ -1,9 +1,26 @@
-product,import_dependence,import_value_cr,import_value_usdbn,feedstock,petrol_linkage,note
-PVC (poly-vinyl chloride),~55-75%,19000,2.21,ethylene (naphtha) + chlorine → EDC/VCM,High,Biggest single polymer gap; capacity set to rise ~2.5x by FY30
-Polyethylene (HDPE/LLDPE/LDPE),~20%,13000,1.51,ethylene ← naphtha/ethane cracking,High,~1.4 MT imported of ~7 MT demand
-Polypropylene (PP),~20% (closing),11000,1.28,propylene ← refinery FCC / naphtha,High,"1.2 MT+ imported (2025, record); capacity 1.7-1.8x by FY30 could end imports"
-Styrene monomer (SM),~100%,10150,1.18,benzene (reformate) + ethylene,High,No domestic SM plant historically — near-fully imported
-Mono-ethylene glycol (MEG),high,6666,0.78,ethylene → ethylene-oxide → MEG,High,Polyester/PET chain
-Methanol,~90%,7524,0.87,syngas (gas / petcoke gasification),Low-Med,Mostly gas-based — petrol link only via petcoke/COTC
-PTA / paraxylene / PET,partial,5000,0.58,paraxylene ← catalytic reformate aromatics,High,India has PX/PTA (RIL) but still net-imports some grades
-ABS / SAN / polystyrene / others,partial,8000,0.93,styrene + butadiene/acrylonitrile,Med,Engineering-plastic gap
+product,building_block,feedstock_root,import_dependence,import_value_cr,import_value_usdbn,petrol_link,note
+Polyethylene (LDPE/HDPE/LLDPE),Ethylene,naphtha / ethane (steam cracker),~20%,13000,1.51,High,~1.4 MT imported of ~7 MT demand
+PVC (via EDC/VCM + chlorine),Ethylene,naphtha / ethane (steam cracker),~55-75%,19000,2.21,High,Biggest polymer gap; capacity ~2.5x by FY30
+Mono-ethylene glycol (MEG),Ethylene,naphtha / ethane (steam cracker),high,6666,0.78,High,Polyester/PET chain
+Styrene monomer (via ethylbenzene + benzene),Ethylene,naphtha / ethane (steam cracker),~100%,10150,1.18,High,≈ no domestic SM capacity
+Vinyl acetate monomer (VAM),Ethylene,naphtha / ethane (steam cracker),high,2000,0.23,High,"Adhesives, EVA, films — largely imported"
+Ethanolamines (MEA/DEA/TEA),Ethylene,naphtha / ethane (steam cracker),partial,,,Med,"Gas treating, surfactants"
+Polypropylene (PP),Propylene,naphtha crack / FCC / PDH,~20% (closing),11000,1.28,High,1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30
+Acrylonitrile (ACN),Propylene,naphtha crack / FCC / PDH,~100%,3000,0.35,High,"For ABS, acrylic fibre, NBR — no domestic ACN"
+Phenol + Acetone (via cumene),Propylene,naphtha crack / FCC / PDH,high,4000,0.47,High,Cumene ← benzene + propylene
+Polyols → Polyurethane,Propylene,naphtha crack / FCC / PDH,high,4000,0.47,High,Propylene-oxide route; PU foams
+"Oxo-alcohols (2-EH, n-butanol)",Propylene,naphtha crack / FCC / PDH,high,4000,0.47,High,Plasticiser alcohols — largely imported
+Acrylic acid → superabsorbents (SAP),Propylene,naphtha crack / FCC / PDH,high,2500,0.29,High,Diapers/hygiene — imported
+PMMA / MMA (acrylic),Propylene,naphtha crack / FCC / PDH,high,1500,0.17,Med,Optical/acrylic sheet
+Isopropanol (IPA),Propylene,naphtha crack / FCC / PDH,partial,,,Med,Solvent
+Butadiene → SBR/PBR/NBR rubber,C4 (butadiene/isobutylene),naphtha crack C4 stream,high,6000,0.7,High,Synthetic rubber — big import
+BDO → PBT / spandex,C4 (butadiene/isobutylene),naphtha crack C4 stream,high,2000,0.23,Med,Engineering plastic/fibre
+Bisphenol-A → Polycarbonate (PC),Benzene,reformate / pygas aromatics,~90-100%,5000,0.58,High,Engineering plastic — near-fully imported
+Epoxy resins (via BPA),Benzene,reformate / pygas aromatics,high,4000,0.47,High,"Coatings, composites"
+"Caprolactam → Nylon-6 / Adipic → Nylon-6,6",Benzene,reformate / pygas aromatics,high,4000,0.47,High,Via cyclohexane; nylon/fibre
+Aniline → MDI (polyurethane),Benzene,reformate / pygas aromatics,~85-90%,5000,0.58,High,Rigid PU foam — largely imported
+LAB (alkylbenzene) → surfactants,Benzene,reformate / pygas aromatics,partial,,,Med,Detergents — India fairly self-sufficient
+TDI (di-isocyanate),Toluene,reformate aromatics,~85-90%,4000,0.47,High,Flexible PU foam — largely imported
+Paraxylene → PTA/DMT → PET/polyester,Xylenes,reformate aromatics,partial,5000,0.58,High,India strong (RIL) but net-imports some grades
+Orthoxylene → Phthalic anhydride → plasticisers/UPR,Xylenes,reformate aromatics,partial,2000,0.23,High,"Plasticisers, unsat. polyester resin"
+Methanol → formaldehyde/acetic acid/MTBE,Methanol,syngas (gas/coal) — weak petrol link,~90%,7524,0.87,Low,Gas/coal-based — petrol link only via petcoke COTC
