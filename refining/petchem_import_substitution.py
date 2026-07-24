@@ -13,7 +13,7 @@ import csv
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / "outputs"; OUT.mkdir(parents=True, exist_ok=True)
-TOTAL_CHEM_IMPORT_CR = 631898          # FY24-25 chem+petchem imports (excl pharma/fert), ₹ cr
+TOTAL_CHEM_IMPORT_CR = 600000          # chem+petchem imports FY24-25, ₹ cr (DCPC Stats-at-a-Glance 2025; see dcpc_validation.md)
 USD_INR = 86.0; CR = 1e7
 
 # building block  -> feedstock root (all petrol-range unless noted)
@@ -31,15 +31,15 @@ BLOCKS = {
 # petrol_link, note, primary 8-digit ITC-HS code(s) (verify on Tradestat/DGFT ITC-HS 2022)
 PRODUCTS = [
     # ── Ethylene chain ──
-    ("Polyethylene (LDPE/HDPE/LLDPE)", "Ethylene", "~25-40%", 22000, "High", "3.1 MT imported 2024 — India = world's #2 PE importer", "3901 10 10 / 3901 20 00 / 3901 40 00"),
-    ("PVC resin (via EDC/VCM + chlorine)", "Ethylene", "~55-75%", 19000, "High", "Biggest polymer gap; capacity ~2.5x by FY30", "3904 10 10 / 3904 21 90 / 3904 22 90"),
-    ("Mono-ethylene glycol (MEG)", "Ethylene", "high", 6666, "High", "Polyester/PET chain", "2905 31 00"),
-    ("Styrene monomer (via ethylbenzene + benzene)", "Ethylene", "~100%", 10150, "High", "≈ no domestic SM capacity", "2902 50 00 (→ PS 3903 19 90)"),
+    ("Polyethylene (HDPE+LDPE+LLDPE)", "Ethylene", "~25-40%", 17467, "High", "3.1 MT imported 2024 — India = world's #2 PE importer", "3901 10 10 / 3901 20 00 / 3901 40 00"),
+    ("PVC + VCM + EDC (chlor-vinyl chain)", "Ethylene", "~55-75%", 9224, "High", "Biggest polymer gap; capacity ~2.5x by FY30", "3904 10 10 / 3904 21 90 / 3904 22 90"),
+    ("Mono-ethylene glycol (MEG)", "Ethylene", "high", 5239, "High", "Polyester/PET chain", "2905 31 00"),
+    ("Styrene monomer (via ethylbenzene + benzene)", "Ethylene", "~100%", 11105, "High", "≈ no domestic SM capacity", "2902 50 00 (→ PS 3903 19 90)"),
     ("Vinyl acetate monomer (VAM)", "Ethylene", "high", 2000, "High", "Adhesives, EVA, films — largely imported", "2915 32 00 (→ EVA 3901 30 00)"),
     ("Ethanolamines (MEA/DEA/TEA)", "Ethylene", "partial", None, "Med", "Gas treating, surfactants", "2922 11 00 / 2922 12 00 / 2922 15 00"),
     # ── Propylene chain ──
-    ("Polypropylene (PP)", "Propylene", "~20-25%", 13000, "High", "1.6 MT imported 2024 (#3 globally); capacity 1.7-1.8x by FY30", "3902 10 00"),
-    ("Acrylonitrile (ACN)", "Propylene", "~100%", 3000, "High", "For ABS, acrylic fibre, NBR — no domestic ACN", "2926 10 00"),
+    ("Polypropylene (inc. co-polymer)", "Propylene", "~20-25%", 15627, "High", "1.6 MT imported 2024 (#3 globally); capacity 1.7-1.8x by FY30", "3902 10 00"),
+    ("Acrylonitrile (ACN)", "Propylene", "~100%", 2283, "High", "For ABS, acrylic fibre, NBR — no domestic ACN", "2926 10 00"),
     ("Phenol + Acetone (via cumene)", "Propylene", "high", 4000, "High", "Cumene ← benzene + propylene", "2907 11 10 (phenol) / 2914 11 00 (acetone)"),
     ("Polyols → Polyurethane", "Propylene", "high", 4000, "High", "Propylene-oxide route; PU foams", "3907 20 10 (polyols) / 3909 50 00 (PU)"),
     ("Oxo-alcohols (2-EH, n-butanol)", "Propylene", "high", 4000, "High", "Plasticiser alcohols — largely imported", "2905 16 20 (2-EH) / 2905 13 00 (n-BuOH)"),
@@ -47,10 +47,10 @@ PRODUCTS = [
     ("PMMA / MMA (acrylic)", "Propylene", "high", 1500, "Med", "Optical/acrylic sheet", "2916 14 10 (MMA) / 3906 10 10 (PMMA)"),
     ("Isopropanol (IPA)", "Propylene", "partial", None, "Med", "Solvent", "2905 12 20"),
     # ── C4 chain ──
-    ("Butadiene → SBR/PBR/NBR rubber", "C4 (butadiene/isobutylene)", "high", 6000, "High", "Synthetic rubber — big import", "2901 24 10 (BD) / 4002 19 / 4002 20 00 (PBR)"),
+    ("Butadiene → SBR+PBR rubber", "C4 (butadiene/isobutylene)", "high", 6077, "High", "Synthetic rubber — big import", "2901 24 10 (BD) / 4002 19 / 4002 20 00 (PBR)"),
     ("BDO → PBT / spandex", "C4 (butadiene/isobutylene)", "high", 2000, "Med", "Engineering plastic/fibre", "2905 39 20 (BDO) / 3907 99 90 (PBT)"),
     # ── Benzene chain (reformate) ──
-    ("Bisphenol-A → Polycarbonate (PC)", "Benzene", "~90-100%", 5000, "High", "Engineering plastic — near-fully imported", "2907 23 00 (BPA) / 3907 40 00 (PC)"),
+    ("Bisphenol-A → Polycarbonate (PC)", "Benzene", "~90-100%", 5545, "High", "Engineering plastic — near-fully imported", "2907 23 00 (BPA) / 3907 40 00 (PC)"),
     ("Epoxy resins (via BPA)", "Benzene", "high", 4000, "High", "Coatings, composites", "3907 30 00"),
     ("Caprolactam → Nylon-6 / Adipic → Nylon-6,6", "Benzene", "high", 4000, "High", "Via cyclohexane; nylon/fibre", "2933 71 00 (capro) / 3908 10 10 (nylon-6)"),
     ("Aniline → MDI (polyurethane)", "Benzene", "~85-90%", 5000, "High", "Rigid PU foam — largely imported", "2921 41 90 (aniline) / 2929 10 20 (MDI)"),
@@ -58,7 +58,7 @@ PRODUCTS = [
     # ── Toluene chain ──
     ("TDI (toluene di-isocyanate)", "Toluene", "~85-90%", 4000, "High", "Flexible PU foam — largely imported", "2929 10 10"),
     # ── Xylenes chain (reformate) ──
-    ("Paraxylene → PTA/DMT → PET/polyester", "Xylenes", "partial", 5000, "High", "India strong (RIL) but net-imports some grades", "2902 43 00 (PX) / 2917 36 00 (PTA) / 3907 61 00 (PET)"),
+    ("Paraxylene → PTA → PET/polyester (PX+PTA+PFY)", "Xylenes", "partial", 24538, "High", "India strong (RIL) but net-imports some grades", "2902 43 00 (PX) / 2917 36 00 (PTA) / 3907 61 00 (PET)"),
     ("Orthoxylene → Phthalic anhydride → plasticisers/UPR", "Xylenes", "partial", 2000, "High", "Plasticisers, unsat. polyester resin", "2917 35 00 (PAN) / 3907 91 00 (UPR)"),
     # ── Methanol chain (weak petrol link) ──
     ("Methanol → formaldehyde/acetic acid/MTBE", "Methanol", "~90%", 7524, "Low", "Gas/coal-based — petrol link only via petcoke COTC", "2905 11 00 (MeOH) / 2915 21 00 (acetic acid)"),

@@ -1,26 +1,26 @@
 product,hsn_8digit,building_block,feedstock_root,import_dependence,import_value_cr,import_value_usdbn,petrol_link,note
-Polyethylene (LDPE/HDPE/LLDPE),3901 10 10 / 3901 20 00 / 3901 40 00,Ethylene,naphtha / ethane (steam cracker),~25-40%,22000,2.56,High,3.1 MT imported 2024 — India = world's #2 PE importer
-PVC resin (via EDC/VCM + chlorine),3904 10 10 / 3904 21 90 / 3904 22 90,Ethylene,naphtha / ethane (steam cracker),~55-75%,19000,2.21,High,Biggest polymer gap; capacity ~2.5x by FY30
-Mono-ethylene glycol (MEG),2905 31 00,Ethylene,naphtha / ethane (steam cracker),high,6666,0.78,High,Polyester/PET chain
-Styrene monomer (via ethylbenzene + benzene),2902 50 00 (→ PS 3903 19 90),Ethylene,naphtha / ethane (steam cracker),~100%,10150,1.18,High,≈ no domestic SM capacity
+Polyethylene (HDPE+LDPE+LLDPE),3901 10 10 / 3901 20 00 / 3901 40 00,Ethylene,naphtha / ethane (steam cracker),~25-40%,17467,2.03,High,3.1 MT imported 2024 — India = world's #2 PE importer
+PVC + VCM + EDC (chlor-vinyl chain),3904 10 10 / 3904 21 90 / 3904 22 90,Ethylene,naphtha / ethane (steam cracker),~55-75%,9224,1.07,High,Biggest polymer gap; capacity ~2.5x by FY30
+Mono-ethylene glycol (MEG),2905 31 00,Ethylene,naphtha / ethane (steam cracker),high,5239,0.61,High,Polyester/PET chain
+Styrene monomer (via ethylbenzene + benzene),2902 50 00 (→ PS 3903 19 90),Ethylene,naphtha / ethane (steam cracker),~100%,11105,1.29,High,≈ no domestic SM capacity
 Vinyl acetate monomer (VAM),2915 32 00 (→ EVA 3901 30 00),Ethylene,naphtha / ethane (steam cracker),high,2000,0.23,High,"Adhesives, EVA, films — largely imported"
 Ethanolamines (MEA/DEA/TEA),2922 11 00 / 2922 12 00 / 2922 15 00,Ethylene,naphtha / ethane (steam cracker),partial,,,Med,"Gas treating, surfactants"
-Polypropylene (PP),3902 10 00,Propylene,naphtha crack / FCC / PDH,~20-25%,13000,1.51,High,1.6 MT imported 2024 (#3 globally); capacity 1.7-1.8x by FY30
-Acrylonitrile (ACN),2926 10 00,Propylene,naphtha crack / FCC / PDH,~100%,3000,0.35,High,"For ABS, acrylic fibre, NBR — no domestic ACN"
+Polypropylene (inc. co-polymer),3902 10 00,Propylene,naphtha crack / FCC / PDH,~20-25%,15627,1.82,High,1.6 MT imported 2024 (#3 globally); capacity 1.7-1.8x by FY30
+Acrylonitrile (ACN),2926 10 00,Propylene,naphtha crack / FCC / PDH,~100%,2283,0.27,High,"For ABS, acrylic fibre, NBR — no domestic ACN"
 Phenol + Acetone (via cumene),2907 11 10 (phenol) / 2914 11 00 (acetone),Propylene,naphtha crack / FCC / PDH,high,4000,0.47,High,Cumene ← benzene + propylene
 Polyols → Polyurethane,3907 20 10 (polyols) / 3909 50 00 (PU),Propylene,naphtha crack / FCC / PDH,high,4000,0.47,High,Propylene-oxide route; PU foams
 "Oxo-alcohols (2-EH, n-butanol)",2905 16 20 (2-EH) / 2905 13 00 (n-BuOH),Propylene,naphtha crack / FCC / PDH,high,4000,0.47,High,Plasticiser alcohols — largely imported
 Acrylic acid → superabsorbents (SAP),2916 11 10 (acid) / 3906 90 90 (SAP),Propylene,naphtha crack / FCC / PDH,high,2500,0.29,High,Diapers/hygiene — imported
 PMMA / MMA (acrylic),2916 14 10 (MMA) / 3906 10 10 (PMMA),Propylene,naphtha crack / FCC / PDH,high,1500,0.17,Med,Optical/acrylic sheet
 Isopropanol (IPA),2905 12 20,Propylene,naphtha crack / FCC / PDH,partial,,,Med,Solvent
-Butadiene → SBR/PBR/NBR rubber,2901 24 10 (BD) / 4002 19 / 4002 20 00 (PBR),C4 (butadiene/isobutylene),naphtha crack C4 stream,high,6000,0.7,High,Synthetic rubber — big import
+Butadiene → SBR+PBR rubber,2901 24 10 (BD) / 4002 19 / 4002 20 00 (PBR),C4 (butadiene/isobutylene),naphtha crack C4 stream,high,6077,0.71,High,Synthetic rubber — big import
 BDO → PBT / spandex,2905 39 20 (BDO) / 3907 99 90 (PBT),C4 (butadiene/isobutylene),naphtha crack C4 stream,high,2000,0.23,Med,Engineering plastic/fibre
-Bisphenol-A → Polycarbonate (PC),2907 23 00 (BPA) / 3907 40 00 (PC),Benzene,reformate / pygas aromatics,~90-100%,5000,0.58,High,Engineering plastic — near-fully imported
+Bisphenol-A → Polycarbonate (PC),2907 23 00 (BPA) / 3907 40 00 (PC),Benzene,reformate / pygas aromatics,~90-100%,5545,0.64,High,Engineering plastic — near-fully imported
 Epoxy resins (via BPA),3907 30 00,Benzene,reformate / pygas aromatics,high,4000,0.47,High,"Coatings, composites"
 "Caprolactam → Nylon-6 / Adipic → Nylon-6,6",2933 71 00 (capro) / 3908 10 10 (nylon-6),Benzene,reformate / pygas aromatics,high,4000,0.47,High,Via cyclohexane; nylon/fibre
 Aniline → MDI (polyurethane),2921 41 90 (aniline) / 2929 10 20 (MDI),Benzene,reformate / pygas aromatics,~85-90%,5000,0.58,High,Rigid PU foam — largely imported
 LAB (alkylbenzene) → surfactants,3817 00 11 (LAB) / 3402 xx (surfactants),Benzene,reformate / pygas aromatics,partial,,,Med,Detergents — India fairly self-sufficient
 TDI (toluene di-isocyanate),2929 10 10,Toluene,reformate aromatics,~85-90%,4000,0.47,High,Flexible PU foam — largely imported
-Paraxylene → PTA/DMT → PET/polyester,2902 43 00 (PX) / 2917 36 00 (PTA) / 3907 61 00 (PET),Xylenes,reformate aromatics,partial,5000,0.58,High,India strong (RIL) but net-imports some grades
+Paraxylene → PTA → PET/polyester (PX+PTA+PFY),2902 43 00 (PX) / 2917 36 00 (PTA) / 3907 61 00 (PET),Xylenes,reformate aromatics,partial,24538,2.85,High,India strong (RIL) but net-imports some grades
 Orthoxylene → Phthalic anhydride → plasticisers/UPR,2917 35 00 (PAN) / 3907 91 00 (UPR),Xylenes,reformate aromatics,partial,2000,0.23,High,"Plasticisers, unsat. polyester resin"
 Methanol → formaldehyde/acetic acid/MTBE,2905 11 00 (MeOH) / 2915 21 00 (acetic acid),Methanol,syngas (gas/coal) — weak petrol link,~90%,7524,0.87,Low,Gas/coal-based — petrol link only via petcoke COTC
