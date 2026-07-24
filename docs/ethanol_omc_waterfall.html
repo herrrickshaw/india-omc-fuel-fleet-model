@@ -1,0 +1,354 @@
+<title>Ethanol Blending & the OMC Books — E20 today vs E30 + SGST</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --paper:#F7F8F7; --surface:#FFFFFF; --surface-2:#F1F4F2;
+    --ink:#14201C; --muted:#57685F; --line:#DCE3DE; --line-strong:#C4CFC8;
+    --accent:#0F7C86; --gain:#1F8A5B; --loss:#BC4A3B; --total:#33454E; --ethanol:#A9741E;
+    --shadow:0 1px 2px rgba(20,32,28,.05), 0 8px 28px rgba(20,32,28,.06);
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:"SF Mono",ui-monospace,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0D1512; --surface:#131E19; --surface-2:#182620;
+      --ink:#E9EFEB; --muted:#93A69D; --line:#24332D; --line-strong:#31463D;
+      --accent:#3BB2BA; --gain:#43BE88; --loss:#E37A6A; --total:#A6B8B1; --ethanol:#DAA64E;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0D1512; --surface:#131E19; --surface-2:#182620;
+    --ink:#E9EFEB; --muted:#93A69D; --line:#24332D; --line-strong:#31463D;
+    --accent:#3BB2BA; --gain:#43BE88; --loss:#E37A6A; --total:#A6B8B1; --ethanol:#DAA64E;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --paper:#F7F8F7; --surface:#FFFFFF; --surface-2:#F1F4F2;
+    --ink:#14201C; --muted:#57685F; --line:#DCE3DE; --line-strong:#C4CFC8;
+    --accent:#0F7C86; --gain:#1F8A5B; --loss:#BC4A3B; --total:#33454E; --ethanol:#A9741E;
+    --shadow:0 1px 2px rgba(20,32,28,.05), 0 8px 28px rgba(20,32,28,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);
+    line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px;}
+  .prose{max-width:64ch;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;text-wrap:balance;letter-spacing:-.01em;line-height:1.12;}
+  h1{font-size:clamp(30px,5.2vw,50px);margin:.1em 0 .2em;}
+  h2{font-size:clamp(21px,3vw,29px);margin:0 0 .35em;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin-bottom:14px;}
+  .lede{font-size:clamp(16px,1.9vw,19px);color:var(--muted);max-width:60ch;}
+  .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;}
+  a{color:var(--accent);}
+
+  /* scenario chips */
+  .chips{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 6px;}
+  .chip{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);
+    border-radius:999px;padding:8px 15px 8px 12px;box-shadow:var(--shadow);font-size:14px;}
+  .dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto;}
+  .chip b{font-family:var(--font-mono);letter-spacing:.02em;}
+
+  section{margin-top:clamp(46px,7vw,78px);}
+  .divider{height:1px;background:var(--line);border:0;margin:0;}
+
+  /* stat cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden;}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rail,var(--accent));}
+  .card .k{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
+  .flow{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+  .flow .a{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:15px;color:var(--muted);}
+  .flow .arw{color:var(--muted);}
+  .flow .b{font-family:var(--font-display);font-size:27px;font-weight:600;}
+  .tag{font-size:11px;font-family:var(--font-mono);font-weight:600;padding:2px 8px;border-radius:999px;letter-spacing:.02em;}
+  .card p{margin:2px 0 0;font-size:13.5px;color:var(--muted);line-height:1.45;}
+
+  /* table */
+  .tablewrap{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px;}
+  th,td{padding:13px 16px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;background:var(--surface-2);}
+  tbody tr:last-child td{border-bottom:0;}
+  td.num,th.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;}
+  .pocket{font-weight:600;}
+  .sub{display:block;font-size:12px;color:var(--muted);font-weight:400;font-family:var(--font-body);}
+  .pos{color:var(--gain);} .neg{color:var(--loss);}
+  .delta{font-weight:600;}
+
+  /* chart blocks */
+  .chart-duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px 10px;box-shadow:var(--shadow);}
+  .panel h3{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
+    font-weight:600;margin:2px 4px 4px;display:flex;align-items:center;gap:8px;justify-content:space-between;}
+  .panel h3 .tot{color:var(--total);}
+  .panel svg{width:100%;height:auto;display:block;}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:12.5px;color:var(--muted);align-items:center;}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .sw{width:12px;height:12px;border-radius:3px;}
+
+  .caption{margin-top:16px;font-size:14px;color:var(--muted);max-width:66ch;}
+  .caption b{color:var(--ink);font-weight:600;}
+
+  .forexbars{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;}
+
+  /* callout */
+  .callout{background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--ethanol);
+    border-radius:12px;padding:16px 18px;margin-top:22px;font-size:14.5px;}
+  .callout b{color:var(--ink);}
+
+  /* assumptions */
+  .assume{columns:2;column-gap:34px;font-size:13px;color:var(--muted);margin-top:20px;}
+  .assume li{margin:0 0 9px;break-inside:avoid;}
+  .assume b{color:var(--ink);font-weight:600;}
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:720px){
+    .cards{grid-template-columns:1fr;}
+    .chart-duo,.forexbars{grid-template-columns:1fr;}
+    .assume{columns:1;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .bar-rect{transition:opacity .2s;}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">India · Ethanol Blending Economics · ₹ crore / year</div>
+    <h1>What ethanol blending does to the OMC books</h1>
+    <p class="lede">Every litre of ethanol swaps a high-tax petrol litre for a cheaper, lightly-taxed one — reshaping oil-marketer margins, the exchequer, and the export book. Here is the difference between where India sits today and a higher-blend, revenue-shared future.</p>
+    <div class="chips">
+      <div class="chip"><span class="dot" style="background:var(--muted)"></span>Current&nbsp;·&nbsp;<b>E20</b>&nbsp;·&nbsp;no dedicated SGST</div>
+      <div class="chip"><span class="dot" style="background:var(--ethanol)"></span>Future&nbsp;·&nbsp;<b>E30</b>&nbsp;·&nbsp;<b>5%</b>&nbsp;ethanol SGST</div>
+    </div>
+  </header>
+
+  <!-- BOTTOM LINE -->
+  <section aria-label="Bottom line">
+    <div class="eyebrow">The bottom line</div>
+    <div class="cards">
+      <div class="card" style="--rail:var(--gain)">
+        <div class="k">OMC / refiner margin</div>
+        <div class="flow"><span class="a num">+7,243</span><span class="arw">→</span><span class="b num">+11,094</span>
+          <span class="tag" style="background:color-mix(in srgb,var(--gain) 16%,transparent);color:var(--gain)">+53%</span></div>
+        <p>Ethanol is a growing tailwind for oil marketers — and the proposed SGST is carved from the tax space, so it never touches this line.</p>
+      </div>
+      <div class="card" style="--rail:var(--loss)">
+        <div class="k">Exchequer revenue foregone</div>
+        <div class="flow"><span class="a num">−39,400</span><span class="arw">→</span><span class="b num">−55,966</span>
+          <span class="tag" style="background:color-mix(in srgb,var(--loss) 16%,transparent);color:var(--loss)">wider</span></div>
+        <p>Excise + VAT the exchequer no longer collects. A 5% ethanol SGST returns ₹5,513 cr of it to states.</p>
+      </div>
+      <div class="card" style="--rail:var(--accent)">
+        <div class="k">Freed-petrol export (forex)</div>
+        <div class="flow"><span class="a num">+49,834</span><span class="arw">→</span><span class="b num">+74,751</span>
+          <span class="tag" style="background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)">$5.9→8.8 bn</span></div>
+        <p>Petrol freed from the domestic tank, sold abroad at ~$86/bbl — more than covering the exchequer's loss.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BALANCE SHEET -->
+  <section aria-label="Balance sheet">
+    <div class="prose"><h2>The four books that move</h2>
+    <p class="lede" style="margin-bottom:4px">Ethanol blending doesn't destroy value so much as <em>move</em> it — out of the exchequer, into marketer margins and the export book. Same barrels, different pockets.</p></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Pocket (₹ crore / yr)</th><th class="num">Current · E20</th><th class="num">Future · E30 + SGST</th><th class="num">Change</th></tr></thead>
+        <tbody>
+          <tr><td class="pocket">OMC / refiner<span class="sub">throughput + export + handling margin</span></td><td class="num pos">+7,243</td><td class="num pos">+11,094</td><td class="num delta pos">+3,851</td></tr>
+          <tr><td class="pocket">Centre<span class="sub">petrol excise foregone</span></td><td class="num neg">−21,500</td><td class="num neg">−32,250</td><td class="num delta neg">−10,750</td></tr>
+          <tr><td class="pocket">States<span class="sub">VAT foregone, net of new SGST</span></td><td class="num neg">−17,900</td><td class="num neg">−23,716</td><td class="num delta neg">−5,816</td></tr>
+          <tr><td class="pocket">Nation<span class="sub">freed-petrol export, gross forex</span></td><td class="num pos">+49,834</td><td class="num pos">+74,751</td><td class="num delta pos">+24,917</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- OMC WATERFALL (HERO) -->
+  <section aria-label="OMC waterfall">
+    <div class="prose"><h2>OMC books — the ethanol contribution stacks up</h2>
+    <p class="lede" style="margin-bottom:0">Three ethanol-linked lines lift the oil-marketer P&amp;L: extra litres pushed through the pump by the mileage penalty, the refining margin on freed petrol sold for export, and the handling margin on blending itself. Higher blending grows all three.</p></div>
+    <div class="chart-duo">
+      <div class="panel"><h3>Current · E20 <span class="tot num">+7,243 cr</span></h3><div id="omc-cur"></div></div>
+      <div class="panel"><h3>Future · E30 <span class="tot num">+11,094 cr</span></h3><div id="omc-fut"></div></div>
+    </div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--gain)"></span>margin gained</span>
+      <span><span class="sw" style="background:var(--total)"></span>OMC total</span>
+      <span style="margin-left:auto;font-style:italic">SGST is carved from the tax space — it does not reduce OMC margin</span>
+    </div>
+    <p class="caption"><b>The read:</b> ethanol adds ~₹7,200 cr to OMC/refiner contribution today and ~₹11,100 cr at E30 — a <b>+53%</b> lift — with the freed-petrol export margin the single biggest piece. None of it is at risk from the SGST proposal.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- EXCHEQUER WATERFALL -->
+  <section aria-label="Exchequer waterfall">
+    <div class="prose"><h2>The exchequer — what it gives up, and claws back</h2>
+    <p class="lede" style="margin-bottom:0">Ethanol carries 5% GST; the petrol it displaces carried central excise plus a 15–35% state VAT. That gap is revenue foregone — and it widens as blending rises. A dedicated state SGST on ethanol recovers a slice for states.</p></div>
+    <div class="chart-duo">
+      <div class="panel"><h3>Current · E20 <span class="tot num">−39,400 cr</span></h3><div id="exc-cur"></div></div>
+      <div class="panel"><h3>Future · E30 + SGST <span class="tot num">−55,966 cr</span></h3><div id="exc-fut"></div></div>
+    </div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--loss)"></span>revenue foregone</span>
+      <span><span class="sw" style="background:var(--gain)"></span>SGST clawback</span>
+      <span><span class="sw" style="background:var(--total)"></span>net exchequer</span>
+    </div>
+    <p class="caption"><b>The read:</b> the tax the exchequer no longer collects grows from ~₹39,400 cr to ~₹56,000 cr as blending goes E20→E30. The proposed <b>5% ethanol SGST returns ₹5,513 cr</b> to states — a partial, price-neutral recovery (full VAT-parity would need ~27%).</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FOREX -->
+  <section aria-label="Freed-petrol export">
+    <div class="prose"><h2>The prize — freed petrol, sold abroad</h2>
+    <p class="lede" style="margin-bottom:0">The petrol ethanol pushes out of the domestic tank doesn't vanish — India, a net product exporter, ships it. At E20 that is ~8 MMT, roughly half of India's entire petrol export book; at E30, ~12 MMT.</p></div>
+    <div class="forexbars">
+      <div class="panel"><h3>Current · E20 <span class="tot num">8.0 MMT</span></h3><div id="fx-cur"></div></div>
+      <div class="panel"><h3>Future · E30 <span class="tot num">12.0 MMT</span></h3><div id="fx-fut"></div></div>
+    </div>
+    <div class="callout"><b>Net national picture.</b> The exchequer forgoes ~₹39–56k cr of tax, but the freed petrol earns ~₹50–75k cr in <b>export forex</b>, and OMC margins gain ~₹7–11k cr. Ethanol blending is, on the whole, national-positive — it just shifts money from the tax pocket to the trade and marketer pockets. The SGST design decides how much states get to keep.</p></div>
+  </section>
+
+  <!-- ASSUMPTIONS -->
+  <section aria-label="Assumptions">
+    <div class="prose"><h2>Assumptions &amp; caveats</h2></div>
+    <ul class="assume">
+      <li><b>Volumes.</b> Domestic petrol 54.05 bn L (40 MMT, PPAC FY24-25). Freed / ethanol volume = blend% × that. E20 = 10.8 bn L, E30 = 16.2 bn L.</li>
+      <li><b>OMC lines.</b> Throughput uplift from the E20/E30 mileage penalty (4% / 7%); export margin at a ₹4/L refining margin; handling margin ₹2/L — all editable.</li>
+      <li><b>Export price.</b> ₹46/L (~$86/bbl), India's FY24-25 petrol-export realisation (RR Table 4.11); it swings ₹23–58/L with crude. Gross forex, before export levy/freight.</li>
+      <li><b>Excise / VAT.</b> Central excise ₹19.9/L; state VAT ~₹18/L national average (RR Table 8.17). Foregone = counterfactual vs the displaced volume taxed as petrol.</li>
+      <li><b>SGST.</b> 5% on ethanol, funded from the ~₹15/L ethanol-vs-petrol fiscal space, so pump price is unchanged and OMC margin untouched.</li>
+      <li><b>Framing.</b> Export and import-substitution are the same barrels via one lens. "Foregone" tax is revenue not collected, not a cash outflow. Analytical estimates, not a fiscal forecast.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Source: PPAC Oil &amp; Gas Ready Reckoner FY2025-26 · Vahan · model repo <span class="num">india-omc-fuel-fleet-model</span></span>
+    <span>All figures ₹ crore/year unless noted</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var css=getComputedStyle(document.documentElement);
+  function c(v){return css.getPropertyValue(v).trim();}
+  function ff(v){return c(v).replace(/"/g,"'");}   // font stacks contain " — swap to ' for SVG attrs
+  function fmt(n){var s=Math.round(Math.abs(n)).toLocaleString('en-IN');return (n<0?'−':'+')+s;}
+
+  // Waterfall renderer -> SVG string
+  function waterfall(items){
+    var W=460, H=320, padT=34, padB=54, padL=10, padR=10;
+    // cumulative
+    var run=0, bars=[];
+    items.forEach(function(it){
+      if(it.kind==='total'){ bars.push({label:it.label,lo:Math.min(0,it.value),hi:Math.max(0,it.value),val:it.value,kind:'total'}); run=it.value; }
+      else { var y0=run, y1=run+it.value; bars.push({label:it.label,lo:Math.min(y0,y1),hi:Math.max(y0,y1),val:it.value,kind:it.value>=0?'gain':'loss', from:y0,to:y1}); run=y1; }
+    });
+    var vals=[0]; bars.forEach(function(b){vals.push(b.lo,b.hi);});
+    var mn=Math.min.apply(null,vals), mx=Math.max.apply(null,vals);
+    if(mn===mx){mx=mn+1;}
+    var plotH=H-padT-padB, plotW=W-padL-padR;
+    function y(v){return padT+(mx-v)/(mx-mn)*plotH;}
+    var n=bars.length, gap=18, bw=(plotW-gap*(n-1))/n;
+    var zeroY=y(0);
+    var colors={gain:c('--gain'),loss:c('--loss'),total:c('--total')};
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" preserveAspectRatio="xMidYMid meet">';
+    // zero baseline
+    svg+='<line x1="'+padL+'" x2="'+(W-padR)+'" y1="'+zeroY.toFixed(1)+'" y2="'+zeroY.toFixed(1)+'" stroke="'+c('--line-strong')+'" stroke-width="1"/>';
+    bars.forEach(function(b,i){
+      var x=padL+i*(bw+gap);
+      var yt=y(b.hi), yb=y(b.lo), h=Math.max(2,yb-yt);
+      var fill=colors[b.kind];
+      // connector from previous bar end to this bar start (for deltas)
+      if(i>0){
+        var prev=bars[i-1];
+        var prevEnd = prev.kind==='total'? prev.val : prev.to;
+        var cy=y(prevEnd);
+        svg+='<line x1="'+(x-gap).toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+cy.toFixed(1)+'" y2="'+cy.toFixed(1)+'" stroke="'+c('--muted')+'" stroke-width="1" stroke-dasharray="2 3" opacity=".55"/>';
+      }
+      svg+='<rect class="bar-rect" x="'+x.toFixed(1)+'" y="'+yt.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3" fill="'+fill+'" '+(b.kind==='total'?'':'opacity=".92"')+'/>';
+      // value label
+      var lblY = b.val>=0 ? yt-8 : yb+15;
+      svg+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+lblY.toFixed(1)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="12.5" font-weight="600" fill="'+(b.kind==='total'?c('--ink'):fill)+'">'+fmt(b.val)+'</text>';
+      // category label (multiline)
+      var parts=b.label.split('\n');
+      parts.forEach(function(p,j){
+        svg+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(H-padB+18+j*13).toFixed(1)+'" text-anchor="middle" font-family="'+ff('--font-body')+'" font-size="11.5" fill="'+c('--muted')+'">'+p+'</text>';
+      });
+    });
+    svg+='</svg>';
+    return svg;
+  }
+
+  // Simple single-bar comparison for forex (value in ₹cr, plus MMT & $)
+  function forexBar(cr, mmt, usd, maxCr){
+    var W=460,H=320,padT=40,padB=54,padL=90,padR=20;
+    var plotH=H-padT-padB, plotW=W-padL-padR;
+    var bh=plotH*0.46, by=padT+(plotH-bh)/2;
+    var bw=plotW*(cr/maxCr);
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" preserveAspectRatio="xMidYMid meet">';
+    svg+='<rect x="'+padL+'" y="'+by+'" width="'+bw.toFixed(1)+'" height="'+bh+'" rx="4" fill="'+c('--accent')+'"/>';
+    svg+='<text x="'+(padL+bw-12).toFixed(1)+'" y="'+(by+bh/2-4).toFixed(1)+'" text-anchor="end" font-family="'+ff('--font-mono')+'" font-size="19" font-weight="700" fill="#fff">₹'+Math.round(cr).toLocaleString('en-IN')+' cr</text>';
+    svg+='<text x="'+(padL+bw-12).toFixed(1)+'" y="'+(by+bh/2+16).toFixed(1)+'" text-anchor="end" font-family="'+ff('--font-mono')+'" font-size="12.5" fill="rgba(255,255,255,.85)">'+mmt+' MMT · $'+usd+' bn</text>';
+    // baseline
+    svg+='<line x1="'+padL+'" x2="'+padL+'" y1="'+(padT-6)+'" y2="'+(H-padB+6)+'" stroke="'+c('--line-strong')+'"/>';
+    svg+='<text x="'+(padL-10)+'" y="'+(by+bh/2+4).toFixed(1)+'" text-anchor="end" font-family="'+ff('--font-body')+'" font-size="12" fill="'+c('--muted')+'">freed<tspan x="'+(padL-10)+'" dy="14">petrol</tspan></text>';
+    // reference: current total petrol exports 15.8 MMT ~ ₹98,379 cr
+    var refx=padL+plotW*(98379/maxCr);
+    svg+='<line x1="'+refx.toFixed(1)+'" x2="'+refx.toFixed(1)+'" y1="'+(padT-6)+'" y2="'+(H-padB+6)+'" stroke="'+c('--ethanol')+'" stroke-width="1.5" stroke-dasharray="4 3"/>';
+    svg+='<text x="'+refx.toFixed(1)+'" y="'+(padT-12)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="10.5" fill="'+c('--ethanol')+'">India total MS export ₹98,379 cr</text>';
+    svg+='</svg>';
+    return svg;
+  }
+
+  var OMC_CUR=[
+    {label:'Throughput\nuplift',value:757,kind:'delta'},
+    {label:'Export\nmargin',value:4324,kind:'delta'},
+    {label:'Handling\nmargin',value:2162,kind:'delta'},
+    {label:'OMC\ncontribution',value:7243,kind:'total'}
+  ];
+  var OMC_FUT=[
+    {label:'Throughput\nuplift',value:1367,kind:'delta'},
+    {label:'Export\nmargin',value:6484,kind:'delta'},
+    {label:'Handling\nmargin',value:3243,kind:'delta'},
+    {label:'OMC\ncontribution',value:11094,kind:'total'}
+  ];
+  var EXC_CUR=[
+    {label:'Central\nexcise',value:-21500,kind:'delta'},
+    {label:'State\nVAT',value:-17900,kind:'delta'},
+    {label:'Net\nexchequer',value:-39400,kind:'total'}
+  ];
+  var EXC_FUT=[
+    {label:'Central\nexcise',value:-32250,kind:'delta'},
+    {label:'State\nVAT',value:-29229,kind:'delta'},
+    {label:'State SGST\nclawback',value:5513,kind:'delta'},
+    {label:'Net\nexchequer',value:-55966,kind:'total'}
+  ];
+
+  function set(id,html){document.getElementById(id).innerHTML=html;}
+  function draw(){
+    set('omc-cur',waterfall(OMC_CUR));
+    set('omc-fut',waterfall(OMC_FUT));
+    set('exc-cur',waterfall(EXC_CUR));
+    set('exc-fut',waterfall(EXC_FUT));
+    var maxFx=100000;
+    set('fx-cur',forexBar(49834,'8.0','5.9',maxFx));
+    set('fx-fut',forexBar(74751,'12.0','8.8',maxFx));
+  }
+  draw();
+  // redraw on theme toggle (colors are read from CSS vars)
+  var mo=new MutationObserver(draw);
+  mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  if(window.matchMedia) window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+})();
+</script>
