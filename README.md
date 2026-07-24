@@ -81,6 +81,24 @@ pulled live from the **Vahan4 dashboard** (all-India), both annual and cumulativ
 
 Run: `python3 vahan/analyze_vahan_fuel.py` → `vahan/outputs/vahan_fuel_analysis.md` + CSVs.
 
+## Policy case — a price-neutral state SGST on ethanol (`ethanol_sgst_sweetspot.py`)
+
+Turns the revenue-foregone problem into a design: ethanol (~₹60/L) is cheaper than the petrol
+base+excise it displaces (~₹75/L), so at a **fixed pump price** every ethanol litre opens ~₹15/L of
+fiscal space. A **state SGST on ethanol at 1–5%**, funded from that space, is new state revenue with
+zero consumer-price impact — and it scales with the blend.
+
+- **State SGST revenue grid:** ₹649 cr (E20 @ 1%) → **₹4,787 cr (E27 @ 5%)** → ₹5,513 cr (E30 @ 5%).
+- **Recovery insight:** the *fraction* of foregone petrol-VAT recovered depends only on the rate
+  (~4% at 1% … ~18% at 5%), not the blend; the blend sets the rupees. Full VAT-parity recovery needs
+  ~27% (still price-neutral, but a heavy green-fuel levy).
+- **Sweet spot = E27 @ 5%** — India's Brazil-style equilibrium: the highest blend a non-flex fleet
+  tolerates (Brazil settled at E27 before flex E30), yielding ~₹4,787 cr price-neutral, top states UP
+  ₹578 cr / Maharashtra ₹523 cr / Tamil Nadu ₹423 cr. E30 is the frontier (needs flex/E20+ fleet).
+- Levies of ₹3–3.4/L sit comfortably inside the ₹9–15/L space at every blend, so **prices never move**.
+
+Run: `python3 ethanol_sgst_sweetspot.py` → `outputs/ethanol_sgst_sweetspot.md` + `ethanol_sgst_grid.csv`.
+
 ## State-wise tax revenue foregone from ethanol (`statewise_tax_impact.py`)
 
 Ethanol (5% GST) displacing petrol (high state VAT + central excise) is revenue foregone. This pairs
