@@ -31,14 +31,14 @@ BLOCKS = {
 # petrol_link, note, primary 8-digit ITC-HS code(s) (verify on Tradestat/DGFT ITC-HS 2022)
 PRODUCTS = [
     # ── Ethylene chain ──
-    ("Polyethylene (LDPE/HDPE/LLDPE)", "Ethylene", "~20%", 13000, "High", "~1.4 MT imported of ~7 MT demand", "3901 10 10 / 3901 20 00 / 3901 40 00"),
+    ("Polyethylene (LDPE/HDPE/LLDPE)", "Ethylene", "~25-40%", 22000, "High", "3.1 MT imported 2024 — India = world's #2 PE importer", "3901 10 10 / 3901 20 00 / 3901 40 00"),
     ("PVC resin (via EDC/VCM + chlorine)", "Ethylene", "~55-75%", 19000, "High", "Biggest polymer gap; capacity ~2.5x by FY30", "3904 10 10 / 3904 21 90 / 3904 22 90"),
     ("Mono-ethylene glycol (MEG)", "Ethylene", "high", 6666, "High", "Polyester/PET chain", "2905 31 00"),
     ("Styrene monomer (via ethylbenzene + benzene)", "Ethylene", "~100%", 10150, "High", "≈ no domestic SM capacity", "2902 50 00 (→ PS 3903 19 90)"),
     ("Vinyl acetate monomer (VAM)", "Ethylene", "high", 2000, "High", "Adhesives, EVA, films — largely imported", "2915 32 00 (→ EVA 3901 30 00)"),
     ("Ethanolamines (MEA/DEA/TEA)", "Ethylene", "partial", None, "Med", "Gas treating, surfactants", "2922 11 00 / 2922 12 00 / 2922 15 00"),
     # ── Propylene chain ──
-    ("Polypropylene (PP)", "Propylene", "~20% (closing)", 11000, "High", "1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30", "3902 10 00"),
+    ("Polypropylene (PP)", "Propylene", "~20-25%", 13000, "High", "1.6 MT imported 2024 (#3 globally); capacity 1.7-1.8x by FY30", "3902 10 00"),
     ("Acrylonitrile (ACN)", "Propylene", "~100%", 3000, "High", "For ABS, acrylic fibre, NBR — no domestic ACN", "2926 10 00"),
     ("Phenol + Acetone (via cumene)", "Propylene", "high", 4000, "High", "Cumene ← benzene + propylene", "2907 11 10 (phenol) / 2914 11 00 (acetone)"),
     ("Polyols → Polyurethane", "Propylene", "high", 4000, "High", "Propylene-oxide route; PU foams", "3907 20 10 (polyols) / 3909 50 00 (PU)"),

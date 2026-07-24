@@ -8,8 +8,8 @@ Product tree from the **ICIS Petrochemicals Flowchart** (crude → building bloc
 
 | Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
 |---|---|---|--:|:--:|
+| Polyethylene (LDPE/HDPE/LLDPE) | `3901 10 10 / 3901 20 00 / 3901 40 00` | ~25-40% | ₹22,000 cr ($2.6 bn) | High |
 | PVC resin (via EDC/VCM + chlorine) | `3904 10 10 / 3904 21 90 / 3904 22 90` | ~55-75% | ₹19,000 cr ($2.2 bn) | High |
-| Polyethylene (LDPE/HDPE/LLDPE) | `3901 10 10 / 3901 20 00 / 3901 40 00` | ~20% | ₹13,000 cr ($1.5 bn) | High |
 | Styrene monomer (via ethylbenzene + benzene) | `2902 50 00 (→ PS 3903 19 90)` | ~100% | ₹10,150 cr ($1.2 bn) | High |
 | Mono-ethylene glycol (MEG) | `2905 31 00` | high | ₹6,666 cr ($0.8 bn) | High |
 | Vinyl acetate monomer (VAM) | `2915 32 00 (→ EVA 3901 30 00)` | high | ₹2,000 cr ($0.2 bn) | High |
@@ -19,7 +19,7 @@ Product tree from the **ICIS Petrochemicals Flowchart** (crude → building bloc
 
 | Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
 |---|---|---|--:|:--:|
-| Polypropylene (PP) | `3902 10 00` | ~20% (closing) | ₹11,000 cr ($1.3 bn) | High |
+| Polypropylene (PP) | `3902 10 00` | ~20-25% | ₹13,000 cr ($1.5 bn) | High |
 | Phenol + Acetone (via cumene) | `2907 11 10 (phenol) / 2914 11 00 (acetone)` | high | ₹4,000 cr ($0.5 bn) | High |
 | Polyols → Polyurethane | `3907 20 10 (polyols) / 3909 50 00 (PU)` | high | ₹4,000 cr ($0.5 bn) | High |
 | Oxo-alcohols (2-EH, n-butanol) | `2905 16 20 (2-EH) / 2905 13 00 (n-BuOH)` | high | ₹4,000 cr ($0.5 bn) | High |
@@ -66,7 +66,7 @@ Product tree from the **ICIS Petrochemicals Flowchart** (crude → building bloc
 
 ## The petrol → petrochemicals substitution prize
 
-- **High-petrol-link substitutable imports quantified ≈ ₹114,316 cr (~$13 bn/yr)**; with the indicative long-tail, the petroleum-feedstock-linked chemical import bill is well into double-digit $ bn.
+- **High-petrol-link substitutable imports quantified ≈ ₹125,316 cr (~$15 bn/yr)**; with the indicative long-tail, the petroleum-feedstock-linked chemical import bill is well into double-digit $ bn.
 - **Newly surfaced via the flowchart (missed by a headline-polymer view):** polycarbonate, MDI & TDI (isocyanates → polyurethane), caprolactam/nylon, phenol/bisphenol-A, acrylonitrile, butadiene & synthetic rubber, oxo-alcohols/2-EH, VAM, epoxy, PBT/BDO — most **~85-100% imported** and all rooted in benzene/propylene/C4 from naphtha & reformate.
 - **The engineering-plastics & PU cluster** (PC, nylon, MDI/TDI, epoxy, ABS, PBT) is India's deepest, highest-value gap — exactly the higher-margin end of the ICIS tree, and the natural target for crude-to-chemicals.
 

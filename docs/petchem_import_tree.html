@@ -1,0 +1,211 @@
+<title>India's Petrochemical Import Tree — from petrol to product (HSN-coded)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --paper:#F6F8F7; --surface:#FFFFFF; --surface-2:#EEF2F0; --ink:#16211D; --muted:#5A6B63;
+    --line:#DBE3DE; --line-strong:#C3CFC8; --accent:#0F7C86;
+    --naphtha:#0F7C86; --aromatic:#8A5A2B; --gas:#7A8A82;
+    --s5:#B23A2E; --s4:#C4633A; --s3:#C98A2B; --s2:#5E8A5A; --s1:#2E8E8E; --s0:#8A968F;
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:"SF Mono",ui-monospace,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+    --shadow:0 1px 2px rgba(16,33,29,.05),0 8px 26px rgba(16,33,29,.06);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --paper:#0C1411; --surface:#121D18; --surface-2:#17231D; --ink:#E8EEEA; --muted:#93A69D;
+    --line:#233229; --line-strong:#31463D; --accent:#39B0B8;
+    --naphtha:#39B0B8; --aromatic:#CC9A55; --gas:#8CA096;
+    --s5:#E0705F; --s4:#E08A54; --s3:#DBA850; --s2:#63BE84; --s1:#45B7B7; --s0:#8CA096;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0C1411; --surface:#121D18; --surface-2:#17231D; --ink:#E8EEEA; --muted:#93A69D;
+    --line:#233229; --line-strong:#31463D; --accent:#39B0B8;
+    --naphtha:#39B0B8; --aromatic:#CC9A55; --gas:#8CA096;
+    --s5:#E0705F; --s4:#E08A54; --s3:#DBA850; --s2:#63BE84; --s1:#45B7B7; --s0:#8CA096;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F8F7; --surface:#FFFFFF; --surface-2:#EEF2F0; --ink:#16211D; --muted:#5A6B63;
+    --line:#DBE3DE; --line-strong:#C3CFC8; --accent:#0F7C86;
+    --naphtha:#0F7C86; --aromatic:#8A5A2B; --gas:#7A8A82;
+    --s5:#B23A2E; --s4:#C4633A; --s3:#C98A2B; --s2:#5E8A5A; --s1:#2E8E8E; --s0:#8A968F;
+    --shadow:0 1px 2px rgba(16,33,29,.05),0 8px 26px rgba(16,33,29,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1160px;margin:0 auto;padding:clamp(26px,4vw,56px) clamp(16px,3.5vw,36px) 90px;}
+  h1{font-family:var(--font-display);font-size:clamp(27px,4.4vw,44px);font-weight:600;line-height:1.1;margin:.1em 0 .25em;text-wrap:balance;letter-spacing:-.01em;}
+  h2{font-family:var(--font-display);font-size:20px;font-weight:600;margin:0 0 .3em;}
+  .eyebrow{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;}
+  .lede{font-size:clamp(15px,1.7vw,18px);color:var(--muted);max-width:66ch;}
+  .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;}
+
+  /* flow header */
+  .flowwrap{margin:30px 0 8px;overflow-x:auto;}
+  .flow{width:100%;min-width:640px;height:auto;display:block;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin:14px 0 2px;font-size:12px;color:var(--muted);align-items:center;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:11px;height:11px;border-radius:3px;flex:0 0 auto;}
+
+  .stat{display:flex;flex-wrap:wrap;gap:10px 26px;margin:22px 0 6px;padding:16px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);align-items:baseline;}
+  .stat b{font-family:var(--font-display);font-size:26px;font-weight:600;}
+  .stat .lbl{font-size:13px;color:var(--muted);}
+
+  /* block grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;margin-top:26px;}
+  .block{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;}
+  .bhead{padding:14px 16px 12px;border-bottom:1px solid var(--line);}
+  .bname{font-family:var(--font-display);font-size:18px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .btag{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+  .bfeed{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.02em;}
+  .prod{padding:11px 16px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:3px 10px;align-items:baseline;}
+  .prod:last-child{border-bottom:0;}
+  .pname{font-size:14px;font-weight:600;}
+  .pval{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);text-align:right;white-space:nowrap;}
+  .hsn{grid-column:1;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.01em;}
+  .dep{grid-column:2;justify-self:end;font-family:var(--font-mono);font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px;white-space:nowrap;}
+
+  .foot{margin-top:34px;padding:18px 20px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--muted);}
+  .foot b{color:var(--ink);}
+  footer{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  @media (max-width:560px){.grid{grid-template-columns:1fr;}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">India · Crude-to-Chemicals · ITC-HS 8-digit</div>
+    <h1>From petrol to product — India's petrochemical import tree</h1>
+    <p class="lede">The polymers and chemicals India imports are made from the same petrol-range refinery streams it burns or exports as fuel: <b>naphtha</b> (→ olefins) and <b>reformate aromatics</b> (→ BTX). Each product below is tagged with its 8-digit ITC-HS code and import dependence — the map for crude-to-chemicals import substitution.</p>
+  </header>
+
+  <div class="flowwrap"><div id="flow"></div></div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--naphtha)"></span>naphtha → olefins/C4</span>
+    <span><span class="sw" style="background:var(--aromatic)"></span>reformate → aromatics (BTX)</span>
+    <span><span class="sw" style="background:var(--gas)"></span>gas-based (weak petrol link)</span>
+    <span style="margin-left:auto">import dependence:</span>
+    <span><span class="sw" style="background:var(--s5)"></span>~100%</span>
+    <span><span class="sw" style="background:var(--s4)"></span>85–90%</span>
+    <span><span class="sw" style="background:var(--s3)"></span>high</span>
+    <span><span class="sw" style="background:var(--s2)"></span>20–40%</span>
+    <span><span class="sw" style="background:var(--s1)"></span>partial</span>
+  </div>
+
+  <div class="stat">
+    <span><b class="num">₹1.25 lakh cr</b> <span class="lbl">high-petrol-link substitutable imports / yr (~$15 bn)</span></span>
+    <span><b class="num">22</b> <span class="lbl">products shown (25 in full analysis)</span></span>
+    <span><b class="num">7</b> <span class="lbl">building blocks</span></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="foot"><b>How to use this.</b> Every card is a building block traceable to a petrol-range stream; each product carries the ITC-HS code to pull live tonnage, value and origin on <b>Tradestat</b> (tradestat.commerce.gov.in) or <b>Niryat</b>. The deepest, highest-value gaps — <b>polycarbonate, MDI/TDI, nylon, ABS/ACN, styrene</b> — cluster in the benzene/propylene chains: engineering plastics & polyurethanes, ~85–100% imported. As ethanol/EV free petrol-range volume, cracking it into these products captures the petrochemical premium (Digital Refining: +$1.5–2/bbl marginal, $60–80/bbl full COTC) <b>and</b> erases an import.</div>
+
+  <footer>
+    <span>Values approximate (MoC Statistics-at-a-Glance · DGCIS/Tradestat · industry, 2023–25). HSN = ITC-HS 8-digit; verify on DGFT ITC-HS 2022. Tree from the ICIS Petrochemicals Flowchart.</span>
+    <span>₹→$ at ₹86 · repo india-omc-fuel-fleet-model</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var css=getComputedStyle(document.documentElement);
+  function c(v){return css.getPropertyValue(v).trim();}
+  function ff(v){return c(v).replace(/"/g,"'");}
+  var SEV={5:'--s5',4:'--s4',3:'--s3',2:'--s2',1:'--s1',0:'--s0'};
+
+  // building blocks: name, feedstock, colorVar, products[{p,hsn,dep,val,sev}]
+  var BLOCKS=[
+    {name:'Ethylene', feed:'naphtha / ethane (steam cracker)', col:'--naphtha', prods:[
+      {p:'PVC resin',hsn:'3904 10 10',dep:'~55–75%',val:'₹19,000 cr',sev:3},
+      {p:'Polyethylene (LD/HD/LLD)',hsn:'3901 10/20/40',dep:'~25–40%',val:'₹22,000 cr',sev:2},
+      {p:'Styrene monomer',hsn:'2902 50 00',dep:'~100%',val:'₹10,150 cr',sev:5},
+      {p:'Mono-ethylene glycol',hsn:'2905 31 00',dep:'high',val:'₹6,666 cr',sev:3},
+      {p:'Vinyl acetate (VAM)',hsn:'2915 32 00',dep:'high',val:'₹2,000 cr',sev:3}
+    ]},
+    {name:'Propylene', feed:'naphtha crack / FCC / PDH', col:'--naphtha', prods:[
+      {p:'Polypropylene',hsn:'3902 10 00',dep:'~20–25%',val:'₹13,000 cr',sev:2},
+      {p:'Phenol + Acetone',hsn:'2907 11 10',dep:'high',val:'₹4,000 cr',sev:3},
+      {p:'Polyols → Polyurethane',hsn:'3909 50 00',dep:'high',val:'₹4,000 cr',sev:3},
+      {p:'Oxo-alcohols (2-EH, BuOH)',hsn:'2905 16 20',dep:'high',val:'₹4,000 cr',sev:3},
+      {p:'Acrylonitrile (ACN)',hsn:'2926 10 00',dep:'~100%',val:'₹3,000 cr',sev:5},
+      {p:'Acrylic acid → SAP',hsn:'2916 11 10',dep:'high',val:'₹2,500 cr',sev:3},
+      {p:'PMMA / MMA',hsn:'3906 10 10',dep:'high',val:'₹1,500 cr',sev:3}
+    ]},
+    {name:'C4 stream', feed:'naphtha crack C4 (butadiene)', col:'--naphtha', prods:[
+      {p:'Butadiene → SBR/PBR rubber',hsn:'4002 20 00',dep:'high',val:'₹6,000 cr',sev:3},
+      {p:'BDO → PBT / spandex',hsn:'3907 99 90',dep:'high',val:'₹2,000 cr',sev:3}
+    ]},
+    {name:'Benzene', feed:'reformate / pygas aromatics', col:'--aromatic', prods:[
+      {p:'Bisphenol-A → Polycarbonate',hsn:'3907 40 00',dep:'~90–100%',val:'₹5,000 cr',sev:5},
+      {p:'Aniline → MDI (PU)',hsn:'2929 10 20',dep:'~85–90%',val:'₹5,000 cr',sev:4},
+      {p:'Caprolactam → Nylon',hsn:'3908 10 10',dep:'high',val:'₹4,000 cr',sev:3},
+      {p:'Epoxy resins',hsn:'3907 30 00',dep:'high',val:'₹4,000 cr',sev:3}
+    ]},
+    {name:'Toluene', feed:'reformate aromatics', col:'--aromatic', prods:[
+      {p:'TDI (di-isocyanate)',hsn:'2929 10 10',dep:'~85–90%',val:'₹4,000 cr',sev:4}
+    ]},
+    {name:'Xylenes', feed:'reformate aromatics', col:'--aromatic', prods:[
+      {p:'Paraxylene → PTA → PET',hsn:'3907 61 00',dep:'partial',val:'₹5,000 cr',sev:1},
+      {p:'o-Xylene → PAN → UPR',hsn:'2917 35 00',dep:'partial',val:'₹2,000 cr',sev:1}
+    ]},
+    {name:'Methanol', feed:'syngas (gas/coal) — weak petrol link', col:'--gas', prods:[
+      {p:'Methanol → HCHO / acetic acid',hsn:'2905 11 00',dep:'~90%',val:'₹7,524 cr',sev:0}
+    ]}
+  ];
+
+  // build cards
+  var grid=document.getElementById('grid'), html='';
+  BLOCKS.forEach(function(b){
+    html+='<div class="block"><div class="bhead"><div class="bname"><span class="btag" style="background:var('+b.col+')"></span>'+b.name+'</div><div class="bfeed">← '+b.feed+'</div></div>';
+    b.prods.forEach(function(p){
+      var cv=SEV[p.sev];
+      html+='<div class="prod"><div class="pname">'+p.p+'</div><div class="pval">'+p.val+'</div>'
+          +'<div class="hsn">'+p.hsn+'</div>'
+          +'<div class="dep" style="background:color-mix(in srgb,var('+cv+') 18%,transparent);color:var('+cv+')">'+p.dep+'</div></div>';
+    });
+    html+='</div>';
+  });
+  grid.innerHTML=html;
+
+  // flow header: 3 feedstocks -> 6 petrol blocks (+methanol gas)
+  function flow(){
+    var W=900,H=210,padL=8,padR=8;
+    var feeds=[{n:'NAPHTHA',c:'--naphtha',y:70},{n:'REFORMATE (BTX)',c:'--aromatic',y:130},{n:'NATURAL GAS',c:'--gas',y:180}];
+    var blocks=[{n:'Ethylene',y:24,f:0},{n:'Propylene',y:60,f:0},{n:'C4 / Butadiene',y:96,f:0},
+                {n:'Benzene',y:132,f:1},{n:'Toluene',y:160,f:1},{n:'Xylenes',y:188,f:1},{n:'Methanol',y:188,f:2}];
+    var fx=150, bx=560, bw=190, fw=150;
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" class="flow" role="img" preserveAspectRatio="xMidYMid meet">';
+    // connectors
+    blocks.forEach(function(bk){
+      var f=feeds[bk.f]; var col=c(feeds[bk.f].c);
+      var x1=fx+fw/2, y1=f.y, x2=bx-bw/2, y2=bk.y+9;
+      var mx=(x1+x2)/2;
+      svg+='<path d="M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2+'" fill="none" stroke="'+col+'" stroke-width="1.5" opacity="'+(bk.f===2?'.4':'.55')+'"'+(bk.f===2?' stroke-dasharray="3 3"':'')+'/>';
+    });
+    // feedstock nodes
+    feeds.forEach(function(f){
+      svg+='<rect x="'+(fx-fw/2)+'" y="'+(f.y-15)+'" width="'+fw+'" height="30" rx="7" fill="var('+f.c+')"/>';
+      svg+='<text x="'+fx+'" y="'+(f.y+4)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="11.5" font-weight="700" fill="#fff">'+f.n+'</text>';
+    });
+    // block nodes
+    blocks.forEach(function(bk){
+      var col=c(feeds[bk.f].c);
+      svg+='<rect x="'+(bx-bw/2)+'" y="'+(bk.y-1)+'" width="'+bw+'" height="20" rx="6" fill="var(--surface)" stroke="'+col+'" stroke-width="1.4"'+(bk.f===2?' stroke-dasharray="3 2"':'')+'/>';
+      svg+='<text x="'+(bx-bw/2+10)+'" y="'+(bk.y+13)+'" font-family="'+ff('--font-body')+'" font-size="12" font-weight="600" fill="'+c('--ink')+'">'+bk.n+'</text>';
+    });
+    // labels
+    svg+='<text x="'+fx+'" y="14" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="10" letter-spacing="1.5" fill="'+c('--muted')+'">PETROL-RANGE STREAM</text>';
+    svg+='<text x="'+bx+'" y="14" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="10" letter-spacing="1.5" fill="'+c('--muted')+'">BUILDING BLOCK</text>';
+    svg+='</svg>';
+    return svg;
+  }
+  function draw(){ document.getElementById('flow').innerHTML=flow(); }
+  draw();
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  if(window.matchMedia) window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+})();
+</script>
