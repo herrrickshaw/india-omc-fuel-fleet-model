@@ -219,6 +219,25 @@
     <div class="callout"><b>Net national picture.</b> The exchequer forgoes ~₹39–56k cr of tax, but the freed petrol earns ~₹50–75k cr in <b>export forex</b>, and OMC margins gain ~₹7–11k cr. Ethanol blending is, on the whole, national-positive — it just shifts money from the tax pocket to the trade and marketer pockets. The SGST design decides how much states get to keep.</p></div>
   </section>
 
+  <hr class="divider">
+
+  <!-- FORECAST -->
+  <section aria-label="Forecast">
+    <div class="prose"><h2>The forecast — demand rises, ethanol is the wall</h2>
+    <p class="lede" style="margin-bottom:0">Petrol demand keeps climbing on the PPAC 7% trend, bent down by FADA's rising EV share. But the blend roadmap runs into a supply ceiling: hitting E30 on a bigger petrol base needs far more ethanol than India can currently make.</p></div>
+    <div class="chart-duo">
+      <div class="panel"><h3>Petrol demand · MMT/yr <span class="tot num">FY26→FY31</span></h3><div id="fc-demand"></div></div>
+      <div class="panel"><h3>Ethanol needed vs capacity <span class="tot num">crore L</span></h3><div id="fc-ethanol"></div></div>
+    </div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--total)"></span>High · 7%</span>
+      <span><span class="sw" style="background:var(--accent)"></span>Base · moderating</span>
+      <span><span class="sw" style="background:var(--muted)"></span>Low · fast-EV</span>
+      <span style="margin-left:auto"><span class="sw" style="background:var(--ethanol)"></span>ethanol capacity ~1,600 cr L</span>
+    </div>
+    <p class="caption"><b>The read:</b> base-case petrol grows <b>40 → 53.6 MMT</b> by FY31 (5.0% CAGR, the 7% trend bending as EVs scale). Ethanol need <b>nearly doubles — ~1,150 → ~2,170 cr L</b> — and crosses India's current capacity around <b>FY28 / E25</b>. From there, ethanol supply, not petrol demand, governs how far blending can go.</p>
+  </section>
+
   <!-- ASSUMPTIONS -->
   <section aria-label="Assumptions">
     <div class="prose"><h2>Assumptions &amp; caveats</h2></div>
@@ -311,6 +330,58 @@
     return svg;
   }
 
+  // multi-line forecast chart
+  function lineChart(series, xLabels, yMin, yMax, ticks){
+    var W=480,H=320,padL=40,padR=58,padT=22,padB=38;
+    var plotW=W-padL-padR, plotH=H-padT-padB, n=xLabels.length;
+    function x(i){return padL+i/(n-1)*plotW;}
+    function y(v){return padT+(yMax-v)/(yMax-yMin)*plotH;}
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" preserveAspectRatio="xMidYMid meet">';
+    ticks.forEach(function(t){
+      var yy=y(t);
+      svg+='<line x1="'+padL+'" x2="'+(W-padR)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'" stroke="'+c('--line')+'" stroke-width="1"/>';
+      svg+='<text x="'+(padL-8)+'" y="'+(yy+3.5).toFixed(1)+'" text-anchor="end" font-family="'+ff('--font-mono')+'" font-size="10.5" fill="'+c('--muted')+'">'+t+'</text>';
+    });
+    xLabels.forEach(function(lb,i){
+      svg+='<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+16)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="10.5" fill="'+c('--muted')+'">'+lb+'</text>';
+    });
+    series.forEach(function(s){
+      var pts=s.values.map(function(v,i){return x(i).toFixed(1)+','+y(v).toFixed(1);}).join(' ');
+      svg+='<polyline points="'+pts+'" fill="none" stroke="'+c(s.color)+'" stroke-width="'+(s.emph?2.6:1.6)+'" stroke-linejoin="round" '+(s.emph?'':'opacity=".8"')+'/>';
+      var lx=x(n-1), ly=y(s.values[n-1]);
+      svg+='<circle cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="'+(s.emph?4:3)+'" fill="'+c(s.color)+'"/>';
+      svg+='<text x="'+(lx+7).toFixed(1)+'" y="'+(ly+3.5).toFixed(1)+'" font-family="'+ff('--font-mono')+'" font-size="11.5" font-weight="600" fill="'+c(s.color)+'">'+s.values[n-1].toFixed(0)+'</text>';
+    });
+    svg+='</svg>';
+    return svg;
+  }
+
+  // bars vs a capacity reference line
+  function barsRef(values, xLabels, ref, refLabel){
+    var W=480,H=320,padL=44,padR=16,padT=30,padB=38;
+    var plotW=W-padL-padR, plotH=H-padT-padB, n=values.length;
+    var yMax=Math.max(ref,Math.max.apply(null,values))*1.12;
+    function y(v){return padT+(yMax-v)/yMax*plotH;}
+    var gap=14, bw=(plotW-gap*(n-1))/n, zeroY=y(0);
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" preserveAspectRatio="xMidYMid meet">';
+    [0,800,1600,2400].forEach(function(t){ if(t>yMax) return;
+      var yy=y(t);
+      svg+='<line x1="'+padL+'" x2="'+(W-padR)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'" stroke="'+c('--line')+'" stroke-width="1"/>';
+      svg+='<text x="'+(padL-8)+'" y="'+(yy+3.5).toFixed(1)+'" text-anchor="end" font-family="'+ff('--font-mono')+'" font-size="10.5" fill="'+c('--muted')+'">'+t.toLocaleString('en-IN')+'</text>';
+    });
+    values.forEach(function(v,i){
+      var xx=padL+i*(bw+gap), yt=y(v), over=v>ref;
+      svg+='<rect x="'+xx.toFixed(1)+'" y="'+yt.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(zeroY-yt).toFixed(1)+'" rx="3" fill="'+c(over?'--loss':'--accent')+'" opacity="'+(over?'.95':'.9')+'"/>';
+      svg+='<text x="'+(xx+bw/2).toFixed(1)+'" y="'+(yt-6).toFixed(1)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="10.5" font-weight="600" fill="'+c(over?'--loss':'--accent')+'">'+Math.round(v).toLocaleString('en-IN')+'</text>';
+      svg+='<text x="'+(xx+bw/2).toFixed(1)+'" y="'+(H-padB+16)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="10" fill="'+c('--muted')+'">'+xLabels[i]+'</text>';
+    });
+    var ry=y(ref);
+    svg+='<line x1="'+padL+'" x2="'+(W-padR)+'" y1="'+ry.toFixed(1)+'" y2="'+ry.toFixed(1)+'" stroke="'+c('--ethanol')+'" stroke-width="1.6" stroke-dasharray="5 3"/>';
+    svg+='<text x="'+(W-padR)+'" y="'+(ry-6).toFixed(1)+'" text-anchor="end" font-family="'+ff('--font-mono')+'" font-size="10.5" fill="'+c('--ethanol')+'">'+refLabel+'</text>';
+    svg+='</svg>';
+    return svg;
+  }
+
   var OMC_CUR=[
     {label:'Throughput\nuplift',value:757,kind:'delta'},
     {label:'Export\nmargin',value:4324,kind:'delta'},
@@ -344,6 +415,13 @@
     var maxFx=100000;
     set('fx-cur',forexBar(49834,'8.0','5.9',maxFx));
     set('fx-fut',forexBar(74751,'12.0','8.8',maxFx));
+    var xL=['FY26','FY27','FY28','FY29','FY30','FY31'];
+    set('fc-demand',lineChart([
+      {values:[42.8,45.8,49.0,52.4,56.1,60.0],color:'--total'},
+      {values:[42.6,45.1,47.5,49.7,51.8,53.6],color:'--accent',emph:true},
+      {values:[41.2,42.4,43.7,45.0,46.4,47.8],color:'--muted'}
+    ],xL,38,62,[40,50,60]));
+    set('fc-ethanol',barsRef([1151,1341,1605,1813,2100,2173],xL,1600,'capacity ~1,600'));
   }
   draw();
   // redraw on theme toggle (colors are read from CSS vars)
