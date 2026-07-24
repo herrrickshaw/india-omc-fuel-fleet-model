@@ -170,6 +170,19 @@ Now covers **petrol + diesel + CNG (fuel balance) and EV (Vahan reg × active-ra
 
 Run: `python3 fleet_from_fuel.py` → `outputs/fleet_from_fuel.md` + `.csv`.
 
+## Upstream & refining (full value chain)
+
+The repo grew from downstream retail/ethanol into the whole India oil & gas chain:
+
+- **`upstream/upstream_acreage_analysis.py`** — domestic crude decline (32.2→28.7 MMT, self-sufficiency
+  15%→12%), basin trends (KG deepwater +338%, Barmer −48%), NELP/OALP/DSF acreage, and **ranked new
+  areas to explore** (KG-basin extension, Andaman deepwater, Mahanadi/Cauvery, released 'No-Go' acreage).
+- **`refining/refining_trade_analysis.py`** — India's crude-in/product-out economics: HS-27 net −$149.5 bn
+  (~54% of the trade deficit, DGCIS/Tradestat); PPAC net oil bill ~$116 bn (exports offset ~28%); MS crack
+  ~$24/bbl, GRMs normalised to ~$5–6; the **EU-ban/Russian-crude squeeze**; and the **petrochemical GRM
+  upside** (Digital Refining: +$1.5–2/bbl marginal, COTC $60–80 vs $15–25/bbl fuels). Refer to
+  Niryat/Tradestat (HS-2709/2710/2711) to drill deeper.
+
 ## Data source
 
 PPAC *India's Oil & Gas Ready Reckoner FY 2025-26 (H1)*. Full 100-table CSV extraction of that

@@ -97,6 +97,15 @@
 
   .forexbars{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;}
 
+  /* COTC comparison bars */
+  .cotc{padding:26px 10px 6px;display:flex;flex-direction:column;gap:20px;}
+  .cotc-row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:12px;}
+  .cotc-lbl{font-size:13px;color:var(--muted);}
+  .cotc-track{height:26px;background:var(--surface-2);border-radius:6px;overflow:hidden;}
+  .cotc-fill{height:100%;border-radius:6px;}
+  .cotc-val{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;}
+  .cotc p{margin:8px 0 0;font-size:12.5px;color:var(--muted);text-align:center;}
+
   /* callout */
   .callout{background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--ethanol);
     border-radius:12px;padding:16px 18px;margin-top:22px;font-size:14.5px;}
@@ -238,6 +247,25 @@
     <p class="caption"><b>The read:</b> base-case petrol grows <b>40 → 53.6 MMT</b> by FY31 (5.0% CAGR, the 7% trend bending as EVs scale). Ethanol need <b>nearly doubles — ~1,150 → ~2,170 cr L</b> — and crosses India's current capacity around <b>FY28 / E25</b>. From there, ethanol supply, not petrol demand, governs how far blending can go.</p>
   </section>
 
+  <hr class="divider">
+
+  <!-- PETROCHEM -->
+  <section aria-label="Petrochemical margin">
+    <div class="prose"><h2>Beyond fuels — the petrochemical margin lever</h2>
+    <p class="lede" style="margin-bottom:0">As ethanol and EVs cap domestic fuel-demand growth and refining margins normalise to mid-single digits, the refiner's next margin comes from moving down the chain into petrochemicals — the one structural GRM lever left, and a hedge as fuel demand eventually peaks.</p></div>
+    <div class="chart-duo">
+      <div class="panel"><h3>GRM build-up · $/bbl <span class="tot num">+$1.5–2</span></h3><div id="grm-wf"></div></div>
+      <div class="panel"><h3>Full crude-to-chemicals <span class="tot num">$/bbl complex margin</span></h3>
+        <div class="cotc">
+          <div class="cotc-row"><span class="cotc-lbl">Fuels refinery</span><div class="cotc-track"><div class="cotc-fill" style="width:29%;background:var(--total)"></div></div><span class="cotc-val" style="color:var(--total)">$15–25</span></div>
+          <div class="cotc-row"><span class="cotc-lbl">COTC complex</span><div class="cotc-track"><div class="cotc-fill" style="width:88%;background:var(--ethanol)"></div></div><span class="cotc-val" style="color:var(--ethanol)">$60–80</span></div>
+          <p>up to 45% of crude → chemicals (vs &lt;15% standalone)</p>
+        </div>
+      </div>
+    </div>
+    <p class="caption"><b>The read (Digital Refining):</b> bolting petrochemical units onto a fuels refinery lifts GRM <b>+$1.5–2/bbl</b> — across India's ~250 MMT throughput, ~<b>₹24,000–31,000 cr/yr</b> if adopted system-wide. A purpose-built crude-to-chemicals complex is a step-change (<b>$60–80/bbl vs $15–25</b>), capturing the whole petrochem chain. It's the durable answer as ethanol/EV and the EU-Russia squeeze compress the fuels margin.</p>
+  </section>
+
   <!-- ASSUMPTIONS -->
   <section aria-label="Assumptions">
     <div class="prose"><h2>Assumptions &amp; caveats</h2></div>
@@ -264,8 +292,9 @@
   function ff(v){return c(v).replace(/"/g,"'");}   // font stacks contain " — swap to ' for SVG attrs
   function fmt(n){var s=Math.round(Math.abs(n)).toLocaleString('en-IN');return (n<0?'−':'+')+s;}
 
-  // Waterfall renderer -> SVG string
-  function waterfall(items){
+  // Waterfall renderer -> SVG string. opts.fmt(value, kind) overrides the label format.
+  function waterfall(items, opts){
+    var vfmt=(opts&&opts.fmt)||function(n){return fmt(n);};
     var W=460, H=320, padT=34, padB=54, padL=10, padR=10;
     // cumulative
     var run=0, bars=[];
@@ -298,7 +327,7 @@
       svg+='<rect class="bar-rect" x="'+x.toFixed(1)+'" y="'+yt.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3" fill="'+fill+'" '+(b.kind==='total'?'':'opacity=".92"')+'/>';
       // value label
       var lblY = b.val>=0 ? yt-8 : yb+15;
-      svg+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+lblY.toFixed(1)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="12.5" font-weight="600" fill="'+(b.kind==='total'?c('--ink'):fill)+'">'+fmt(b.val)+'</text>';
+      svg+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+lblY.toFixed(1)+'" text-anchor="middle" font-family="'+ff('--font-mono')+'" font-size="12.5" font-weight="600" fill="'+(b.kind==='total'?c('--ink'):fill)+'">'+vfmt(b.val,b.kind)+'</text>';
       // category label (multiline)
       var parts=b.label.split('\n');
       parts.forEach(function(p,j){
@@ -422,6 +451,12 @@
       {values:[41.2,42.4,43.7,45.0,46.4,47.8],color:'--muted'}
     ],xL,38,62,[40,50,60]));
     set('fc-ethanol',barsRef([1151,1341,1605,1813,2100,2173],xL,1600,'capacity ~1,600'));
+    var dfmt=function(n,kind){return (kind==='total'?'$':(n>=0?'+$':'−$'))+Math.abs(n).toFixed(2).replace(/0$/,'').replace(/\.$/,'');};
+    set('grm-wf',waterfall([
+      {label:'Base fuels\nGRM',value:5.5,kind:'total'},
+      {label:'+ Petchem\nintegration',value:1.75,kind:'delta'},
+      {label:'Integrated\nGRM',value:7.25,kind:'total'}
+    ],{fmt:dfmt}));
   }
   draw();
   // redraw on theme toggle (colors are read from CSS vars)

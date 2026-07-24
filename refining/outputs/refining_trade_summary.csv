@@ -1,0 +1,11 @@
+metric,value,unit,source
+HS-27 exports CY2024,75.85,US$ bn,DGCIS/Tradestat
+HS-27 imports CY2024,225.39,US$ bn,DGCIS/Tradestat
+HS-27 net (deficit),-149.54,US$ bn,derived
+HS-27 share of total trade deficit,54.3,%,derived
+Crude import FY25,137.2,US$ bn,PPAC RR 4.11
+Product export FY25,44.4,US$ bn,PPAC RR 4.11
+Crude cost,77.0,US$/bbl,derived
+Product realisation,85.3,US$/bbl,derived
+Implied gross value-add,8.3,US$/bbl,derived
+MS crack (Sing 92 vs Brent),24.2,US$/bbl,Platts/Argus Jul-26
