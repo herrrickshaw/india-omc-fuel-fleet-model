@@ -1,0 +1,10 @@
+fuel_group,2W,3W,4W+
+"Petrol (mono, incl. E20 & hybrid)",19656911,5500,2652818
+Petrol + gas bi-fuel (CNG/LPG),964,18195,989507
+Diesel,2,166831,2828093
+CNG/CBG (dedicated),42139,329831,117014
+LPG (dedicated),0,42758,10
+Electric (BEV/PHEV),1342314,801400,213293
+Ethanol (E100/flex),1292,0,0
+Other (H2/LNG/methanol/solar/NA),1,111,81605
+TOTAL,21043623,1364626,6882340

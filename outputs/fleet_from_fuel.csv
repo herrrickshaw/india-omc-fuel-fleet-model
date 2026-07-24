@@ -1,0 +1,16 @@
+fuel,sector,share_pct,fuel_bnL,km_day,mileage,active_days,L_per_veh_day,L_per_veh_yr,active_vehicles
+Petrol,Two-wheeler,61.4,33.2,28,48,330,0.58,192,172467532
+Petrol,Car,34.3,18.56,30,15,300,2.0,600,30927928
+Petrol,Three-wheeler,2.3,1.26,60,30,300,2.0,600,2108108
+Petrol,Other (gensets/misc),1.9,1.03,,,,,,(non-road)
+Diesel,Truck / LCV (freight),28.2,31.11,220,6.0,330,36.67,12100,2570995
+Diesel,Bus,9.6,10.52,200,4.5,340,44.44,15111,695945
+Diesel,Car / UV / taxi,28.5,31.36,90,16.0,310,5.62,1744,17985556
+Diesel,Three-wheeler,3.3,3.63,90,22.0,310,4.09,1268,2865501
+Diesel,Railways,3.2,3.57,,,,,,(non-road)
+Diesel,Agriculture (tractor/pump),13.0,14.32,,,,,,(non-road)
+Diesel,Industry / gensets,14.2,15.62,,,,,,(non-road)
+CNG,Car (incl. bi-fuel),38.0,2.53,40,25.0,300,1.6,480,5280417
+CNG,Three-wheeler,25.0,1.67,90,30.0,310,3.0,930,1793011
+CNG,Bus,22.0,1.47,200,3.8,340,52.63,17895,82002
+CNG,LCV / truck,15.0,1.0,140,4.5,330,31.11,10267,97451

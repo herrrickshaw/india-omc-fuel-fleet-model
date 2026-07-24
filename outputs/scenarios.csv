@@ -1,0 +1,5 @@
+scenario,blend_pct,mileage_drop,blend_vol_bnL,petrol_MS_bnL,ethanol_bnL,extra_throughput_bnL,extra_OMC_income_cr,ethanol_cost_gap_cr
+E0,0.0,0.0,51.892,51.892,0.0,0.0,0.0,0.0
+E20,0.2,0.04,54.054,43.243,10.811,2.162,756.757,4324.324
+E25,0.25,0.055,54.912,41.184,13.728,3.02,1057.057,5491.205
+E30,0.3,0.07,55.798,39.058,16.739,3.906,1367.044,6695.728

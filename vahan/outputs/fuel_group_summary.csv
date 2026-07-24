@@ -1,0 +1,10 @@
+fuel_group,cy2025_vehicles,cy2025_share_pct,cumulative_vehicles,cumulative_share_pct
+"Petrol (mono, incl. E20 & hybrid)",22315229,76.19,359875639,80.66
+Petrol + gas bi-fuel (CNG/LPG),1008666,3.44,10229915,2.29
+Diesel,2994926,10.22,60677478,13.6
+CNG/CBG (dedicated),488984,1.67,2610435,0.59
+LPG (dedicated),42768,0.15,233966,0.05
+Electric (BEV/PHEV),2357007,8.05,9785936,2.19
+Ethanol (E100/flex),1292,0.0,1762,0.0
+Other (H2/LNG/methanol/solar/NA),81717,0.28,2776034,0.62
+TOTAL,29290589,100.0,446191165,100.0

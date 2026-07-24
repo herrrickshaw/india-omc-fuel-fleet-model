@@ -1,0 +1,3 @@
+# omc_model.py, fleet_from_fuel.py, vahan/analyze_vahan_fuel.py are pure stdlib.
+# Only the Excel builder needs a dependency:
+openpyxl>=3.1

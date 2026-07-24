@@ -1,0 +1,35 @@
+fuel,cumulative_registrations,group
+PETROL,342598206,"Petrol (mono, incl. E20 & hybrid)"
+DIESEL,60489963,Diesel
+PETROL(E20),15494452,"Petrol (mono, incl. E20 & hybrid)"
+PETROL/CNG,7268404,Petrol + gas bi-fuel (CNG/LPG)
+ELECTRIC(BOV),6261756,Electric (BEV/PHEV)
+PURE EV,3524049,Electric (BEV/PHEV)
+NOT APPLICABLE,2772320,Other (H2/LNG/methanol/solar/NA)
+CNG ONLY,2610419,CNG/CBG (dedicated)
+PETROL/LPG,2253466,Petrol + gas bi-fuel (CNG/LPG)
+PETROL/HYBRID,1379974,"Petrol (mono, incl. E20 & hybrid)"
+PETROL(E20)/CNG,701839,Petrol + gas bi-fuel (CNG/LPG)
+LPG ONLY,233966,LPG (dedicated)
+STRONG HYBRID EV,233108,"Petrol (mono, incl. E20 & hybrid)"
+DIESEL/HYBRID,187305,Diesel
+PETROL(E20)/HYBRID,169888,"Petrol (mono, incl. E20 & hybrid)"
+PETROL/HYBRID/CNG,3902,Petrol + gas bi-fuel (CNG/LPG)
+SOLAR,2171,Other (H2/LNG/methanol/solar/NA)
+PETROL(E20)/LPG,1847,Petrol + gas bi-fuel (CNG/LPG)
+ETHANOL(E100),1700,Ethanol (E100/flex)
+LNG,1496,Other (H2/LNG/methanol/solar/NA)
+PETROL(E20)/HYBRID/CNG,457,Petrol + gas bi-fuel (CNG/LPG)
+PLUG-IN HYBRID EV,131,Electric (BEV/PHEV)
+DUAL DIESEL/CNG,112,Diesel
+DUAL DIESEL/LNG,83,Diesel
+METHANOL,50,Ethanol (E100/flex)
+FUEL CELL HYDROGEN,43,Other (H2/LNG/methanol/solar/NA)
+FLEX-FUEL(BIO-DIESEL),14,Diesel
+FLEX-FUEL(ETHANOL),12,Ethanol (E100/flex)
+PETROL/METHANOL,11,"Petrol (mono, incl. E20 & hybrid)"
+HCNG,9,CNG/CBG (dedicated)
+BIO-CNG/BIO-GAS,7,CNG/CBG (dedicated)
+DI-METHYL ETHER,3,Other (H2/LNG/methanol/solar/NA)
+DUAL DIESEL/BIO CNG,1,Diesel
+HYDROGEN(ICE),1,Other (H2/LNG/methanol/solar/NA)
