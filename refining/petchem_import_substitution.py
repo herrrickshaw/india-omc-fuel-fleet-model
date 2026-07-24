@@ -28,40 +28,40 @@ BLOCKS = {
 }
 
 # product, block, import_dependence, approx import value ₹cr (None=indicative),
-# petrol_link (High/Med/Low), note
+# petrol_link, note, primary 8-digit ITC-HS code(s) (verify on Tradestat/DGFT ITC-HS 2022)
 PRODUCTS = [
     # ── Ethylene chain ──
-    ("Polyethylene (LDPE/HDPE/LLDPE)", "Ethylene", "~20%", 13000, "High", "~1.4 MT imported of ~7 MT demand"),
-    ("PVC (via EDC/VCM + chlorine)", "Ethylene", "~55-75%", 19000, "High", "Biggest polymer gap; capacity ~2.5x by FY30"),
-    ("Mono-ethylene glycol (MEG)", "Ethylene", "high", 6666, "High", "Polyester/PET chain"),
-    ("Styrene monomer (via ethylbenzene + benzene)", "Ethylene", "~100%", 10150, "High", "≈ no domestic SM capacity"),
-    ("Vinyl acetate monomer (VAM)", "Ethylene", "high", 2000, "High", "Adhesives, EVA, films — largely imported"),
-    ("Ethanolamines (MEA/DEA/TEA)", "Ethylene", "partial", None, "Med", "Gas treating, surfactants"),
+    ("Polyethylene (LDPE/HDPE/LLDPE)", "Ethylene", "~20%", 13000, "High", "~1.4 MT imported of ~7 MT demand", "3901 10 10 / 3901 20 00 / 3901 40 00"),
+    ("PVC resin (via EDC/VCM + chlorine)", "Ethylene", "~55-75%", 19000, "High", "Biggest polymer gap; capacity ~2.5x by FY30", "3904 10 10 / 3904 21 90 / 3904 22 90"),
+    ("Mono-ethylene glycol (MEG)", "Ethylene", "high", 6666, "High", "Polyester/PET chain", "2905 31 00"),
+    ("Styrene monomer (via ethylbenzene + benzene)", "Ethylene", "~100%", 10150, "High", "≈ no domestic SM capacity", "2902 50 00 (→ PS 3903 19 90)"),
+    ("Vinyl acetate monomer (VAM)", "Ethylene", "high", 2000, "High", "Adhesives, EVA, films — largely imported", "2915 32 00 (→ EVA 3901 30 00)"),
+    ("Ethanolamines (MEA/DEA/TEA)", "Ethylene", "partial", None, "Med", "Gas treating, surfactants", "2922 11 00 / 2922 12 00 / 2922 15 00"),
     # ── Propylene chain ──
-    ("Polypropylene (PP)", "Propylene", "~20% (closing)", 11000, "High", "1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30"),
-    ("Acrylonitrile (ACN)", "Propylene", "~100%", 3000, "High", "For ABS, acrylic fibre, NBR — no domestic ACN"),
-    ("Phenol + Acetone (via cumene)", "Propylene", "high", 4000, "High", "Cumene ← benzene + propylene"),
-    ("Polyols → Polyurethane", "Propylene", "high", 4000, "High", "Propylene-oxide route; PU foams"),
-    ("Oxo-alcohols (2-EH, n-butanol)", "Propylene", "high", 4000, "High", "Plasticiser alcohols — largely imported"),
-    ("Acrylic acid → superabsorbents (SAP)", "Propylene", "high", 2500, "High", "Diapers/hygiene — imported"),
-    ("PMMA / MMA (acrylic)", "Propylene", "high", 1500, "Med", "Optical/acrylic sheet"),
-    ("Isopropanol (IPA)", "Propylene", "partial", None, "Med", "Solvent"),
+    ("Polypropylene (PP)", "Propylene", "~20% (closing)", 11000, "High", "1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30", "3902 10 00"),
+    ("Acrylonitrile (ACN)", "Propylene", "~100%", 3000, "High", "For ABS, acrylic fibre, NBR — no domestic ACN", "2926 10 00"),
+    ("Phenol + Acetone (via cumene)", "Propylene", "high", 4000, "High", "Cumene ← benzene + propylene", "2907 11 10 (phenol) / 2914 11 00 (acetone)"),
+    ("Polyols → Polyurethane", "Propylene", "high", 4000, "High", "Propylene-oxide route; PU foams", "3907 20 10 (polyols) / 3909 50 00 (PU)"),
+    ("Oxo-alcohols (2-EH, n-butanol)", "Propylene", "high", 4000, "High", "Plasticiser alcohols — largely imported", "2905 16 20 (2-EH) / 2905 13 00 (n-BuOH)"),
+    ("Acrylic acid → superabsorbents (SAP)", "Propylene", "high", 2500, "High", "Diapers/hygiene — imported", "2916 11 10 (acid) / 3906 90 90 (SAP)"),
+    ("PMMA / MMA (acrylic)", "Propylene", "high", 1500, "Med", "Optical/acrylic sheet", "2916 14 10 (MMA) / 3906 10 10 (PMMA)"),
+    ("Isopropanol (IPA)", "Propylene", "partial", None, "Med", "Solvent", "2905 12 20"),
     # ── C4 chain ──
-    ("Butadiene → SBR/PBR/NBR rubber", "C4 (butadiene/isobutylene)", "high", 6000, "High", "Synthetic rubber — big import"),
-    ("BDO → PBT / spandex", "C4 (butadiene/isobutylene)", "high", 2000, "Med", "Engineering plastic/fibre"),
+    ("Butadiene → SBR/PBR/NBR rubber", "C4 (butadiene/isobutylene)", "high", 6000, "High", "Synthetic rubber — big import", "2901 24 10 (BD) / 4002 19 / 4002 20 00 (PBR)"),
+    ("BDO → PBT / spandex", "C4 (butadiene/isobutylene)", "high", 2000, "Med", "Engineering plastic/fibre", "2905 39 20 (BDO) / 3907 99 90 (PBT)"),
     # ── Benzene chain (reformate) ──
-    ("Bisphenol-A → Polycarbonate (PC)", "Benzene", "~90-100%", 5000, "High", "Engineering plastic — near-fully imported"),
-    ("Epoxy resins (via BPA)", "Benzene", "high", 4000, "High", "Coatings, composites"),
-    ("Caprolactam → Nylon-6 / Adipic → Nylon-6,6", "Benzene", "high", 4000, "High", "Via cyclohexane; nylon/fibre"),
-    ("Aniline → MDI (polyurethane)", "Benzene", "~85-90%", 5000, "High", "Rigid PU foam — largely imported"),
-    ("LAB (alkylbenzene) → surfactants", "Benzene", "partial", None, "Med", "Detergents — India fairly self-sufficient"),
+    ("Bisphenol-A → Polycarbonate (PC)", "Benzene", "~90-100%", 5000, "High", "Engineering plastic — near-fully imported", "2907 23 00 (BPA) / 3907 40 00 (PC)"),
+    ("Epoxy resins (via BPA)", "Benzene", "high", 4000, "High", "Coatings, composites", "3907 30 00"),
+    ("Caprolactam → Nylon-6 / Adipic → Nylon-6,6", "Benzene", "high", 4000, "High", "Via cyclohexane; nylon/fibre", "2933 71 00 (capro) / 3908 10 10 (nylon-6)"),
+    ("Aniline → MDI (polyurethane)", "Benzene", "~85-90%", 5000, "High", "Rigid PU foam — largely imported", "2921 41 90 (aniline) / 2929 10 20 (MDI)"),
+    ("LAB (alkylbenzene) → surfactants", "Benzene", "partial", None, "Med", "Detergents — India fairly self-sufficient", "3817 00 11 (LAB) / 3402 xx (surfactants)"),
     # ── Toluene chain ──
-    ("TDI (di-isocyanate)", "Toluene", "~85-90%", 4000, "High", "Flexible PU foam — largely imported"),
+    ("TDI (toluene di-isocyanate)", "Toluene", "~85-90%", 4000, "High", "Flexible PU foam — largely imported", "2929 10 10"),
     # ── Xylenes chain (reformate) ──
-    ("Paraxylene → PTA/DMT → PET/polyester", "Xylenes", "partial", 5000, "High", "India strong (RIL) but net-imports some grades"),
-    ("Orthoxylene → Phthalic anhydride → plasticisers/UPR", "Xylenes", "partial", 2000, "High", "Plasticisers, unsat. polyester resin"),
+    ("Paraxylene → PTA/DMT → PET/polyester", "Xylenes", "partial", 5000, "High", "India strong (RIL) but net-imports some grades", "2902 43 00 (PX) / 2917 36 00 (PTA) / 3907 61 00 (PET)"),
+    ("Orthoxylene → Phthalic anhydride → plasticisers/UPR", "Xylenes", "partial", 2000, "High", "Plasticisers, unsat. polyester resin", "2917 35 00 (PAN) / 3907 91 00 (UPR)"),
     # ── Methanol chain (weak petrol link) ──
-    ("Methanol → formaldehyde/acetic acid/MTBE", "Methanol", "~90%", 7524, "Low", "Gas/coal-based — petrol link only via petcoke COTC"),
+    ("Methanol → formaldehyde/acetic acid/MTBE", "Methanol", "~90%", 7524, "Low", "Gas/coal-based — petrol link only via petcoke COTC", "2905 11 00 (MeOH) / 2915 21 00 (acetic acid)"),
 ]
 
 
@@ -73,10 +73,10 @@ def main():
 
     with (OUT / "petchem_import_substitution.csv").open("w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow(["product", "building_block", "feedstock_root", "import_dependence",
+        w.writerow(["product", "hsn_8digit", "building_block", "feedstock_root", "import_dependence",
                     "import_value_cr", "import_value_usdbn", "petrol_link", "note"])
-        for name, blk, dep, cr, link, note in PRODUCTS:
-            w.writerow([name, blk, BLOCKS[blk], dep, cr or "",
+        for name, blk, dep, cr, link, note, hsn in PRODUCTS:
+            w.writerow([name, hsn, blk, BLOCKS[blk], dep, cr or "",
                         round(cr*CR/USD_INR/1e9, 2) if cr else "", link, note])
 
     L = []
@@ -94,11 +94,11 @@ def main():
     for blk, feed in BLOCKS.items():
         rows = [p for p in PRODUCTS if p[1] == blk]
         L.append(f"## {blk}  ←  {feed}\n")
-        L.append("| Product | Import dep. | Import value | Link | Note |")
-        L.append("|---|---|--:|:--:|---|")
-        for name, _, dep, cr, link, note in sorted(rows, key=lambda p: -(p[3] or 0)):
+        L.append("| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |")
+        L.append("|---|---|---|--:|:--:|")
+        for name, _, dep, cr, link, note, hsn in sorted(rows, key=lambda p: -(p[3] or 0)):
             val = f"₹{cr:,} cr (${cr*CR/USD_INR/1e9:.1f} bn)" if cr else "*indic.*"
-            L.append(f"| {name} | {dep} | {val} | {link} | {note} |")
+            L.append(f"| {name} | `{hsn}` | {dep} | {val} | {link} |")
         L.append("")
 
     L.append("## The petrol → petrochemicals substitution prize\n")
@@ -121,9 +121,13 @@ def main():
              "bbl marginal GRM, $60-80/bbl full COTC) instead of a thin fuel margin.\n")
 
     L.append("## Caveats\n")
+    L.append("- **HSN codes are 8-digit ITC-HS** (India's tariff schedule) — the primary code per product; "
+             "polymers sit in **Ch 39**, monomers/intermediates in **Ch 29**, synthetic rubber in **Ch 40**. "
+             "Verify the exact current subheading on **Tradestat / DGFT ITC-HS 2022** (last two digits are "
+             "revised periodically, and grades split across sub-codes) before pulling values.")
     L.append("- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25); the "
-             "long-tail (*indic.*) rows are directional. Use **Tradestat** HS-29 (organic chemicals) & HS-39 "
-             "(plastics) for exact product×year figures; the ICIS flowchart gives the chain, not the tonnage.")
+             "long-tail (*indic.*) rows are directional. Query the HSN codes above on Tradestat/Niryat for "
+             "exact product×year import value & origin; the ICIS flowchart gives the chain, not the tonnage.")
     L.append("- Methanol and some surfactants are gas-based (weak petrol link). Substitution also needs "
              "downstream units (crackers, aromatics, chlor-alkali, isocyanate plants), not just feedstock. "
              "₹→$ at ₹86.\n")
@@ -133,10 +137,10 @@ def main():
 
     print(f"{len(PRODUCTS)} products across {len(BLOCKS)} building blocks (ICIS flowchart-derived)")
     print(f"High-petrol-link quantified substitutable imports ≈ ₹{high_petrol_val:,} cr (~${high_petrol_val*CR/USD_INR/1e9:.0f} bn/yr)")
-    print("Newly surfaced high-import products (flowchart):")
-    for name, blk, dep, cr, link, note in PRODUCTS:
-        if name.split()[0] in ("Bisphenol-A", "Aniline", "TDI", "Caprolactam", "Acrylonitrile", "Butadiene", "Oxo-alcohols", "Epoxy", "Vinyl"):
-            print(f"  {name:44s} dep {dep:12s} {('₹'+format(cr,',')+' cr') if cr else 'indic.'}")
+    print("Product / HSN (8-digit) / dependence / value:")
+    for name, blk, dep, cr, link, note, hsn in PRODUCTS:
+        if link == "High":
+            print(f"  {name[:40]:40s} {hsn:42s} {dep:14s} {('₹'+format(cr,',')+' cr') if cr else 'indic.'}")
     print("Wrote outputs/petchem_import_substitution.md + .csv")
 
 

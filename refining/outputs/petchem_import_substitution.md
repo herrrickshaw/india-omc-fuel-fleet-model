@@ -6,63 +6,63 @@ Product tree from the **ICIS Petrochemicals Flowchart** (crude → building bloc
 
 ## Ethylene  ←  naphtha / ethane (steam cracker)
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| PVC (via EDC/VCM + chlorine) | ~55-75% | ₹19,000 cr ($2.2 bn) | High | Biggest polymer gap; capacity ~2.5x by FY30 |
-| Polyethylene (LDPE/HDPE/LLDPE) | ~20% | ₹13,000 cr ($1.5 bn) | High | ~1.4 MT imported of ~7 MT demand |
-| Styrene monomer (via ethylbenzene + benzene) | ~100% | ₹10,150 cr ($1.2 bn) | High | ≈ no domestic SM capacity |
-| Mono-ethylene glycol (MEG) | high | ₹6,666 cr ($0.8 bn) | High | Polyester/PET chain |
-| Vinyl acetate monomer (VAM) | high | ₹2,000 cr ($0.2 bn) | High | Adhesives, EVA, films — largely imported |
-| Ethanolamines (MEA/DEA/TEA) | partial | *indic.* | Med | Gas treating, surfactants |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| PVC resin (via EDC/VCM + chlorine) | `3904 10 10 / 3904 21 90 / 3904 22 90` | ~55-75% | ₹19,000 cr ($2.2 bn) | High |
+| Polyethylene (LDPE/HDPE/LLDPE) | `3901 10 10 / 3901 20 00 / 3901 40 00` | ~20% | ₹13,000 cr ($1.5 bn) | High |
+| Styrene monomer (via ethylbenzene + benzene) | `2902 50 00 (→ PS 3903 19 90)` | ~100% | ₹10,150 cr ($1.2 bn) | High |
+| Mono-ethylene glycol (MEG) | `2905 31 00` | high | ₹6,666 cr ($0.8 bn) | High |
+| Vinyl acetate monomer (VAM) | `2915 32 00 (→ EVA 3901 30 00)` | high | ₹2,000 cr ($0.2 bn) | High |
+| Ethanolamines (MEA/DEA/TEA) | `2922 11 00 / 2922 12 00 / 2922 15 00` | partial | *indic.* | Med |
 
 ## Propylene  ←  naphtha crack / FCC / PDH
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| Polypropylene (PP) | ~20% (closing) | ₹11,000 cr ($1.3 bn) | High | 1.2 MT+ imported 2025; capacity 1.7-1.8x by FY30 |
-| Phenol + Acetone (via cumene) | high | ₹4,000 cr ($0.5 bn) | High | Cumene ← benzene + propylene |
-| Polyols → Polyurethane | high | ₹4,000 cr ($0.5 bn) | High | Propylene-oxide route; PU foams |
-| Oxo-alcohols (2-EH, n-butanol) | high | ₹4,000 cr ($0.5 bn) | High | Plasticiser alcohols — largely imported |
-| Acrylonitrile (ACN) | ~100% | ₹3,000 cr ($0.3 bn) | High | For ABS, acrylic fibre, NBR — no domestic ACN |
-| Acrylic acid → superabsorbents (SAP) | high | ₹2,500 cr ($0.3 bn) | High | Diapers/hygiene — imported |
-| PMMA / MMA (acrylic) | high | ₹1,500 cr ($0.2 bn) | Med | Optical/acrylic sheet |
-| Isopropanol (IPA) | partial | *indic.* | Med | Solvent |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| Polypropylene (PP) | `3902 10 00` | ~20% (closing) | ₹11,000 cr ($1.3 bn) | High |
+| Phenol + Acetone (via cumene) | `2907 11 10 (phenol) / 2914 11 00 (acetone)` | high | ₹4,000 cr ($0.5 bn) | High |
+| Polyols → Polyurethane | `3907 20 10 (polyols) / 3909 50 00 (PU)` | high | ₹4,000 cr ($0.5 bn) | High |
+| Oxo-alcohols (2-EH, n-butanol) | `2905 16 20 (2-EH) / 2905 13 00 (n-BuOH)` | high | ₹4,000 cr ($0.5 bn) | High |
+| Acrylonitrile (ACN) | `2926 10 00` | ~100% | ₹3,000 cr ($0.3 bn) | High |
+| Acrylic acid → superabsorbents (SAP) | `2916 11 10 (acid) / 3906 90 90 (SAP)` | high | ₹2,500 cr ($0.3 bn) | High |
+| PMMA / MMA (acrylic) | `2916 14 10 (MMA) / 3906 10 10 (PMMA)` | high | ₹1,500 cr ($0.2 bn) | Med |
+| Isopropanol (IPA) | `2905 12 20` | partial | *indic.* | Med |
 
 ## C4 (butadiene/isobutylene)  ←  naphtha crack C4 stream
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| Butadiene → SBR/PBR/NBR rubber | high | ₹6,000 cr ($0.7 bn) | High | Synthetic rubber — big import |
-| BDO → PBT / spandex | high | ₹2,000 cr ($0.2 bn) | Med | Engineering plastic/fibre |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| Butadiene → SBR/PBR/NBR rubber | `2901 24 10 (BD) / 4002 19 / 4002 20 00 (PBR)` | high | ₹6,000 cr ($0.7 bn) | High |
+| BDO → PBT / spandex | `2905 39 20 (BDO) / 3907 99 90 (PBT)` | high | ₹2,000 cr ($0.2 bn) | Med |
 
 ## Benzene  ←  reformate / pygas aromatics
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| Bisphenol-A → Polycarbonate (PC) | ~90-100% | ₹5,000 cr ($0.6 bn) | High | Engineering plastic — near-fully imported |
-| Aniline → MDI (polyurethane) | ~85-90% | ₹5,000 cr ($0.6 bn) | High | Rigid PU foam — largely imported |
-| Epoxy resins (via BPA) | high | ₹4,000 cr ($0.5 bn) | High | Coatings, composites |
-| Caprolactam → Nylon-6 / Adipic → Nylon-6,6 | high | ₹4,000 cr ($0.5 bn) | High | Via cyclohexane; nylon/fibre |
-| LAB (alkylbenzene) → surfactants | partial | *indic.* | Med | Detergents — India fairly self-sufficient |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| Bisphenol-A → Polycarbonate (PC) | `2907 23 00 (BPA) / 3907 40 00 (PC)` | ~90-100% | ₹5,000 cr ($0.6 bn) | High |
+| Aniline → MDI (polyurethane) | `2921 41 90 (aniline) / 2929 10 20 (MDI)` | ~85-90% | ₹5,000 cr ($0.6 bn) | High |
+| Epoxy resins (via BPA) | `3907 30 00` | high | ₹4,000 cr ($0.5 bn) | High |
+| Caprolactam → Nylon-6 / Adipic → Nylon-6,6 | `2933 71 00 (capro) / 3908 10 10 (nylon-6)` | high | ₹4,000 cr ($0.5 bn) | High |
+| LAB (alkylbenzene) → surfactants | `3817 00 11 (LAB) / 3402 xx (surfactants)` | partial | *indic.* | Med |
 
 ## Toluene  ←  reformate aromatics
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| TDI (di-isocyanate) | ~85-90% | ₹4,000 cr ($0.5 bn) | High | Flexible PU foam — largely imported |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| TDI (toluene di-isocyanate) | `2929 10 10` | ~85-90% | ₹4,000 cr ($0.5 bn) | High |
 
 ## Xylenes  ←  reformate aromatics
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| Paraxylene → PTA/DMT → PET/polyester | partial | ₹5,000 cr ($0.6 bn) | High | India strong (RIL) but net-imports some grades |
-| Orthoxylene → Phthalic anhydride → plasticisers/UPR | partial | ₹2,000 cr ($0.2 bn) | High | Plasticisers, unsat. polyester resin |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| Paraxylene → PTA/DMT → PET/polyester | `2902 43 00 (PX) / 2917 36 00 (PTA) / 3907 61 00 (PET)` | partial | ₹5,000 cr ($0.6 bn) | High |
+| Orthoxylene → Phthalic anhydride → plasticisers/UPR | `2917 35 00 (PAN) / 3907 91 00 (UPR)` | partial | ₹2,000 cr ($0.2 bn) | High |
 
 ## Methanol  ←  syngas (gas/coal) — weak petrol link
 
-| Product | Import dep. | Import value | Link | Note |
-|---|---|--:|:--:|---|
-| Methanol → formaldehyde/acetic acid/MTBE | ~90% | ₹7,524 cr ($0.9 bn) | Low | Gas/coal-based — petrol link only via petcoke COTC |
+| Product | HSN (8-digit ITC-HS) | Import dep. | Import value | Link |
+|---|---|---|--:|:--:|
+| Methanol → formaldehyde/acetic acid/MTBE | `2905 11 00 (MeOH) / 2915 21 00 (acetic acid)` | ~90% | ₹7,524 cr ($0.9 bn) | Low |
 
 ## The petrol → petrochemicals substitution prize
 
@@ -76,7 +76,8 @@ Every block above starts from **naphtha or reformate** — the same petrol-range
 
 ## Caveats
 
-- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25); the long-tail (*indic.*) rows are directional. Use **Tradestat** HS-29 (organic chemicals) & HS-39 (plastics) for exact product×year figures; the ICIS flowchart gives the chain, not the tonnage.
+- **HSN codes are 8-digit ITC-HS** (India's tariff schedule) — the primary code per product; polymers sit in **Ch 39**, monomers/intermediates in **Ch 29**, synthetic rubber in **Ch 40**. Verify the exact current subheading on **Tradestat / DGFT ITC-HS 2022** (last two digits are revised periodically, and grades split across sub-codes) before pulling values.
+- Import values are approximate (MoC Statistics-at-a-Glance / DGCIS / industry, 2023-25); the long-tail (*indic.*) rows are directional. Query the HSN codes above on Tradestat/Niryat for exact product×year import value & origin; the ICIS flowchart gives the chain, not the tonnage.
 - Methanol and some surfactants are gas-based (weak petrol link). Substitution also needs downstream units (crackers, aromatics, chlor-alkali, isocyanate plants), not just feedstock. ₹→$ at ₹86.
 
 ---
