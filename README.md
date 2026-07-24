@@ -81,6 +81,22 @@ pulled live from the **Vahan4 dashboard** (all-India), both annual and cumulativ
 
 Run: `python3 vahan/analyze_vahan_fuel.py` → `vahan/outputs/vahan_fuel_analysis.md` + CSVs.
 
+## Petrol-demand & ethanol-requirement forecast (`petrol_demand_forecast.py`)
+
+Forecasts petrol demand FY26–FY31 anchored on the **PPAC/literature trend** (RR: MS decadal CAGR 7.1%,
+recent H1 +6.8–7.1%) and shaped by **FADA vehicle-sales signals** (2W ~72% of sales still ~93% petrol;
+rising EV share — 8.5% overall — bends the growth rate down), then derives the ethanol requirement
+against an E20→E30 roadmap:
+
+- **Petrol demand (MMT):** High/7% → 60; **Base/moderating → 53.6 (5.0% CAGR)**; Low/fast-EV → 47.8.
+- **Ethanol requirement nearly doubles:** ~1,150 cr L (E20, FY26) → **~2,170 cr L (E30, FY31)** in the base.
+- **Supply is the binding constraint:** India's ~1,600 cr L fuel-ethanol capacity fits E20 today, but
+  **E30 on a growing petrol base needs ~36% more** — the roadmap is limited by ethanol, not petrol demand.
+- Scales the whole model: at base FY30-31 (E30), freed-petrol export ≈ ₹1.0 lakh cr, state VAT foregone
+  ≈ ₹39k cr, a 5% SGST ≈ ₹6.5k cr for states.
+
+Run: `python3 petrol_demand_forecast.py` → `outputs/petrol_demand_forecast.md` + `petrol_demand_forecast.csv` + `ethanol_requirement_forecast.csv`.
+
 ## Freed-petrol export value (`petrol_export_value.py`)
 
 Ethanol displaces domestic petrol, freeing it for export (India is a net product exporter). Valued at
