@@ -6,21 +6,21 @@
 
 | Blend | Petrol freed (bn L) | = MMT | If cracked → petchem (MMT, 60% yield) | Share of India's ~13 MMT substitutable polymer imports |
 |---|--:|--:|--:|--:|
-| E20 | 10.81 | 8.0 | 4.8 | ~37% |
-| E25 | 13.51 | 10.0 | 6.0 | ~46% |
-| E30 | 16.21 | 12.0 | 7.2 | ~55% |
+| E20 | 10.81 | 7.66 | 4.6 | ~35% |
+| E25 | 13.51 | 9.58 | 5.75 | ~44% |
+| E30 | 16.21 | 11.49 | 6.9 | ~53% |
 
-- Ethanol frees **8.0 MMT** of petrol-range material at E20, **12.0 MMT** at E30. Cracked, that yields **4.8–7.2 MMT of petrochemicals** — enough to substitute **~37% (E20) to ~55% (E30) of India's entire substitutable polymer import bill**, from freed feedstock alone.
+- Ethanol frees **7.66 MMT** of petrol-range material at E20, **11.49 MMT** at E30. Cracked, that yields **4.6–6.9 MMT of petrochemicals** — enough to substitute **~35% (E20) to ~53% (E30) of India's entire substitutable polymer import bill**, from freed feedstock alone.
 
 ## 2. The three fates of the freed petrol — all forex-positive
 
 | Blend | (a) Crude saved / petrol exported ($ bn) | (b) Petchem imports substituted if cracked ($ bn) |
 |---|--:|--:|
-| E20 | $5.78 bn | $5.28 bn |
-| E25 | $7.22 bn | $6.6 bn |
-| E30 | $8.67 bn | $7.92 bn |
+| E20 | $5.78 bn | $5.06 bn |
+| E25 | $7.22 bn | $6.32 bn |
+| E30 | $8.67 bn | $7.58 bn |
 
-- Whichever way the freed petrol is used, it is worth **~$5.78–8.67 bn/yr of forex** as crude-saved or exported fuel. **Cracked into petrochemicals it is worth even more** ($5.28–7.92 bn) because polymers price above fuel — and it substitutes a dollar import instead of just earning a fuel margin.
+- Whichever way the freed petrol is used, it is worth **~$5.78–8.67 bn/yr of forex** as crude-saved or exported fuel. **Cracked into petrochemicals it is worth even more** ($5.06–7.58 bn) because polymers price above fuel — and it substitutes a dollar import instead of just earning a fuel margin.
 
 ## 3. The core — rupee in, dollars out (saved)
 
@@ -28,9 +28,9 @@
 |---|---|--:|--:|
 | Ethanol production cost | **₹ (domestic)** | ₹64,860 cr | ₹97,290 cr |
 | Forex freed (crude/petrol) | **$ (forex)** | $5.78 bn | $8.67 bn |
-| Forex saved if cracked to petchem | **$ (forex)** | $5.28 bn | $7.92 bn |
+| Forex saved if cracked to petchem | **$ (forex)** | $5.06 bn | $7.58 bn |
 
-- India spends **₹64,860–97,290 cr in rupees** on ethanol — money that stays in the country (farmer income, rural distilleries, ~2.5–3× local multiplier) — to free **~$5.78–7.92 bn of dollar imports**. The rupee cost is a *domestic transfer*; the dollar saving is a *current-account and rupee-stability* gain.
+- India spends **₹64,860–97,290 cr in rupees** on ethanol — money that stays in the country (farmer income, rural distilleries, ~2.5–3× local multiplier) — to free **~$5.78–7.58 bn of dollar imports**. The rupee cost is a *domestic transfer*; the dollar saving is a *current-account and rupee-stability* gain.
 - Honest premium: at ₹60/L, ethanol costs ~₹14/L **more** than the freed petrol's fuel value (~₹46/L FOB) — but that premium is paid in rupees to Indian producers, not dollars to crude exporters, and shrinks or reverses when the freed feedstock is cracked into higher-value petrochemicals rather than sold as fuel.
 
 ## 4. Why the currency matters (not just the number)
@@ -41,6 +41,7 @@
 
 ## 5. Caveats
 
+- **Unit conversions are PPAC Ready Reckoner Table 9.2/9.3** (official): 1 MT petrol = 1.411 KL = 8.88 bbl; 1 bbl = 159 L; 1 MMT = 1.411 bn L. PPAC **Table 9.6** designates naphtha as 'feedstock for the petrochemical sector' — the petrol→petchem route is the reckoner's own classification, not an assumption.
 - Freed volume = ethanol blended (blend% × domestic petrol), consistent with the sibling models. Naphtha-to-petchem yield (~60%) and polymer price ($1,100/t) are editable; petrol and petrol-range naphtha are treated as interchangeable cracker feed.
 - 'Forex freed' via crude-saved and via petrol-export are the *same barrels, one lens* — not additive. The petchem route is an *alternative* to exporting, not on top of it.
 - Ethanol carries a real rupee premium over fuel-value petrol; the case rests on the **currency composition** (rupee vs dollar) and rural recirculation, not on ethanol being cheaper per litre. Feedstock (cane/grain) availability bounds how far blending — hence this substitution — can go.

@@ -15,9 +15,11 @@ OUT = Path(__file__).resolve().parent / "outputs"; OUT.mkdir(parents=True, exist
 
 # ── inputs (editable) ────────────────────────────────────────────────────────
 PETROL_BNL = 54.05                 # domestic petrol (MS) blended volume, bn L (40 MMT)
-DENS = 0.74                        # petrol/naphtha kg/L -> MMT = bnL/1.3514
-BNL_PER_MMT = 1e9 / DENS / 1e9     # 1.3514 bn L per MMT  (so MMT = bnL/1.3514)
-L_PER_BBL = 159.0                  # 1 barrel = 159 L (value petrol per-litre, avoids density mixups)
+# PPAC Ready Reckoner Table 9.2/9.3 — official conversion factors (petrol, BS norms):
+PETROL_KL_PER_MT = 1.4110          # 1 MT petrol = 1.411 KL  (=> density ≈ 0.709 kg/L)
+PETROL_BBL_PER_MT = 8.88           # 1 MT petrol = 8.88 US bbl
+L_PER_BBL = 159.0                  # Table 9.3: 1 US bbl = 159 L
+BNL_PER_MMT = PETROL_KL_PER_MT     # 1 MMT petrol = 1.411 bn L  (so MMT = bnL / 1.411)
 USD_INR = 86.0
 NAPHTHA_TO_PETCHEM_YIELD = 0.60    # mass fraction of naphtha -> primary petrochemicals
 PETROL_FOB_USD_BBL = 85.0          # freed petrol worth (FOB export / crude-parity)
@@ -112,6 +114,10 @@ def main():
              "value per tonne. Rupee feedstock displacing dollar polymers is the crude-to-chemicals endgame.\n")
 
     L.append("## 5. Caveats\n")
+    L.append("- **Unit conversions are PPAC Ready Reckoner Table 9.2/9.3** (official): 1 MT petrol = 1.411 KL "
+             "= 8.88 bbl; 1 bbl = 159 L; 1 MMT = 1.411 bn L. PPAC **Table 9.6** designates naphtha as "
+             "'feedstock for the petrochemical sector' — the petrol→petchem route is the reckoner's own "
+             "classification, not an assumption.")
     L.append("- Freed volume = ethanol blended (blend% × domestic petrol), consistent with the sibling models. "
              "Naphtha-to-petchem yield (~60%) and polymer price ($1,100/t) are editable; petrol and petrol-range "
              "naphtha are treated as interchangeable cracker feed.")

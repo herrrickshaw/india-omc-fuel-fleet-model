@@ -17,8 +17,8 @@ OUT = Path(__file__).resolve().parent / "outputs"; OUT.mkdir(exist_ok=True)
 
 # ── inputs ───────────────────────────────────────────────────────────────────
 PETROL_BNL = 54.05            # domestic petrol (MS) blended volume, bn L (40 MMT FY24-25)
-DENS_MS = 0.74               # kg/L -> 1 tonne = 1351.35 L ; 1 MMT = 1.3514 bn L
-L_PER_TONNE = 1000 / DENS_MS
+DENS_MS = 0.7087             # kg/L, PPAC RR Table 9.2 (petrol 1 MT = 1.411 KL = 8.88 bbl)
+L_PER_TONNE = 1000 / DENS_MS  # = 1411 L/t ; 1 MMT = 1.411 bn L
 USD_INR = 86.0
 BLENDS = {"E20": 0.20, "E25": 0.25, "E30": 0.30}
 CR = 1e7
