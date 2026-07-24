@@ -1,0 +1,9 @@
+category,usd_bn,share_of_imports_pct,essential,substitution_lever,has_pli
+Crude oil,137,19.1,True,Ethanol/EV demand cap · domestic E&P (deepwater/Andaman),no (ethanol EBP)
+Electronics (HS-85),90,12.5,False,PLI electronics/semiconductors — working,YES
+Gold & precious stones,60,8.4,False,"Discretionary — duty/financialisation, not substitutable",n/a
+Chemicals (organic HS-29 + plastics HS-39),47,6.5,True,Crude-to-chemicals + freed ethanol feedstock,NO — the gap
+Coal & coke,32,4.5,True,Domestic coal · renewables · CBG,no
+LNG + LPG (petroleum gases),30,4.2,True,Domestic gas · CBG (SATAT),no
+Edible / vegetable oils,17,2.4,True,National Mission on Edible Oils / oilseeds,no (mission)
+Fertilisers,11,1.5,True,Domestic urea/nano-urea · Nutrient-based,no (subsidy)
