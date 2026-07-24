@@ -81,6 +81,22 @@ pulled live from the **Vahan4 dashboard** (all-India), both annual and cumulativ
 
 Run: `python3 vahan/analyze_vahan_fuel.py` → `vahan/outputs/vahan_fuel_analysis.md` + CSVs.
 
+## Freed-petrol export value (`petrol_export_value.py`)
+
+Ethanol displaces domestic petrol, freeing it for export (India is a net product exporter). Valued at
+India's actual petrol-export realisation and its trend (RR Table 4.11: exports grew 11.6→15.8 MMT,
+₹98,379 cr in FY24-25; realisation ₹23–58/L with crude, ~₹46/L central):
+
+- **E20 frees ~8.0 MMT** of petrol — **51% of India's entire current petrol export** — worth
+  **~₹49,834 cr ($5.9 bn)/yr** FOB. Ethanol has effectively *already enabled ~half* of what India exports.
+- **E25 → 10.0 MMT (~₹62,300 cr / $7.3 bn); E30 → 12.0 MMT (~₹74,751 cr / $8.8 bn)** — roughly doubling
+  exportable petrol vs E20.
+- This is the **single largest rupee item** ethanol blending creates — bigger than the state VAT
+  foregone (~₹17,900 cr) or central excise foregone (~₹21,500 cr) — and it accrues as **export/forex
+  earnings**, not domestic tax. (Export vs import-substitution are the same barrels, one lens.)
+
+Run: `python3 petrol_export_value.py` → `outputs/petrol_export_value.md` + `petrol_export_value.csv` + `petrol_export_trend.csv`.
+
 ## Policy case — a price-neutral state SGST on ethanol (`ethanol_sgst_sweetspot.py`)
 
 Turns the revenue-foregone problem into a design: ethanol (~₹60/L) is cheaper than the petrol
