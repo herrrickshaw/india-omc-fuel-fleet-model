@@ -81,6 +81,25 @@ pulled live from the **Vahan4 dashboard** (all-India), both annual and cumulativ
 
 Run: `python3 vahan/analyze_vahan_fuel.py` → `vahan/outputs/vahan_fuel_analysis.md` + CSVs.
 
+## State-wise tax revenue foregone from ethanol (`statewise_tax_impact.py`)
+
+Ethanol (5% GST) displacing petrol (high state VAT + central excise) is revenue foregone. This pairs
+**state petrol volumes (RR Table 6.4B)** with **state VAT rates (RR Table 8.17)** to size the *state*
+portion (VAT lost net of SGST on ethanol), per state, at E20/E25/E30:
+
+- **Net state VAT foregone: ₹17,865 cr (E20) → ₹22,331 cr (E25) → ₹26,792 cr (E30)** per year (36 states).
+- Top losers combine high VAT and big volume: **Maharashtra ₹2,126 cr**, Karnataka ₹1,798 cr, UP
+  ₹1,776 cr, Telangana ₹1,264 cr, Rajasthan/Kerala/MP ~₹1,150 cr each.
+- The **centre** separately forgoes ~₹21,500 cr of excise at E20 (net of CGST) — larger, but borne by
+  the Union, not states.
+
+Framing: counterfactual revenue-foregone (petrol-vs-ethanol tax differential) — the E20 blend is still
+sold at petrol VAT at the pump, so this is the VAT states *would* have collected had that volume been
+petrol not 5%-GST ethanol. VAT uses headline rates only (fixed cesses/floors omitted → losses modestly
+higher). Editable levers: pre-VAT base, ethanol price.
+
+Run: `python3 statewise_tax_impact.py` → `outputs/statewise_tax_impact.md` + `statewise_tax_E20/E25/E30.csv`.
+
 ## Actively-driven fleet, implied from fuel burn (`fleet_from_fuel.py`)
 
 Cross-check on how many vehicles are *really* on the road daily, backed out from PPAC fuel
