@@ -89,6 +89,32 @@ fibre-monomer imports open to substitution (MEG ~1.5–2.0 + ACN 0.16 + caprolac
    supplies virgin polymer that **recycled-polyester (rPET)** then supplements downstream. Fuel → chemicals
    → fibre → (recycle) → fibre: the loop is closed.
 
+## Policy anchor — National Fibre Mission 2030-31 (Ministry of Textiles)
+
+The loop is not a proposal — it is the Mission's stated intent. Key figures from the **National Fibre
+Mission 2030-31 Concept Note** (MoT, Dec 2025):
+
+| Metric | Figure | Read |
+|---|---|---|
+| MMF contribution to economy | **₹13,61,300 cr (₹13.6 L cr)**, 2024-25 | scale of the synthetic value chain |
+| MMF production | **75 → 130 lakh MT** by 2030-31 (CAGR 9.6%) | rises from 62.5 (FY20) → 75 (FY24) lakh MT (CAGR 4.66%) |
+| Global rank / share | **2 → 1**; production share **10% → 14.6%** | China alone >70% of global MMF output |
+| **MMF imports** | **24.1 → 31.5 lakh MT** by 2030-31 (CAGR 4.0%) | up from 18.04 lakh MT FY20 — the substitution prize |
+| Non-cellulosic MMF imports | **1.37 → 1.88 lakh MT** (FY21→FY25) → 2.76 by 2030-31 | "reliance on specialised fibres & functionalised polymers" |
+| PLI for Textiles | **₹10,683 cr outlay** | "**focuses on downstream** MMF fabrics & apparel" |
+
+**Why it validates this loop (Mission's own words):**
+- *"Incentivise **local MMF feedstock production through sustainable chemical pathways and recycled raw
+  material use**."*
+- *"…promoting **recycled MMF production** and incentivising **investment in advanced petrochemical value
+  chains**."*
+- Specialty fibres (**aramid, carbon fibre, glass, PBO, PTFE**) — *"very limited indigenous production…
+  most are imported"* → matches the ACN→PAN→carbon-fibre and specialty-fibre deficit above.
+
+**The gap this loop fills:** PLI covers **downstream** fabric/apparel; the **upstream feedstock**
+(MEG, PX, ACN, caprolactam, BDO) is exactly what ethanol-freed naphtha/reformate would supply — the
+part the current incentive structure leaves open.
+
 ## Caveats
 - HSN codes are indicative 8-digit ITC-HS (fibres/polymers in Ch 39/54/55, monomers in Ch 29); verify exact
   subheading + current-year value on Tradestat/DGFT before citing.
@@ -108,6 +134,11 @@ fibre-monomer imports open to substitution (MEG ~1.5–2.0 + ACN 0.16 + caprolac
 - MMF textile imports $4.5 bn / China >55%; MMF apparel $160M: MATEXIL / Indian Textile Journal.
 - Technical-textile segment deficit: NTTM Compendium 2024 §8 Trade Trends (DGCIS FY19→FY24).
 - Global MMF fibre mix (69% synthetic + 6% cellulosic): Textile Exchange Materials Market Report 2025.
+- MMF targets, imports, PLI, feedstock/recycling mandate: National Fibre Mission 2030-31 Concept Note (MoT, Dec 2025).
+
+## Companion deck
+A 10-slide summary of the full thread (textile trade → MMF demand → NFM mandate → ethanol → feedstock →
+value-added fibre → closing the loop) is in `docs/Fuel_to_Fibre_Deck.pptx` (+ `.pdf`).
 
 ---
 *Textile subset of `petchem_import_substitution.md`; fibre end-uses cross-referenced to the MMF fibre-mix
