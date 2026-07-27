@@ -1,0 +1,14 @@
+Textile_Segment,Key_Feedstocks_Required,Current_Import_Dependence_%,FY25_Import_Value_USD_bn,Primary_Suppliers_Currently,BHAVYA_Readiness,Domestic_Capacity_FY30_Addressable_%,Cost_Reduction_Potential_%,Segment_Export_Value_FY25_USD_bn,Segment_Import_Value_FY25_USD_bn,Net_Trade_Position_FY25
+Agrotech,"Polypropylene nets, polyethylene mulch",65,"0.3","China, India (domestic), Vietnam",Medium,55,4-6,0.9,0.4,Surplus
+Buildtech,"Polymer films (Ch39), coated textiles (Ch59), specialty additives",75,"0.8","Saudi Arabia, China, Thailand",High,60,5-8,0.5,0.9,Deficit
+Clothtech,"Polyester filaments, blended yarns, nonwovens",70,"0.6","China, Vietnam, Taiwan",Medium,50,4-6,2.1,0.7,Surplus
+Geotech,"Geotextile polymers, nonwoven bases",60,"0.2","USA, Germany, Netherlands",Low,40,3-5,0.7,0.3,Surplus
+Hometech,"Polyurethane coatings, polyester fills, acrylic",80,"1.2","China, Saudi Arabia, Middle East",High,55,6-9,1.8,1.5,Deficit
+Indutech,"LLDPE, HDPE, specialty nonwovens, impregnation chemicals",85,"3.5","Saudi Arabia, China, India domestic",High,70,7-10,2.1,3.8,Deficit
+Meditech,"Spunbond nonwovens, absorbent polymers",65,"0.4","Germany, USA, China",Medium,50,4-6,0.8,0.5,Surplus
+Mobiltech,"Polyester tire cord, coated fabrics, specialty adhesives",75,"1.0","China, USA, Japan",High,65,6-9,0.8,1.2,Deficit
+Packtech,"Polyethylene/polypropylene films, laminates",60,"0.5","India (domestic 70%), China",Low,45,3-5,5.5,0.6,Surplus
+Protech,"Aramid fiber (very high cost), specialty nonwovens",90,"0.8","USA, Netherlands, Japan",Low,20,2-4,1.2,0.7,Deficit
+Sportech,"Polyester microfiber, elastic polymers, adhesives",70,"0.3","China, Vietnam, India domestic",Medium,55,5-7,1.1,0.4,Surplus
+Specialty Fibres & Composites,"Glass fiber, carbon fiber, aramid, epoxy resins",85,"2.1","USA, Germany, Taiwan, China",Low,25,2-4,0.5,2.1,Heavy Deficit
+Total/Weighted Average,—,72,"10.7",—,Medium,52,5.2,18.8,13.8,Composite
