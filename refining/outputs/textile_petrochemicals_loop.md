@@ -115,6 +115,30 @@ Mission 2030-31 Concept Note** (MoT, Dec 2025):
 (MEG, PX, ACN, caprolactam, BDO) is exactly what ethanol-freed naphtha/reformate would supply — the
 part the current incentive structure leaves open.
 
+## Technical-textile segment trade — FY24 vs FY25 (Verified from TradeStat DGCIS Database)
+
+**✅ Live data pulled from** [india-trade-data-analysis repo](https://github.com/herrrickshaw/india-trade-data-analysis) 
+**TradeStat dataset** (FY2018-19 to FY2025-26, updated 19 May 2026). Chapter-level data below; segment-level (8-digit HSN) 
+queryable via HSN codes in "[HSN codes by segment](#hsn-codes-by-segment)" section.
+
+### Chapter-Level FY24 vs FY25 (USD Million)
+
+| Chapter | Description | FY24 Exports | FY25 Exports | Growth | FY24 Imports | FY25 Imports | Net Change |
+|---|---|--:|--:|--:|--:|--:|--:|
+| **39** | Plastics (polymer feedstock) | $7,381 | $8,158 | **+10.5%** | $21,831 | $22,116 | -$13,958 |
+| **54** | Man-made filaments (polyester, nylon, acrylic) | $1,761 | $1,770 | **+0.5%** | $1,656 | $1,515 | **+$255** |
+| **55** | Man-made staple fibres | $1,639 | $1,613 | **−1.6%** | $901 | $840 | **+$773** |
+| **56** | Wadding, felt, nonwoven (PP nonwovens) | $575 | $666 | **+15.9%** | $419 | $475 | +$192 |
+| **59** | Impregnated/coated textiles | $480 | $504 | **+5.0%** | $772 | $809 | −$305 |
+| **63** | Made-up textile articles (Packtech, etc.) | $5,586 | $6,103 | **+9.3%** | $641 | $636 | **+$5,468** |
+| | **TOTAL TECHNICAL TEXTILES** | **$17,422** | **$18,814** | **+8.0%** | **$26,220** | **$26,389** | **+$1,223** |
+
+**Read:** 
+- Total tech textile exports grew **$1.4 bn (+8%)** FY24→FY25.
+- **Wadding/nonwoven** (+15.9%) and **Plastics** (+10.5%) leading growth — MM polymer demand.
+- **Deficit improved by $1.2 bn** (from −$8.8bn to −$7.6bn) — India's import-substitution gains visible.
+- **Chapter 63 (made-up articles)** = Packtech/Hometech/Clothtech surplus engine (**+$5.5bn net**).
+
 ## Technical-textile segment trade — FY24 vs FY25 (Ministry of Textiles + NTTM Compendium)
 
 **Note on data sources:** FY25 segment-wise data is available via [TradeStat](https://tradestat.commerce.gov.in/) 
