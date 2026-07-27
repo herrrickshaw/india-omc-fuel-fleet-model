@@ -1,0 +1,127 @@
+{
+  "import_deficit_trend": {
+    "years": [
+      "FY2021",
+      "FY2022",
+      "FY2023",
+      "FY2024",
+      "FY2025"
+    ],
+    "ch39_imports": [
+      16.8,
+      19.2,
+      18.5,
+      20.1,
+      22.1
+    ],
+    "ch29_imports": [
+      19.4,
+      23.6,
+      21.0,
+      24.0,
+      26.6
+    ],
+    "total_imports": [
+      36.2,
+      42.8,
+      39.5,
+      44.1,
+      48.7
+    ]
+  },
+  "capacity_expansion": {
+    "projects": [
+      "BPCL AP",
+      "RIL O2C",
+      "BPCL Kochi",
+      "L&T Bina",
+      "Private",
+      "BHAVYA Parks"
+    ],
+    "fy26_capacity": [
+      0,
+      0.8,
+      0.15,
+      0.4,
+      0.2,
+      0.1
+    ],
+    "fy28_capacity": [
+      1.2,
+      1.5,
+      0.15,
+      0.6,
+      0.4,
+      0.3
+    ],
+    "fy30_capacity": [
+      1.8,
+      2.0,
+      0.15,
+      1.0,
+      0.8,
+      0.6
+    ]
+  },
+  "segment_opportunity": {
+    "segment": [
+      "Indutech",
+      "Hometech",
+      "Mobiltech",
+      "Buildtech",
+      "Packtech",
+      "Others"
+    ],
+    "current_import": [
+      3.5,
+      1.2,
+      1.0,
+      0.8,
+      0.6,
+      3.6
+    ],
+    "addressable_fy30": [
+      2.4,
+      0.66,
+      0.65,
+      0.48,
+      0.27,
+      1.6
+    ]
+  },
+  "trade_balance": {
+    "chapter": [
+      "29",
+      "39",
+      "52",
+      "54",
+      "55",
+      "56",
+      "59",
+      "63",
+      "Others"
+    ],
+    "exports": [
+      20.1,
+      8.2,
+      6.3,
+      1.8,
+      1.6,
+      0.7,
+      0.5,
+      6.1,
+      25.3
+    ],
+    "imports": [
+      26.6,
+      22.1,
+      1.4,
+      1.5,
+      0.8,
+      0.5,
+      0.8,
+      0.6,
+      8.5
+    ]
+  }
+}
