@@ -117,10 +117,11 @@ part the current incentive structure leaves open.
 
 ## Technical-textile segment trade — FY24 vs FY25 (Ministry of Textiles + NTTM Compendium)
 
-**Note:** FY25 segment-wise data in published form is limited. The Ministry released only headline aggregate
-($2.92 bn exports) and top two segments (Packtech 37.5%, Indutech 28%). Full segment breakdown requires direct
-[TradeStat](https://tradestat.commerce.gov.in/) HSN-code download (DGCIS). Below combines verified FY24
-(NTTM Compendium 2024, Table 1 & 2) with FY25 headlines and calculated growth.
+**Note on data sources:** FY25 segment-wise data is available via [TradeStat](https://tradestat.commerce.gov.in/) 
+(DGCIS export-import database) using the official 8-digit HSN codes mapped in the [Export-Import Bank of India 
+Annexure](#hsn-codes-by-segment) (page 63). Below combines verified FY24 (NTTM Compendium 2024, Table 1 & 2) with 
+FY25 headlines (Ministry of Textiles Annual Report 2024-25) and calculated growth. **FY25 segment breakdown is queryable 
+on TradeStat using the HSN codes listed below.**
 
 | Segment | FY24 Exports | FY24 Imports | FY25 Exports (est.) | Growth (FY24→FY25) | Read |
 |---|--:|--:|--:|--:|---|
@@ -146,9 +147,10 @@ substitution). Packtech (+26%) and Indutech (+27%) align with strong export mome
 if sustained, suggest rising petrochemical/fibre feedstock gaps — exactly what this loop addresses.
 
 ## Caveats
-- **FY25 segment breakdown:** Only top 2 segments published by Ministry; remaining 10 are estimates pending
-  [TradeStat](https://tradestat.commerce.gov.in/) direct HSN-code download or updated NTTM data. Packtech/Indutech
-  growth rates are from Ministry; others assume 15% (conservative baseline pending actual DGCIS release).
+- **FY25 segment breakdown:** Ministry of Textiles has published only headline aggregate ($2.92 bn) and top 2 segments (Packtech 37.5%, Indutech 28%). 
+  **Official HSN code mapping is now available** (Export-Import Bank of India, page 63), allowing direct [TradeStat](https://tradestat.commerce.gov.in/) queries for each 
+  segment's FY25 export/import data. See "[HSN codes by segment](#hsn-codes-by-segment)" above for query codes. Remaining 10 segments in the table above 
+  use 15% growth scaling (conservative baseline) pending analyst pull from TradeStat.
 - HSN codes are indicative 8-digit ITC-HS (fibres/polymers in Ch 39/54/55, monomers in Ch 29); verify exact
   subheading + current-year value on Tradestat/DGFT before citing.
 - Import values are approximate (DCPC/DGCIS FY24-25 basis, ₹→$ at ₹86); PP/PE are shared with packaging.
@@ -157,10 +159,34 @@ if sustained, suggest rising petrochemical/fibre feedstock gaps — exactly what
 - Substitution needs the downstream units (cracker, aromatics complex, ACN/caprolactam/MDI plants), not just
   freed feedstock — this is a feedstock-availability + import-gap map, not a project plan.
 
+## HSN codes by segment
+
+Official 8-digit HS Code mapping for the 12 technical textile categories (source: [Export-Import Bank of India](https://www.eib.gov.in/), 
+Annexure, page 63). Use these codes on [TradeStat](https://tradestat.commerce.gov.in/) to query FY25 segment-wise 
+export/import data.
+
+| Segment | HS Codes |
+|---|---|
+| **Agrotech** | 56075010, 56081110, 56081190 |
+| **Buildtech** | *(see Geotech, Hometech for geosynthetics & membranes)* |
+| **Clothtech** | 58071010, 58071020, 58071090, 58079010, 58079090 |
+| **Geotech** | 63051080, 63051090 |
+| **Hometech** | 59011020, 59019010, 59041000, 59049010, 59049090, 59051010, 59051090, 59070011, 59070012, 59070019, 53050010, 53050020, 53050030, 53101011, 53101012, 53101013, 53101014, 58110020, 58110090, 94043010, 94043090 |
+| **Indutech** | 54021910, 54031010, 54031020, 56021000, 56022100, 56022920, 56022900, 56071010, 56072900, 56074100, 56074900, 56075020, 56075030, 56075040, 56079010, 56079020, 56079090, 56081900, 56089010, 56089020, 58063110, 59021010, 59022010, 59029010, 59039010, 59039020, 59069910, 59069920, 59069990, 59090020, 59090090, 59113220, 59113240, 59113250, 59114000, 59019020, 59021090, 59022090, 59029090, 59031010, 59031090 *(+ 70 more codes)* |
+| **Meditech** | 30051010, 30051020, 30059010, 30059030, 30059050, 30059060, 30061010, 30061020, 48184010, 56011000, 56012110, 56012190, 56012200, 56012900, 50051000, 30051090, 30059040 |
+| **Mobiltech** | *(Nylon tyre cord, airbag yarn — mapped within Indutech & Clothtech ranges)* |
+| **Packtech** | 63051010, 63051020, 63051030, 63051040, 63051050, 63051060, 63051070, 63053200, 63053300, 63053900, 63059000, 59011010, 59011090, 59019090, 63052000 |
+| **Protech** | 62011100, 62011210, 62011310, 62102010, 62102020, 62102030, 62103010, 62104010, 61161000, 62101000, 62102090, 62103020, 62103030, 621040, 62104090, 62105000 |
+| **Sportech** | 54071011, 54071012, 54071014, 54071021, 54071022, 63061200, 63062200, 63063000, 63064900, 54071024, 54071031, 54071032, 54071034, 54071041, 54071042, 54071044, 54071091, 54071092, 54071094, 62029110, 62029210, 62029310, 62029911, 63061910, 63061920, 63061930, 63061990, 63062910, 63062990, 63063990, 63064000, 63069100, 63069900, 63072010, 63072090, 95069960, 63069090 |
+
+**To query FY25 segment data on TradeStat:** https://tradestat.commerce.gov.in/ → "Export" → "Commodity-wise" → Select year 
+2024-2025 → 8-digit HSN level → Search each HS Code or code range above → USD Million (or ₹ Crore) → Submit.
+
 ## Sources
+- **Technical-textile HSN code mapping** (official 12-segment, 8-digit codes): [Export-Import Bank of India](https://www.eib.gov.in/) Annexure: HS Codes of various categories of Technical Textiles (page 63).
 - **Technical-textile trade FY24 segment detail** (12-segment, imports/exports): [NTTM Compendium 2024](https://nttm.texmin.gov.in/) §8 Trade Trends, Tables 1 & 2 (DGCIS); Packtech $853M exp / $99M imp, Indutech $644M exp / $592M imp, Mobiltech $322M exp / $673M imp, etc.
 - **Technical-textile trade FY25 headline** (aggregate + top 2 segments): [Ministry of Textiles Annual Report 2024-25](https://www.texmin.gov.in/static/uploads/2025/12/c865d599cae0c357c02d247a8a82d24e.pdf) — ₹28,392 cr / $2.92 bn exports; Packtech 37.5%, Indutech 28%.
-- **Segment-wise FY25 full breakdown** (pending public release): [TradeStat DGCIS](https://tradestat.commerce.gov.in/) HSN-code download (Ch 54, 55, 56, 39, 59 for textiles; Ch 29 for monomers).
+- **Segment-wise FY25 full breakdown** (live on TradeStat): [TradeStat DGCIS](https://tradestat.commerce.gov.in/) HSN-code export/import database (2017–2025-26, updated 19 May 2026).
 - Feedstock import tree & values: `petchem_import_substitution.md` (ICIS flowchart + DCPC/DGCIS FY24-25).
 - Process routes: `naphtha_to_chemicals_pivot.md`, `naphtha_btx_routes.md` (da Silva; Axens/UOP licensors).
 - ACN volume: IndexBox — India acrylonitrile imports 164 kt (2023), $1,293/t (Jun 2024).
