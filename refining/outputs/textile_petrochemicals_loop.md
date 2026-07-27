@@ -115,7 +115,40 @@ Mission 2030-31 Concept Note** (MoT, Dec 2025):
 (MEG, PX, ACN, caprolactam, BDO) is exactly what ethanol-freed naphtha/reformate would supply — the
 part the current incentive structure leaves open.
 
+## Technical-textile segment trade — FY24 vs FY25 (Ministry of Textiles + NTTM Compendium)
+
+**Note:** FY25 segment-wise data in published form is limited. The Ministry released only headline aggregate
+($2.92 bn exports) and top two segments (Packtech 37.5%, Indutech 28%). Full segment breakdown requires direct
+[TradeStat](https://tradestat.commerce.gov.in/) HSN-code download (DGCIS). Below combines verified FY24
+(NTTM Compendium 2024, Table 1 & 2) with FY25 headlines and calculated growth.
+
+| Segment | FY24 Exports | FY24 Imports | FY25 Exports (est.) | Growth (FY24→FY25) | Read |
+|---|--:|--:|--:|--:|---|
+| **Packtech** | **$853 M** | **$99 M** | **$1.08 bn** (37.5% of $2.92bn) | **+26%** | India's export engine; +$240 M growth |
+| **Indutech** | **$644 M** | **$592 M** | **$817 M** (28% of $2.92bn) | **+27%** | Largest deficit after Mobiltech; industrial filtration/belts |
+| **Mobiltech** | **$322 M** | **$673 M** | est. ~$370 M | ~+15% | Tyre cord/airbag = biggest import segment; deficit −$351 M FY24 |
+| **Hometech** | **$135 M** | **$246 M** | est. ~$155 M | ~+15% | Nonwovens/coated fabrics; deficit −$111 M FY24 |
+| **Meditech** | **$156 M** | **$102 M** | est. ~$180 M | +15% | Medical/hygiene textiles |
+| **Clothtech** | **$164 M** | **$145 M** | est. ~$190 M | +16% | Interlinings/sewing thread |
+| **Specialty fibres** | **$1 M** | **$40 M** | est. ~$1.5 M | +50% | PAN→carbon fibre; +275% import growth FY24 |
+| **Agrotech** | **$110 M** | **$50 M** | est. ~$127 M | +15% | Nets/covers; +95% import growth FY24 |
+| **Geotech** | **$47 M** | **$30 M** | est. ~$54 M | +15% | Geomembranes; +111% import growth FY24 |
+| **Sportech** | **$47 M** | **$27 M** | est. ~$54 M | +15% | Artificial turf/parachute; +198% import growth FY24 |
+| **Buildtech** | **$37 M** | **$27 M** | est. ~$43 M | +16% | Membranes/tarpaulins; +60% import growth FY24 |
+| **Protech** | **$69 M** | **$23 M** | est. ~$80 M | +16% | Fire-retardant/protective; +6% import growth FY24 |
+| | **$2,586 M** | **$2,054 M** | **$2,920 M** (headline) | **+13%** | Total tech textiles (Ministry FY25 = $2.92 bn) |
+
+**FY25 methodology:** Top two segments (Packtech, Indutech) from Ministry statement; others scaled at 15% growth (conservative
+vs Agrotech/Specialty/Sportech which showed 95–275% import growth in FY24, suggesting faster export acceleration on domestic
+substitution). Packtech (+26%) and Indutech (+27%) align with strong export momentum under PLI.
+
+**Import dynamics FY24→FY25:** Specialty fibres (PAN/carbon) and Agrotech/Geotech showed fastest import growth in FY24 (95–275%);
+if sustained, suggest rising petrochemical/fibre feedstock gaps — exactly what this loop addresses.
+
 ## Caveats
+- **FY25 segment breakdown:** Only top 2 segments published by Ministry; remaining 10 are estimates pending
+  [TradeStat](https://tradestat.commerce.gov.in/) direct HSN-code download or updated NTTM data. Packtech/Indutech
+  growth rates are from Ministry; others assume 15% (conservative baseline pending actual DGCIS release).
 - HSN codes are indicative 8-digit ITC-HS (fibres/polymers in Ch 39/54/55, monomers in Ch 29); verify exact
   subheading + current-year value on Tradestat/DGFT before citing.
 - Import values are approximate (DCPC/DGCIS FY24-25 basis, ₹→$ at ₹86); PP/PE are shared with packaging.
@@ -125,6 +158,9 @@ part the current incentive structure leaves open.
   freed feedstock — this is a feedstock-availability + import-gap map, not a project plan.
 
 ## Sources
+- **Technical-textile trade FY24 segment detail** (12-segment, imports/exports): [NTTM Compendium 2024](https://nttm.texmin.gov.in/) §8 Trade Trends, Tables 1 & 2 (DGCIS); Packtech $853M exp / $99M imp, Indutech $644M exp / $592M imp, Mobiltech $322M exp / $673M imp, etc.
+- **Technical-textile trade FY25 headline** (aggregate + top 2 segments): [Ministry of Textiles Annual Report 2024-25](https://www.texmin.gov.in/static/uploads/2025/12/c865d599cae0c357c02d247a8a82d24e.pdf) — ₹28,392 cr / $2.92 bn exports; Packtech 37.5%, Indutech 28%.
+- **Segment-wise FY25 full breakdown** (pending public release): [TradeStat DGCIS](https://tradestat.commerce.gov.in/) HSN-code download (Ch 54, 55, 56, 39, 59 for textiles; Ch 29 for monomers).
 - Feedstock import tree & values: `petchem_import_substitution.md` (ICIS flowchart + DCPC/DGCIS FY24-25).
 - Process routes: `naphtha_to_chemicals_pivot.md`, `naphtha_btx_routes.md` (da Silva; Axens/UOP licensors).
 - ACN volume: IndexBox — India acrylonitrile imports 164 kt (2023), $1,293/t (Jun 2024).
@@ -132,7 +168,6 @@ part the current incentive structure leaves open.
 - MEG: IMARC — India MEG market $1.1 bn (2024); IOCL Paradip MEG plant (Mar 2024).
 - Polyester/PFY scale & RIL capacity: RIL Polyesters; Beekaylon; Fibre2Fashion.
 - MMF textile imports $4.5 bn / China >55%; MMF apparel $160M: MATEXIL / Indian Textile Journal.
-- Technical-textile segment deficit: NTTM Compendium 2024 §8 Trade Trends (DGCIS FY19→FY24).
 - Global MMF fibre mix (69% synthetic + 6% cellulosic): Textile Exchange Materials Market Report 2025.
 - MMF targets, imports, PLI, feedstock/recycling mandate: National Fibre Mission 2030-31 Concept Note (MoT, Dec 2025).
 
