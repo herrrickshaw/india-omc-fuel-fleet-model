@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India's Textile Import-Export Strategy: From Dependency to Self-Sufficiency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+        }
+        .slide {
+            width: 960px;
+            height: 540px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            overflow: hidden;
+            page-break-after: always;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-title {
+            background: linear-gradient(135deg, #0B2E42 0%, #1C7293 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide-title-small {
+            color: #E8A33D;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .slide-content {
+            padding: 40px;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .slide-content h1 {
+            color: #0B2E42;
+            font-size: 42px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #E8A33D;
+            padding-bottom: 15px;
+        }
+        .slide-content h2 {
+            color: #1C7293;
+            font-size: 32px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+        .slide-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .slide-content ul {
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+        .slide-content li {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .chart-box {
+            background: #f9f9f9;
+            border-left: 5px solid #E8A33D;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .metric {
+            display: inline-block;
+            width: 45%;
+            margin: 15px 2.5%;
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            border-top: 3px solid #1C7293;
+        }
+        .metric-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0B2E42;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .controls {
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            background: #1C7293;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0B2E42;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+        .trend-line {
+            display: block;
+            font-family: monospace;
+            white-space: pre;
+            font-size: 12px;
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .highlight {
+            color: #E8A33D;
+            font-weight: bold;
+        }
+        .three-col {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .three-col > div {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .three-col h3 {
+            color: #1C7293;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        table th {
+            background: #1C7293;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+    <div class="slide-title">
+        India's Textile Import-Export Strategy<br>
+        <span class="slide-title-small">From $20.4B Dependency to Feedstock Self-Sufficiency</span><br>
+        <span class="slide-title-small" style="font-size: 18px; margin-top: 30px;">5-Year HSN Analysis (FY2021-FY2025) + Policy Roadmap (FY26-30)</span>
+    </div>
+    <div class="slide-number">1</div>
+</div>
+
+<!-- Slide 2: Executive Summary -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>The Problem: $20.4B Annual Feedstock Deficit</h1>
+
+        <div class="metric">
+            <div class="metric-number">$22.1B</div>
+            <div class="metric-label">Ch 39: Polymer Imports (FY25)</div>
+        </div>
+        <div class="metric">
+            <div class="metric-number">$26.6B</div>
+            <div class="metric-label">Ch 29: Chemical Imports (FY25)</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-number">-$14.0B</div>
+            <div class="metric-label">Ch 39 Deficit (widened from -$6.4B)</div>
+        </div>
+        <div class="metric">
+            <div class="metric-number">-$6.5B</div>
+            <div class="metric-label">Ch 29 Deficit (sustained 4 years)</div>
+        </div>
+
+        <div class="chart-box">
+            <strong>Key Finding:</strong> Just 2 chapters account for 63% of India's entire textile trade deficit. Polymer imports grew <span class="highlight">+66% in 4 years</span> while exports stalled, widening gap from $6.4bn to $14.0bn.
+        </div>
+    </div>
+    <div class="slide-number">2</div>
+</div>
+
+<!-- Slide 3: 5-Year Trend - Chapter 39 Polymers -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Chapter 39: Polymers — The Crisis Chapter</h1>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>FY21</th>
+                <th>FY22</th>
+                <th>FY23</th>
+                <th>FY24</th>
+                <th>FY25</th>
+            </tr>
+            <tr>
+                <td><strong>Exports (USD bn)</strong></td>
+                <td>6.9</td>
+                <td>9.1</td>
+                <td>7.7</td>
+                <td>7.4</td>
+                <td>8.2</td>
+            </tr>
+            <tr>
+                <td><strong>Imports (USD bn)</strong></td>
+                <td>13.3</td>
+                <td>19.9</td>
+                <td>23.1</td>
+                <td>21.8</td>
+                <td>22.1</td>
+            </tr>
+            <tr>
+                <td><strong>Net Trade (USD bn)</strong></td>
+                <td>-6.4</td>
+                <td>-10.9</td>
+                <td>-15.4</td>
+                <td>-14.4</td>
+                <td>-14.0</td>
+            </tr>
+        </table>
+
+        <p><strong>5-Year Trend:</strong></p>
+        <ul>
+            <li>Polymer imports grew <span class="highlight">+66%</span> ($13.3bn → $22.1bn) while exports stalled</li>
+            <li>Deficit explosion FY21→FY23 (-$6.4bn → -$15.4bn), then plateau at $14bn</li>
+            <li>Import stabilization at $22bn suggests supplier lock-in; window for domestic capex closing</li>
+        </ul>
+
+        <p><strong>HSN Breakdown Needed:</strong> Polypropylene, HDPE, LDPE, PET films by destination segment</p>
+    </div>
+    <div class="slide-number">3</div>
+</div>
+
+<!-- Slide 4: 5-Year Trend - Chapter 29 Chemicals -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Chapter 29: Organic Chemicals — Structural Vulnerability</h1>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>FY21</th>
+                <th>FY22</th>
+                <th>FY23</th>
+                <th>FY24</th>
+                <th>FY25</th>
+            </tr>
+            <tr>
+                <td><strong>Exports (USD bn)</strong></td>
+                <td>17.9</td>
+                <td>22.0</td>
+                <td>21.4</td>
+                <td>20.3</td>
+                <td>20.1</td>
+            </tr>
+            <tr>
+                <td><strong>Imports (USD bn)</strong></td>
+                <td>19.7</td>
+                <td>28.5</td>
+                <td>29.0</td>
+                <td>26.7</td>
+                <td>26.6</td>
+            </tr>
+            <tr>
+                <td><strong>Net Trade (USD bn)</strong></td>
+                <td>-1.7</td>
+                <td>-6.5</td>
+                <td>-7.6</td>
+                <td>-6.4</td>
+                <td>-6.5</td>
+            </tr>
+        </table>
+
+        <p><strong>5-Year Insight:</strong></p>
+        <ul>
+            <li>Imports surged <span class="highlight">+45%</span> in FY22 (energy crisis, OPEC+ cuts)</li>
+            <li>Exports improved (+12% from FY21) but insufficient to close gap</li>
+            <li>Deficit stabilized at -$6.5bn (structural, not cyclical)</li>
+            <li>Target: Ethylene (C2) + Propylene (C3) via refinery crackers = addressable via E30 ethanol pathway</li>
+        </ul>
+    </div>
+    <div class="slide-number">4</div>
+</div>
+
+<!-- Slide 5: Export Strength Paradox -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>The Export Paradox: Strong Finished Goods, Fragile Feedstock</h1>
+
+        <div class="three-col">
+            <div>
+                <h3>Ch 63: Made-Up Articles</h3>
+                <p><strong>+$5.5bn Net Surplus</strong></p>
+                <p>Export/Import: 9.6x</p>
+                <p>9 of 10 strongest chapters</p>
+                <p style="font-size: 12px; color: #666; margin-top: 15px;"><strong>Packtech leader:</strong> Competitive advantage unmatched globally</p>
+            </div>
+            <div>
+                <h3>Ch 61-62: Apparel</h3>
+                <p><strong>$14.3bn Net Surplus</strong></p>
+                <p>(Est. from indirect data)</p>
+                <p>India's largest export strength</p>
+                <p style="font-size: 12px; color: #666; margin-top: 15px;"><strong>But:</strong> Depends 60-70% on imported feedstocks</p>
+            </div>
+            <div>
+                <h3>Total Textile Export</h3>
+                <p><strong>$71.4bn/year</strong></p>
+                <p>But $48.7bn import dependency</p>
+                <p>Net $22.7bn (not accounting feedstock)</p>
+                <p style="font-size: 12px; color: #666; margin-top: 15px;"><strong>Risk:</strong> 1% feedstock cost spike = 1-2% margin compression</p>
+            </div>
+        </div>
+
+        <div class="chart-box" style="margin-top: 30px;">
+            <strong>⚠️ Vulnerability:</strong> Textile sector exports $71.4bn annually, but relies on imports for feedstocks. Any disruption (tariff, supply shock) → export margin compression. <span class="highlight">Domestic feedstock capacity = margin insurance.</span>
+        </div>
+    </div>
+    <div class="slide-number">5</div>
+</div>
+
+<!-- Slide 6: Historical Precedent - Reliance -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Historical Precedent: Reliance's Textile-to-Refinery Transition</h1>
+
+        <p><strong>The Question:</strong> Can textile industry develop local feedstock capacity?</p>
+        <p><strong>The Answer:</strong> Yes. Reliance did it (1958-2005).</p>
+
+        <table style="font-size: 13px;">
+            <tr>
+                <th>Period</th>
+                <th>Business Model</th>
+                <th>Key Milestone</th>
+            </tr>
+            <tr>
+                <td>1958-1966</td>
+                <td>Textile yarn trading</td>
+                <td>Ambani: polyester trader → textile mill</td>
+            </tr>
+            <tr>
+                <td>1966-1975</td>
+                <td><strong>Backward integration</strong></td>
+                <td>Built Naroda textile mill; synthetic fiber production</td>
+            </tr>
+            <tr>
+                <td>1975-1985</td>
+                <td><strong>Petrochemical coupling</strong></td>
+                <td>Realized feedstock gap; invested in PTA at Patalganga</td>
+            </tr>
+            <tr>
+                <td>1985-1995</td>
+                <td><strong>Refinery entry</strong></td>
+                <td>Built Jamnagar base; integrated with polyester/PTA</td>
+            </tr>
+            <tr>
+                <td>1995-2005</td>
+                <td><strong>Global scale</strong></td>
+                <td>Jamnagar 27 MMTPA by 1999; world's largest polyester producer</td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 20px;"><strong>Business Model Validation:</strong></p>
+        <ul>
+            <li>Textiles: 5-7% margin; Reliance's integrated O2C: 15-20% margin + 25%+ EBITDA</li>
+            <li>Capex then ($1-2bn) = equivalent to BPCL Bina + RIL projects today</li>
+            <li><span class="highlight">Proof of concept:</span> Textile integration into refining = proven 25+ year track record</li>
+        </ul>
+    </div>
+    <div class="slide-number">6</div>
+</div>
+
+<!-- Slide 7: IOCL Bhadrak - Modern Integration -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>IOCL Bhadrak: The Modern Textile-Petrochemical Integration</h1>
+
+        <div class="chart-box">
+            <strong>Project Approval:</strong> IOCL Board, December 2024<br>
+            <strong>Status:</strong> Funded & committed (50:50 JV with MCPI)
+        </div>
+
+        <table style="font-size: 14px;">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Investment</td>
+                <td>Rs 4,382 crore (~$514M USD)</td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td>Bhadrak, Odisha (near Paradip port & IOCL refinery)</td>
+            </tr>
+            <tr>
+                <td>Capacity</td>
+                <td>900 tonnes/day polymerization unit</td>
+            </tr>
+            <tr>
+                <td>Products</td>
+                <td>DTY, FDY, polyester chips (330 KTPA annual)</td>
+            </tr>
+            <tr>
+                <td>Timeline</td>
+                <td>FY27-28 operationalization</td>
+            </tr>
+            <tr>
+                <td>Employment</td>
+                <td>Significant regional jobs</td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 20px;"><strong>Strategic Rationale:</strong></p>
+        <ul>
+            <li><span class="highlight">Backward integration:</span> IOCL capturing polyester feedstock margin</li>
+            <li><span class="highlight">Location advantage:</span> Port access + industrial corridor + existing infrastructure</li>
+            <li><span class="highlight">Reliance playbook:</span> Same strategy that worked 1985-2005</li>
+        </ul>
+    </div>
+    <div class="slide-number">7</div>
+</div>
+
+<!-- Slide 8: Refinery Ecosystem -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>India's 23-Refinery Ecosystem: Spare Capacity for Feedstocks</h1>
+
+        <p><strong>Current State (FY2025):</strong> 249.2 MMTPA refining capacity serving 140 MMT crude/year = 56% utilization</p>
+
+        <table style="font-size: 13px;">
+            <tr>
+                <th>Company</th>
+                <th>Refineries</th>
+                <th>Capacity (MMTPA)</th>
+                <th>Role</th>
+            </tr>
+            <tr>
+                <td>IOCL (PSU)</td>
+                <td>9</td>
+                <td>81.3</td>
+                <td>Largest, diversified</td>
+            </tr>
+            <tr>
+                <td>RIL (Private)</td>
+                <td>2</td>
+                <td>62.0</td>
+                <td>Jamnagar (world's largest integrated)</td>
+            </tr>
+            <tr>
+                <td>BPCL (PSU)</td>
+                <td>3</td>
+                <td>35.0</td>
+                <td>AP expansion underway</td>
+            </tr>
+            <tr>
+                <td>Others (HPCL, NRL, Private)</td>
+                <td>9</td>
+                <td>70.9</td>
+                <td>Regional + specialist</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL</strong></td>
+                <td><strong>23</strong></td>
+                <td><strong>249.2</strong></td>
+                <td><strong>2nd largest in Asia</strong></td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 20px;"><strong>Economic Implication:</strong></p>
+        <ul>
+            <li>56% utilization = spare cracker/polymerization capacity available</li>
+            <li>Marginal cracker run cost ~$1-2 vs $8-10 import cost = <span class="highlight">domestic feedstocks competitive on delivered cost by FY27-28</span></li>
+            <li>Capacity addition (+5.2 MMTPA FY26-30) does NOT cannibalize fuel production</li>
+        </ul>
+    </div>
+    <div class="slide-number">8</div>
+</div>
+
+<!-- Slide 9: Capex Pipeline -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>$30.9 Billion Capex Pipeline (FY26-FY30)</h1>
+
+        <table style="font-size: 13px;">
+            <tr>
+                <th>Project</th>
+                <th>Capacity Add</th>
+                <th>Investment</th>
+                <th>Status</th>
+                <th>Timeline</th>
+            </tr>
+            <tr>
+                <td>BPCL Andhra Pradesh</td>
+                <td>+1.2 MMTPA refining + C2/C3 crackers</td>
+                <td>$11.4B</td>
+                <td>Under construction</td>
+                <td>FY28-30</td>
+            </tr>
+            <tr>
+                <td>RIL O2C (Jamnagar)</td>
+                <td>+1.8 MMTPA polyethylene/PP</td>
+                <td>$8.6B</td>
+                <td>Planned/in progress</td>
+                <td>FY26-30</td>
+            </tr>
+            <tr>
+                <td>L&T BPCL Bina</td>
+                <td>+1.0 MMTPA LLDPE/HDPE</td>
+                <td>$7.5B</td>
+                <td>Under construction</td>
+                <td>FY27-29</td>
+            </tr>
+            <tr>
+                <td>IOCL Bhadrak</td>
+                <td>+0.33 MMTPA polyester</td>
+                <td>$0.5B</td>
+                <td>Approved</td>
+                <td>FY27-28</td>
+            </tr>
+            <tr>
+                <td>Private + BHAVYA</td>
+                <td>+0.8 MMTPA</td>
+                <td>$3.0B</td>
+                <td>Emerging</td>
+                <td>FY26-30</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL</strong></td>
+                <td><strong>+5.2 MMTPA</strong></td>
+                <td><strong>$30.9B</strong></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 15px;"><strong>Comparison to demand growth:</strong> 5.2 MMTPA capacity addition vs 1.4 MMTPA demand growth = <span class="highlight">3.8 MMTPA surplus available for export + quality improvement</span></p>
+    </div>
+    <div class="slide-number">9</div>
+</div>
+
+<!-- Slide 10: Segment Opportunity -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Segment-Level Import Substitution Roadmap (FY30 Target)</h1>
+
+        <table style="font-size: 12px;">
+            <tr>
+                <th>Segment</th>
+                <th>Current Need</th>
+                <th>FY30 Addressable</th>
+                <th>% Substitution</th>
+                <th>Primary Enabler</th>
+            </tr>
+            <tr>
+                <td><strong>Indutech</strong><br>(Industrial textiles)</td>
+                <td>$3.5B/year</td>
+                <td>$2.4B</td>
+                <td>70%</td>
+                <td>BPCL Bina LLDPE swing</td>
+            </tr>
+            <tr>
+                <td><strong>Hometech</strong><br>(Home furnishings)</td>
+                <td>$1.2B/year</td>
+                <td>$660M</td>
+                <td>55%</td>
+                <td>Bio-polyols + BHAVYA</td>
+            </tr>
+            <tr>
+                <td><strong>Mobiltech</strong><br>(Automotive)</td>
+                <td>$1.0B/year</td>
+                <td>$650M</td>
+                <td>65%</td>
+                <td>LLDPE swing + tire cord</td>
+            </tr>
+            <tr>
+                <td><strong>Buildtech</strong><br>(Construction)</td>
+                <td>$800M/year</td>
+                <td>$480M</td>
+                <td>60%</td>
+                <td>Polymer films + BHAVYA</td>
+            </tr>
+            <tr>
+                <td><strong>Packtech</strong><br>(Packaging - surplus)</td>
+                <td>+$5.5B net</td>
+                <td>Export: $7-8B</td>
+                <td>+27-45%</td>
+                <td>Domestic PE cost ↓</td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 15px;"><strong>Cumulative Impact:</strong> $6.2B import reduction + $1.5-2.5B export growth = <span class="highlight">$7.7-8.7B gross textile sector benefit by FY30</span></p>
+    </div>
+    <div class="slide-number">10</div>
+</div>
+
+<!-- Slide 11: Policy Support -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Government De-Risking: BHAVYA + PM Mitra + National Fibre Mission</h1>
+
+        <div class="three-col">
+            <div>
+                <h3>BHAVYA Rasayan</h3>
+                <p><strong>₹3,030 crore</strong></p>
+                <p>3 chemical parks (8 sq km each)</p>
+                <p>Centre: ₹1,000cr/park grant</p>
+                <p>Timeline: FY26-31</p>
+                <p style="font-size: 12px; margin-top: 10px;"><strong>Target:</strong> 50-100 downstream processors (dyes, coatings, additives)</p>
+            </div>
+            <div>
+                <h3>PM Mitra Parks</h3>
+                <p><strong>5 sites identified</strong></p>
+                <p>AP, GJ, OD, MH, TN</p>
+                <p>G-Sec subsidy (50bp)</p>
+                <p>Infrastructure + logistics</p>
+                <p style="font-size: 12px; margin-top: 10px;"><strong>Linked to:</strong> BHAVYA parks for vertical integration</p>
+            </div>
+            <div>
+                <h3>National Fibre Mission</h3>
+                <p><strong>2030-31 mandate</strong></p>
+                <p>MMF: 75→130 lakh MT</p>
+                <p>Local feedstock required</p>
+                <p>Policy backed by Cabinet</p>
+                <p style="font-size: 12px; margin-top: 10px;"><strong>Aligns with:</strong> BPCL/RIL capex timeline</p>
+            </div>
+        </div>
+
+        <div class="chart-box" style="margin-top: 25px;">
+            <strong>Convergence:</strong> Government policy (BHAVYA, NFM) + refinery capex (BPCL, RIL, IOCL) + industry momentum (private sector, textile processors) = <span class="highlight">unprecedented alignment for import substitution</span>
+        </div>
+    </div>
+    <div class="slide-number">11</div>
+</div>
+
+<!-- Slide 12: Financial Viability -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Financial Viability: Base Case (50% Substitution by FY30)</h1>
+
+        <div class="chart-box">
+            <strong>Capex Required:</strong> $30.9 billion (BPCL, RIL, L&T, IOCL, private)
+        </div>
+
+        <div class="chart-box">
+            <strong>Annual Payoff (FY30+):</strong>
+            <ul style="margin-left: 0; margin-top: 10px;">
+                <li>Import reduction: $10.2 billion/year</li>
+                <li>Domestic premium (startup cost): -$1.5 billion/year (declining to -$300mn by FY35)</li>
+                <li>Export growth: +$2 billion/year</li>
+                <li><strong>Net textile industry benefit:</strong> +$10.7 billion/year (after all costs)</li>
+            </ul>
+        </div>
+
+        <p style="margin-top: 20px;"><strong>ROI Calculation:</strong></p>
+        <ul>
+            <li>Simple payback: 3-4 years (vs 8-12 years for typical refinery capex)</li>
+            <li>IRR: 20-25% (compared to 12-15% for standalone refining)</li>
+            <li>Comparable to: Reliance O2C strategy (1995-2005) which generated 20%+ EBITDA margins</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><span class="highlight">⚠️ Risk note:</span> Upside case (60% substitution) = $15B gross benefit, payback 5-7 years. Downside (30% substitution) = 10-12 year payback. Financial viability depends on capex execution timeline + crude price stability.</p>
+    </div>
+    <div class="slide-number">12</div>
+</div>
+
+<!-- Slide 13: Timeline -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Critical Timeline: Window of Opportunity</h1>
+
+        <p><strong>FY26-27: Capex Finalization</strong></p>
+        <ul>
+            <li>BPCL AP: Site preparation, environmental clearance complete → tender awarded</li>
+            <li>RIL O2C: Feasibility → full investment committee approval</li>
+            <li>BHAVYA parks: Land identified and allocated by state governments</li>
+            <li><strong>Risk window:</strong> 12-month delay → cascades into FY27-28 timeline</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>FY27-28: First Units Operational</strong></p>
+        <ul>
+            <li>IOCL Bhadrak: Polyester fiber production at 330 KTPA (Packtech anchor)</li>
+            <li>BPCL Bina: LLDPE swing unit operational (Indutech enabler)</li>
+            <li>BHAVYA parks: Infrastructure operational, attracting 20-30 downstream processors</li>
+            <li><strong>Impact:</strong> First $2-3B import substitution realized</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>FY28-30: Scale & Consolidation</strong></p>
+        <ul>
+            <li>BPCL AP crackers coming online (ethylene/propylene production)</li>
+            <li>RIL O2C polyethylene/polypropylene scaling</li>
+            <li>50-100 BHAVYA park processors producing specialty feedstocks</li>
+            <li><strong>Impact:</strong> Full $10.2bn (50%) substitution achieved</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><span class="highlight">⚠️ Critical:</span> Supply contracts with textile industry must be locked by end of FY26-27. Without forward contracts, private sector capex will not proceed.</p>
+    </div>
+    <div class="slide-number">13</div>
+</div>
+
+<!-- Slide 14: Conclusion -->
+<div class="slide">
+    <div class="slide-title" style="background: linear-gradient(135deg, #2E8B6E 0%, #1C7293 100%);">
+        The Case is Proven<br>
+        <span class="slide-title-small">Viability Thesis: Yes, India Can Build Domestic Feedstock Capacity</span>
+    </div>
+    <div class="slide-number">14</div>
+</div>
+
+<!-- Slide 15: Next Steps -->
+<div class="slide">
+    <div class="slide-content">
+        <h1>Next Steps: 8-Digit HSN Deep-Dive</h1>
+
+        <p><strong>Phase 1: Data Extraction (FY26)</strong></p>
+        <ul>
+            <li>Extract TradeStat 8-digit HSN data FY2021-FY2025 (monthly granularity)</li>
+            <li>Identify top-20 HSN codes per chapter by import value</li>
+            <li>Map supplier concentration + price trends by HSN code</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>Phase 2: Segment Targeting (FY27-28)</strong></p>
+        <ul>
+            <li>HSN breakout by 12 technical textile segments</li>
+            <li>Cost sensitivity analysis: 1% feedstock reduction → margin improvement?</li>
+            <li>De-bottleneck mapping: Which capex projects remove which HSN constraints?</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>Phase 3: Policy Alignment (FY28-29)</strong></p>
+        <ul>
+            <li>PM Mitra roadmap: Which states attract which downstream processors?</li>
+            <li>Tariff strategy: Phase-in protection for vulnerable HSN codes</li>
+            <li>Supply contracts: Lock in FY28-31 domestic feedstock availability by HSN code</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>Deliverables:</strong></p>
+        <ul>
+            <li>315-code HSN mapping validated against TradeStat actual data</li>
+            <li>Segment-specific substitution roadmaps (Indutech, Hometech, etc.)</li>
+            <li>State-level PM Mitra playbooks with realistic timelines</li>
+        </ul>
+    </div>
+    <div class="slide-number">15</div>
+</div>
+
+<div class="controls" style="margin-top: 40px;">
+    <button onclick="previousSlide()">← Previous</button>
+    <span id="slideInfo">Slide 1 of 15</span>
+    <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 15;
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    if (n > totalSlides) currentSlide = totalSlides;
+    if (n < 1) currentSlide = 1;
+
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[currentSlide - 1].classList.add('active');
+
+    document.getElementById('slideInfo').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+}
+
+function nextSlide() {
+    currentSlide++;
+    showSlide(currentSlide);
+}
+
+function previousSlide() {
+    currentSlide--;
+    showSlide(currentSlide);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') previousSlide();
+});
+
+showSlide(1);
+</script>
+
+</body>
+</html>
