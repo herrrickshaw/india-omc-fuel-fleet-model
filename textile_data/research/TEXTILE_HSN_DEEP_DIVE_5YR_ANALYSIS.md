@@ -257,6 +257,137 @@ This analysis provides:
 
 ---
 
+## Part 3A: Government Policy Framework & Industry Capacity (Ministry of Chemicals & Fertilizers Annual Report 2024-25)
+
+### Chemical & Petrochemical Sector Baseline
+
+**Industry Size & Growth** (Source: MoC&F Annual Report 2024-25):
+
+| Metric | FY2022-23 Value | FY2024-25 Projection | CAGR (FY17-23) |
+|--------|-----------------|---------------------|-----------------|
+| **Sector Output** | Rs 15,76,459 cr | ~Rs 18,00,000 cr | 13% (FY5yr) |
+| **Major Chemicals & Petrochemicals Production** | 55,126 MT ('000) | 28,292 MT (Apr-Sep 2024 H1) | Tracking +7% |
+| **Installed Capacity (Base)** | 69,308 MT ('000) | 69,308 + new PCPIR | Stable |
+| **Capacity Utilization (Basic Maj Chem)** | 76.2% | ~76-78% (est.) | Healthy |
+| **Capacity Utilization (Basic Maj Petrochem)** | 80.6% | ~80-82% (est.) | Healthy |
+| **Overall Capacity Utilization** | 79.5% | ~79-81% | Strong |
+| **Employment (Org. Sector)** | 10.58 lakh persons | ~10.8-11.0 lakh | +3.1% YoY growth |
+
+**Production Mix (FY2023-24)**:
+- **Alkali Chemicals** (caustic soda, soda ash): 71% of total output
+- **Organic Chemicals**: 15% (key for textiles — dyes, pigments, intermediates)
+- **Inorganic Chemicals**: 9% (titanium dioxide, phosphates for specialty textiles)
+- **Pesticides & Dyes/Pigments**: 5% combined
+- **Petrochemicals**: Polymers (30%), Olefins (29%), Fiber Intermediates (12%), Synthetic Yarn (9%), Aromatics (8%), Other (12%)
+
+**Critical for Textiles**: Fiber Intermediates (12% of petrochem mix) = HS Chapter 29 (ethylene, propylene monomers) and Chapter 39 (polymer feedstocks)
+
+---
+
+### Quality Control & Regulatory Standards
+
+**Mandatory BIS Standards Initiative** (from Chapter 7, MoC&F Report):
+
+The Department initiated a major quality upgrade in FY2024-25:
+
+| Standard Type | Scope | Implementation Status |
+|---------------|-------|----------------------|
+| **BIS Conformity Assessment** | All imported chemicals/petrochemicals | Under Section 16 of BIS Act, 2016 |
+| **Foreign Manufacturers Certification Scheme (FMCS)** | Export certification requirement for banned/restricted chemicals | Active enforcement |
+| **Quality Control Orders** | Mandatory for major chemicals | Annexure V lists controlled substances |
+| **Rotterdam Convention Compliance** | Prior Informed Consent for hazardous chemical exports | Full compliance framework |
+| **Stockholm Convention** | Persistent Organic Pollutants (POPs) elimination | 30 chemicals listed for restriction |
+
+**Impact on Textile Feedstock Imports**: 
+- Imported dyes (HS 3204-3207), chemical intermediates (HS 2902-2920), and polymers (HS 3901-3914) must now comply with BIS standards
+- **Enforces quality parity**: Prevents dumping of low-cost, low-quality synthetic textile feedstocks from China/Middle East
+- **Timeline**: Mandatory from 2024-25 onwards → Increases effective tariff by 3-5% on poor-quality imports, creating competitive space for domestic high-quality production
+
+---
+
+### PCPIRs: Infrastructure & Feedstock Anchor Model
+
+**Three Operational PCPIRs** (from Chapter 3, MoC&F Report):
+
+| PCPIR | Location | Investment | Chemicals | Employment | Anchor Tenant |
+|-------|----------|-----------|-----------|------------|---------------|
+| **Gujarat (Dahej)** | Bharuch District, GJ | Rs 1,28,509 cr | 626 units | 2,45,140 | ONGC Petro (OPaL) — 1.1 MMTPA ethylene cracker |
+| **Andhra Pradesh** | Vishakhapatnam-Kakinada | Rs 58,918 cr | 150 units | 86,123 | HPCL feasibility study (petrochemical complex, stalled) |
+| **Odisha (Paradeep)** | Kendrapara-Jagatsinghpur | Rs 73,518 cr | 48 units | 40,000 | IOC 15 MMTPA refinery (commissioned Feb 2016) |
+| **TOTAL** | **—** | **Rs 2,60,945 cr** | **824 units** | **3,71,263** | **—** |
+
+**Why This Matters for Textiles:**
+
+1. **PCPIR = Common Infrastructure**:
+   - Dadri (Dahej), roads, rail, port (11 MMTPA Adani Petro port), LNG terminal (10 MMTPA LNG Petro net)
+   - Common Effluent Treatment Plants (CETPs) = Lower environmental compliance cost for small/medium textile units
+   - Shared utilities (steam, power, water) reduce capex for backward-integrated textile mills
+
+2. **Anchor Tenants as Feedstock Providers**:
+   - ONGC Petro (OPaL) at Dahej = 1.1 MMTPA ethylene, 0.6 MMTPA propylene (commissioned 2017)
+   - IOC Paradeep 15 MMTPA refinery = Access to crude-derived aromatics, olefins for dye/pigment synthesis
+   - **Synergy**: Textile units co-locating in PCPIRs get preferential feedstock pricing + supply security
+
+3. **State Linkages for PM Mitra**:
+   - Odisha PCPIR development agency (IDCO) managing Paradeep expansion
+   - **Opportunity**: PM Mitra apparel park overlays well with Paradeep PCPIR (both in Odisha)
+   - Textile units can source polyester, nylon feedstocks within same eco-cluster
+
+---
+
+### Public Sector Undertakings: Capacity & Constraints
+
+**HINDUSTAN ORGANIC CHEMICALS LIMITED (HOCL)** (from Chapter 8, MoC&F Report):
+
+| Parameter | Value | Relevance to Textiles |
+|-----------|-------|----------------------|
+| **Incorporated** | 1960 | Established player in dyes/pigments |
+| **Units** | Rasayani (Maha) + Kochi (Kerala) | Geographic spread for regional supply |
+| **Key Products** | Phenol, Acetone, H2O2, Dyes-intermediates, Pesticides | **Dyes/pigments critical for textile color** |
+| **Current Status** | Kochi operating; Rasayani scaled back | Limited capacity growth potential |
+| **Capex Constraints** | Losses 2008-13; Government guarantee extended 2017 | PSU restructuring limits new investment |
+| **Share Capital** | Rs 370 cr authorized; Rs 337.27 cr paid-up | Government 58.78% stake |
+
+**Why HOCL Matters**:
+- HOCL's phenol + acetone are precursors for dye intermediates (HS 2907-2909, Chapter 29)
+- Kochi unit's H2O2 is essential for textile bleaching (Chapter 2809)
+- **Current limitation**: HOCL capacity insufficient for substitution — private sector capex needed
+
+---
+
+### Safety & Environmental Compliance Framework
+
+**Chemical Safety Initiatives** (from Chapter 4, MoC&F Report):
+
+**MAH (Major Accident Hazardous) Unit Training Program**:
+- **Scope**: 2,393 MAH units nationwide to receive safety training over 5 years
+- **Progress**: 4 training programs organized (Ahmedabad, Delhi, Bhubaneswar, Chennai) — 247 units, 432 personnel trained
+- **Relevance to Textiles**: Textile chemical hubs (dye houses, polyester polymer units) increasingly classified as MAH due to process hazards
+- **Implication**: Capex for compliance infrastructure (emergency response, waste management) in PCPIR units
+
+**International Compliance** (Rotterdam + Stockholm Conventions):
+- **Chemicals banned/restricted**: 30 POPs (DDT, HCB, PCBs) eliminated from production
+- **Textile impact**: Certain legacy dye formulations (heavily-banned chromium-based) no longer available; transition to eco-friendly dyes required
+- **Window of opportunity**: Indian dye manufacturers (Excolor, Atul, Kailash) gaining competitive advantage as Chinese competitors navigate stricter enforcement
+
+---
+
+### India Chem 2024: Industry Momentum & Sector Sentiment
+
+**India Chem 2024 (13th Edition)** (October 2024, Mumbai):
+
+| Metric | Figure | Implication |
+|--------|--------|-------------|
+| **Exhibitors** | 172 (49 international) | Strong FDI interest in Indian chemical parks |
+| **Global CEOs** | 78 participated | C-suite commitment to India market |
+| **Delegates** | 1,115 Indian + 689 foreign | Largest Asia-Pacific gathering for chemicals |
+| **Sessions** | Multiple tracks on dyes, petrochemicals, sustainability | **Polyester fiber & textile chemicals keynotes** |
+| **Partner States** | Gujarat, Odisha, AP, MP, Rajasthan | Clear PCPIR focus |
+
+**Key Takeaway**: Global chemical majors actively exploring India polyester/fiber opportunities (Eastman, LyondellBasell, INEOS groups visible); domestic scale-up momentum validated.
+
+---
+
 ## Part 4: Strategic Viability — Why Now?
 
 ### Convergence of 4 Enabling Factors
