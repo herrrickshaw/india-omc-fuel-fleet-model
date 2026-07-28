@@ -1,0 +1,4 @@
+blend,dme_frac,mj_per_kg,energy_drop_pct,lerc_drop_pct,cylinder_mj,extra_kg_pct,hh_extra_cyl_yr,hh_extra_rs_yr,dme_needed_mmt,extra_pool_mmt,consumer_extra_cr,pmuy_extra_subsidy_cr,parity_cylinder_rs,dme_energy_parity_rs_kg
+DME5,0.05,44.95,1.86,1.31,638,1.33,0.09,75,1.5,0.4,2238,288,792,32.7
+DME10,0.1,44.1,3.71,2.63,626,2.7,0.19,152,3.05,0.8,4536,584,782,32.7
+DME20,0.2,42.4,7.42,5.26,602,5.55,0.39,312,6.27,1.65,9325,1201,761,32.7
