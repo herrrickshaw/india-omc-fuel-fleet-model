@@ -71,6 +71,8 @@ mirrored in [`vehicle_fuel_mileage`](https://github.com/herrrickshaw/vehicle_fue
 | `build_energy_doc.js` → `docs/Energy_Blend_Volume_Dividend.docx/.pdf` | 10-section paper with methodology/assumptions/caveats per section, a 16-row abbreviations glossary, and **Annex A — the CBG incentive stack**: 19 instruments by lever (SATAT/CBO offtake, MNRE-VGF-SASCI capital, DPI/BAM infrastructure, FCO Schedule VIII + Bulk Sale + MDA fertiliser leg, PSL/AIF/AHIDF finance, GST/excise/carbon, IS 16087/CPCB standards, 7 state policies) compiled from the 70-circular GOBARdhan register, gazette-checked (docx-js; do not hand-edit outputs). |
 | `build_slides.js` → `docs/Volume_Dividend_Slides.pptx` | 13-slide deck: mechanism → who collects → blend walk → consumer parity prices → funding scenarios → **ethanol SGST (E27@5% ≈ ₹4,787 cr/yr, price-neutral)** → the E27 grand bargain (parity ₹98.44 + SGST still leaves ₹1.27/L slack) → CBG → supply check → RON95 → CBG incentive stack. |
 
+| `cbg_pitch_model.py` + `build_cbg_pitch.js` → `docs/CBG_Investment_Pitch.pptx/.pdf` | **CBG investment pitch** (9 slides, problem→market→moat→model→financials→ask) on a 12-TPD reference-plant model: ₹60 cr capex − ₹10 cr MNRE CFA, 70:30 @ 9.5% PSL → EBITDA ₹12 cr (54%), **project IRR 20.6% / equity IRR 32% / NPV@12% ₹26.6 cr / DSCR 1.85×**, sensitivity 13.5–27.1%; no-FOM IRR 16.1% (the fertiliser leg is load-bearing). Ask: ₹150 cr for a 10-plant platform anchored on cooperative-sugar-mill press-mud (BOT/JV entry). |
+
 Headline synthesis: **blend more (E27), charge less (₹98.44/L), tax smarter (5% ethanol SGST)** all
 fit simultaneously inside the ₹8.72/L tax headroom the blend itself creates — while CBG delivers the
 gas-side decarbonisation with no hidden consumer levy at all.
