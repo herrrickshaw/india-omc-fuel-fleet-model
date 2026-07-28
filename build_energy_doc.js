@@ -309,7 +309,33 @@ const doc = new Document({
       p("Why this matters for mileage: a RON95-labelled E20 lets manufacturers raise compression ratios (about 10.5 → 12, feasible within the knock limit at RON 95). At the standard ~1.5% thermal-efficiency gain per compression-ratio point, that is +2.2% efficiency against E20's −4% energy drop — a net penalty of ≈ −1.8% on an engine designed for the fuel. This is Brazil's actual playbook: E27 regular petrol at ~RON 95+, high-compression engines, no headline mileage complaint. It composes cleanly with Section 7: parity pricing compensates the existing fleet immediately, while RON95 labelling plus E20-plus engines make the penalty physically shrink as the fleet turns over (~2.9 crore new registrations a year; the Vahan registry already tracks PETROL(E20) as its own fuel type, 21% of CY2025 registrations)."),
       p("Assumptions and caveats: octane blending is non-linear and blendstock-dependent — 112 is a central literature value (range 108–115) and the linear model is an estimate; the retail-spread valuation of the credit is a willingness-to-pay ceiling, not a refining cost; the compression-ratio gain arrives only with new, RON95-calibrated engines, not by relabelling the fuel for the existing parc; and compressed biogas needs no octane accounting at all — methane's octane rating is ~120+, and CNG engines already run compression ratios above 12.", { size: 18, color: MUTE, italics: true }),
 
-      h1("10. Caveats and sources"),
+      h1("10. DME in LPG: the fourth quadrant"),
+      p("Dimethyl ether (DME, CH₃-O-CH₃) is now blendable into LPG up to 20% under BIS standard IS 18698:2024, positioned as an import-substitution play for a fuel India imports ~60–65% of. The engineering evidence comes from LERC — the LPG Equipment Research Centre, Bengaluru, the oil-industry body that certifies LPG equipment: material compatibility cleared at 20% DME in the vapour phase, flex-fuel burner trials stable, and a measured thermal-efficiency decrease of 5.26% at DME20 on the IS 4246 burner protocol. That 5.26% is the cooking-gas analogue of SIAM's 4% E20 mileage figure — and, like it, runs below the pure energy arithmetic (−7.4%), because oxygenated DME burns cleaner and claws part of the deficit back."),
+      p("Methodology. DME carries 28.8 MJ/kg against LPG's 45.8 (Indian 60:40 butane:propane mix) — a 37% energy deficit per kilogram, deeper than ethanol's 34% per litre. We blend by mass, take LERC's measured drop as the central usable-energy case (scaled linearly to DME5/10), and apply the same constant-demand re-inflation as the petrol analysis: households cook the same, so they buy more kilograms. LPG's two structural differences drive the result: it is sold per kg in a fixed 14.2-kg cylinder, and domestic LPG is subsidised (PMUY, ₹300/cylinder to ~10.3 crore beneficiary households)."),
+      table(
+        ["Blend", "MJ/kg", "Energy vs LPG", "LERC-basis drop", "Cylinder energy (MJ)", "Extra kg for same cooking"],
+        [
+          ["DME5", "44.95", "−1.9%", "−1.3%", "638", "+1.3%"],
+          ["DME10", "44.10", "−3.7%", "−2.6%", "626", "+2.7%"],
+          ["DME20", "42.40", "−7.4%", "−5.3%", "602", "+5.6%"],
+        ],
+        [1200, 1100, 1500, 1600, 1900, 2500]),
+      spacer(),
+      p("Who pays, at DME20 on the full 29.7-MMT pool: a 7-cylinder household buys +0.39 cylinders ≈ ₹312/yr at an unchanged ₹803 price; nationally ₹9,325 crore/yr of extra consumer spend — and, the inversion, ≈₹1,201 crore/yr of extra PMUY subsidy. Ethanol's dilution earns the exchequer excise on the extra volume; DME's dilution bills it, because the diluted fuel is subsidised. The four-quadrant summary of this paper's whole argument:"),
+      table(
+        ["Blend", "Dilution", "Fuel's fiscal status", "The volume effect lands on"],
+        [
+          ["Ethanol in petrol", "−34% /L", "heavily taxed", "consumer pays; exchequer + trade collect"],
+          ["Biodiesel in diesel", "−8% /L", "taxed", "mild; cascades into freight"],
+          ["CBG in CNG", "~0% /kg", "lightly taxed", "nobody — the honest blend"],
+          ["DME in LPG", "−37% /kg", "subsidised", "consumer AND exchequer pay"],
+        ],
+        [2000, 1300, 2200, 4300], true),
+      spacer(),
+      p("The economics do not clear either: energy-neutral DME must price at ≤₹32.7/kg (LPG import parity ₹52 × the energy ratio), but methanol-route DME costs ₹33.6/kg in feedstock alone at imported methanol — swapping a propane import for a methanol import at a worse ₹/MJ. Import substitution is honest only on domestic-carbon routes (coal-gasification methanol at ₹15–18/kg, or bio-DME), and DME20 would need 6.3 MMT/yr of DME — roughly six times India's methanol output. If DME blending proceeds, two guardrails follow from this paper's framework: energy-parity cylinder pricing (₹761 for a DME20 cylinder at today's ₹803, or equivalently more kilograms per cylinder), and domestic-carbon DME only."),
+      p("Assumptions and caveats: LERC's 5.26% is a burner thermal-efficiency figure at DME20; field behaviour and older stoves may differ, and the linear scaling to DME5/10 is an estimate. IS 18698:2024 caps blends at 20% — beyond it, DME attacks conventional elastomer seals and LERC's compatibility work is the binding reference. The whole-pool blend is a ceiling scenario; a phased rollout scales linearly. Cylinder price (Delhi ₹803), PMUY parameters and LPG LHV (45.5–46.3 by season mix) are levers in dme_lpg_blending.py.", { size: 18, color: MUTE, italics: true }),
+
+      h1("11. Caveats and sources"),
       bullet("Vehicle mileage: SIAM/ARAI BS-VI FE declarations (form 2344, 303 four-wheeler models, Apr 2020) from the vehicle_fuel_mileage repo — type-approval figures, used for relative fuel-type gaps; the +40.3% petrol→CNG uplift is anchored on 11 same-nameplate pairs."),
       bullet("CBG/SATAT: MoPNG assured ex-plant price ₹54/kg (+5% GST); CBO 1% of CGD gas FY25-26 → ~5% FY28-29; gas comparators APM $6.5/MMBtu, spot RLNG $12/MMBtu at ₹83/$."),
       bullet("Volumes: PPAC Ready Reckoner FY2025-26 (H1), Table 6.1 (MS 40.0 MMT, HSD 91.4 MMT FY24-25); outlets Table 6.6/6.7 (99,281); dealer commission Table 8.10."),
@@ -317,6 +343,7 @@ const doc = new Document({
       bullet("Per-litre levies are editable levers shared with omc_model.py and statewise_tax_impact.py: excise ₹19.90/L petrol, ₹15.80/L diesel; VAT 25% on ₹78/L petrol base, 17.5% on ₹70/L diesel base; OMC margins ₹3.5/₹2.5."),
       bullet("This volume effect is distinct from — and additive to — the tax-differential effect (states forgo VAT on the ethanol fraction, ~₹9,000 cr/yr at E20): states lose on substitution while every per-litre stakeholder gains on volume."),
       bullet("Supply side: CareEdge Ratings, 'E85 Impact: Ethanol Overcapacity to Persist as Flex-fuel Transition to Remain Gradual', 14 May 2026; DFPD Ethanol Interest Subvention Scheme annexures (via the E20→E30 stakeholder workbook); NCDC/Ministry of Cooperation CSM-scheme disbursements (Rajya Sabha reply); FCI rice allocations from the FCI-warehouse repo (OMSS(D) 2024-25/2025-26 orders); Uttar Pradesh capacity from the PARIVESH environmental-clearance register (digital-twin layer 24d)."),
+      bullet("DME side: LERC (LPG Equipment Research Centre, Bengaluru) DME-LPG compatibility and IS 4246 thermal-efficiency work (−5.26% at DME20); BIS IS 18698:2024 (20% blend cap); PPAC LPG consumption; PMUY subsidy parameters."),
       bullet("RON side: BIS IS 2796 fuel specification; ethanol blending-RON literature (108–115, central 112); retail XP95/Speed-95 price spreads; compression-ratio/efficiency literature (~1.5% per CR point)."),
       bullet("Generated by build_energy_doc.js from energy_blend_comparison.py / price_parity_scenarios.py / cbg_satat_economics.py / ethanol_supply_match.py / ron_octane_analysis.py outputs; do not hand-edit. Repository: github.com/herrrickshaw/india-omc-fuel-fleet-model."),
 
@@ -369,6 +396,8 @@ const doc = new Document({
           ["PPAC / RR", "Petroleum Planning & Analysis Cell / its Ready Reckoner data book"],
           ["RLNG / APM / MMBtu", "Regasified Liquefied Natural Gas · Administered Price Mechanism (domestic gas) · Million British thermal units"],
           ["FFV / CR / NBP", "Flex-Fuel Vehicle · Compression Ratio · National Biofuel Policy"],
+          ["DME / LERC", "Dimethyl Ether (blendable into LPG to 20% under IS 18698:2024) / LPG Equipment Research Centre, Bengaluru"],
+          ["LPG / PMUY", "Liquefied Petroleum Gas / Pradhan Mantri Ujjwala Yojana (₹300-per-cylinder subsidy to ~10.3 cr households)"],
         ],
         [2300, 7500], true),
     ],

@@ -338,7 +338,41 @@ s.addText("Feedstock, capex, debt, gas revenue, digestate revenue, carbon revenu
   { x: 0.85, y: 6.83, w: 11.7, h: 0.54, fontFace: FONT, fontSize: 12, bold: true, color: "FFFFFF",
     valign: "middle", margin: 0 });
 
-/* ── 13. CLOSING ──────────────────────────────────────────────────────── */
+/* ── 13. DME IN LPG ───────────────────────────────────────────────────── */
+s = pres.addSlide(); s.background = { color: P.bg };
+title(s, "DME in LPG: the fourth quadrant — the dividend inverts",
+  "DME 28.8 vs LPG 45.8 MJ/kg (−37%) · LERC-measured −5.26% at DME20 (IS 4246) · BIS IS 18698:2024 caps blends at 20%");
+const quad = [["Blend", "Dilution", "Fiscal status", "Volume effect lands on"],
+  ["Ethanol in petrol", "−34% /L", "heavily taxed", "consumer pays; exchequer + trade collect"],
+  ["Biodiesel in diesel", "−8% /L", "taxed", "mild; cascades into freight"],
+  ["CBG in CNG", "~0% /kg", "lightly taxed", "nobody — the honest blend"],
+  ["DME in LPG", "−37% /kg", "SUBSIDISED", "consumer AND exchequer pay"]];
+quad.forEach((r, i) => {
+  const y = 1.75 + i * 0.72, head = i === 0, hot = i === 4;
+  r.forEach((t, j) => {
+    const x = [0.6, 2.9, 4.4, 6.4][j], w = [2.3, 1.5, 2.0, 3.3][j];
+    s.addShape(pres.ShapeType.rect, { x, y, w, h: 0.66,
+      fill: { color: head ? P.dark : hot ? P.dark2 : i % 2 ? P.card : "FFFFFF" },
+      line: { color: P.line, width: 0.75 } });
+    s.addText(t, { x: x + 0.08, y, w: w - 0.16, h: 0.66, fontFace: FONT, fontSize: head ? 11.5 : 12,
+      bold: head || j === 0, color: (head || hot) ? "FFFFFF" : P.ink, valign: "middle",
+      align: j === 0 ? "left" : "center", margin: 0 });
+  });
+});
+card(s, 10.1, 1.75, 2.65, 3.55, P.dark);
+s.addText("DME20 at unchanged cylinder price", { x: 10.3, y: 1.95, w: 2.25, h: 0.7, fontFace: FONT,
+  fontSize: 11.5, color: "CFE3DA", margin: 0 });
+s.addText("+₹312/yr", { x: 10.3, y: 2.65, w: 2.25, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true,
+  color: P.red, margin: 0 });
+s.addText("per household — plus ₹1,201 cr/yr extra PMUY subsidy. Parity cylinder = ₹761 vs ₹803",
+  { x: 10.3, y: 3.4, w: 2.25, h: 1.7, fontFace: FONT, fontSize: 11, color: "CFE3DA", margin: 0 });
+bullets(s, 0.6, 5.6, 12.1, 1.7, [
+  "Ethanol's dilution EARNS the exchequer excise; DME's dilution BILLS it — a hidden levy on the Ujjwala merit good with the subsidy bill co-paying (₹9,325 cr consumer + ₹1,201 cr PMUY at DME20 on the full pool)",
+  "Economics don't clear: energy-neutral DME must price ≤₹32.7/kg but methanol-route feedstock alone is ₹33.6/kg — import substitution is honest only on coal/bio-DME, and DME20 needs 6.3 MMT/yr (~6× India's methanol output)",
+  "Guardrails if pursued: energy-parity cylinder pricing + domestic-carbon DME only",
+], { size: 12, gap: 8 });
+
+/* ── 14. CLOSING ──────────────────────────────────────────────────────── */
 s = pres.addSlide(); s.background = { color: P.dark };
 title(s, "What honest blending policy looks like", null, true);
 bullets(s, 0.9, 1.6, 11.5, 4.6, [
