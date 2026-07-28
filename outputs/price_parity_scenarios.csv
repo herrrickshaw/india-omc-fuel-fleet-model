@@ -1,0 +1,4 @@
+blend,mileage_drop_pct,parity_discount_rs_l,parity_price_rs_l,national_cost_cr,s1_embedded_headroom_rs_l,s1_coverage_x,s2_excise_after_rs_l,s2_centre_cost_cr,s3_vat_after_rs_l,s4_ethanol_price_needed_rs_l,s4_feasible_vs_grain_floor,s4_max_discount_rs_l
+E20,4.0,4.2,100.8,22703,6.46,1.54,15.7,22703,15.3,41.0,False,0.81
+E25,5.5,5.78,99.22,31712,8.07,1.4,14.12,31712,13.72,38.9,False,1.01
+E30,7.000000000000001,7.35,97.65,41011,9.69,1.32,12.55,41011,12.15,37.5,False,1.21
