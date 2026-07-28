@@ -1,0 +1,10 @@
+fuel,lhv_mj_kg,density_kg_l,mj_per_litre,sold_by,note
+Petrol (E0),43.4,0.74,32.12,litre,reference gasoline
+Ethanol,26.8,0.789,21.15,litre,anhydrous fuel ethanol
+Isobutanol,33.1,0.802,26.55,litre,bio-isobutanol drop-in oxygenate
+Diesel (B0),43.0,0.83,35.69,litre,reference HSD
+Biodiesel (FAME),37.2,0.88,32.74,litre,fatty-acid methyl ester
+HVO renewable diesel,44.0,0.78,34.32,litre,"hydrotreated veg oil, drop-in"
+CNG (pipeline gas),47.5,,,kg,"~90% CH4 + ethane, sold per kg"
+CBG (IS 16087),46.5,,,kg,"purified biogas, CH4 >=90% (range 45-48.5)"
+Pure methane,50.0,,,kg,upper bound for CBG at full purification
