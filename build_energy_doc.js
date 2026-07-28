@@ -170,7 +170,52 @@ const doc = new Document({
       bullet("CNG + CBG — retailed per kilogram at methane-grade energy (46.5 MJ/kg spec floor vs 47.5 pipeline; pure methane 50). Substituting CBG changes sourcing — domestic agricultural and municipal waste instead of imported LNG — without changing the kilograms bought per kilometre. Zero dilution, zero volumetric pass-through."),
       p("Both routes substitute imports. Only the liquid route monetises an energy haircut through per-litre levies. CBG delivers the import substitution without taxing the consumer through the fuel gauge — and its SATAT procurement pricing keeps the subsidy explicit and on-budget rather than hidden in mileage.", { before: 100 }),
 
-      h1("6. Price-adjustment scenarios: what would neutralise the mileage loss"),
+      h1("6. CBG economics under SATAT pricing"),
+      p("Anchoring mileage on the SIAM/ARAI BS-VI fuel-efficiency declarations (303 models): petrol 16.67 kmpl, diesel 17.91 kmpl, CNG 27.40 km/kg — and, decisively, the same nameplate travels +40.3% further per unit on CNG than on petrol (11 factory petrol/CNG pairs)."),
+
+      h2("6a. What a megajoule costs to procure"),
+      table(
+        ["Source", "₹/MJ", "Basis"],
+        [
+          ["Petrol (refinery / trade parity)", "1.81", "₹58/L"],
+          ["Ethanol (OMC procurement)", "2.94", "₹62/L"],
+          ["Domestic APM gas", "0.51", "~₹24/kg CNG-eq"],
+          ["Imported spot RLNG", "0.94", "~₹45/kg CNG-eq ($12/MMBtu)"],
+          ["CBG (SATAT assured)", "1.16", "₹54/kg ex-plant + 5% GST"],
+        ],
+        [3400, 1200, 3000]),
+      spacer(),
+      p("Ethanol's renewable premium over the petrol it displaces is +63% per MJ — before the mileage-dilution levy on the consumer. CBG's premium over the spot RLNG it displaces is +23% per MJ, and it undercuts imported gas outright whenever spot LNG runs above ~$14.8/MMBtu. Per megajoule of renewable energy bought, SATAT CBG (₹1.16) is 2.5× cheaper than ethanol (₹2.94), with no volumetric side effects."),
+
+      h2("6b. Cost per km on SIAM/ARAI declared FE (Delhi prices)"),
+      table(
+        ["Fuel", "₹/km", "Mileage basis"],
+        [
+          ["Petrol E0", "6.30", "16.67 kmpl (SIAM declared)"],
+          ["Petrol E20", "6.56", "E20 real-world −4%"],
+          ["Petrol E30", "6.77", "E30 real-world −7%"],
+          ["Diesel B0", "5.14", "17.91 kmpl (SIAM declared)"],
+          ["Diesel B20", "5.23", "B20 energy basis −1.7%"],
+          ["CNG", "2.74", "27.40 km/kg (SIAM declared)"],
+          ["CBG (any % in CNG)", "2.80", "energy-scaled 46.5 / 47.5 MJ/kg"],
+        ],
+        [2400, 1300, 3600]),
+      spacer(),
+      p("CNG runs at ~43% of petrol's cost per km — the +40.3% distance uplift compounding the per-unit price gap. The blend walk moves petrol the wrong way (₹6.30 → ₹6.77/km from E0 to E30) while CBG blending leaves the CNG ₹/km essentially untouched: even 100% CBG at the IS 16087 purity floor costs 2.1% in mileage, and at obligation-level shares it rounds to zero."),
+
+      h2("6c. The CBG Blending Obligation: national cost, zero consumer levy"),
+      p("CBO mandates 1% CBG in CGD gas from FY25-26, stepping toward ~5% by FY28-29. On the 6.67-MMT CNG(T) pool, at SATAT ₹54/kg (+5% GST) versus spot RLNG ~₹45/kg as the displaced marginal molecule:"),
+      table(
+        ["CBO share", "CBG needed (t/yr)", "Procurement (₹ cr/yr)", "Pump-price delta", "Mileage delta"],
+        [
+          ["1% (FY25-26)", "66,700", "378", "+₹0.12/kg", "−0.02%"],
+          ["5% (FY28-29)", "333,500", "1,891", "+₹0.59/kg", "−0.11%"],
+        ],
+        [1800, 1700, 1900, 1600, 1400]),
+      spacer(),
+      p("Even the full 5% obligation moves the CNG pump by ~₹0.59/kg (≈0.8%) and mileage by ~0.1% — against E20's silent 4% mileage cut and ₹22,700 crore/yr volume dividend. Where CBG does need support, the subsidy sits on-budget and ex-plant — SATAT price assurance, GOBARdhan capex grants, and fermented-organic-manure offtake under FCO Schedule VIII — rather than hidden in the fuel gauge. Caveat: ₹54/kg is an assured floor, not proof of plant viability; feedstock economics (press-mud cheapest, agri-residue dearest) still decide whether plants get built."),
+
+      h1("7. Price-adjustment scenarios: what would neutralise the mileage loss"),
       p("If blended petrol were priced for honest cost-per-km, its pump price would carry a discount equal to the mileage it takes away: P(blend) = P(E0) × (1 − drop). At a ₹105 pump, that means:"),
       table(
         ["Blend", "Mileage drop", "Parity discount", "Parity pump price", "National cost (₹ cr/yr)"],
@@ -215,7 +260,9 @@ const doc = new Document({
       spacer(),
       p("Grain and cane mandi prices set these floors — and maize, the marginal feedstock the E30 walk leans on, is the most expensive slab, pushing average procurement up, not down. Squeezing procurement to the cheapest slab funds only ₹0.81/L of E20's ₹4.20 need (~19%). Ethanol economics cannot pay for parity; only the tax side can. CBG needs no such scenario at all — its energy parity per kilogram is physical, not fiscal."),
 
-      h1("7. Caveats and sources"),
+      h1("8. Caveats and sources"),
+      bullet("Vehicle mileage: SIAM/ARAI BS-VI FE declarations (form 2344, 303 four-wheeler models, Apr 2020) from the vehicle_fuel_mileage repo — type-approval figures, used for relative fuel-type gaps; the +40.3% petrol→CNG uplift is anchored on 11 same-nameplate pairs."),
+      bullet("CBG/SATAT: MoPNG assured ex-plant price ₹54/kg (+5% GST); CBO 1% of CGD gas FY25-26 → ~5% FY28-29; gas comparators APM $6.5/MMBtu, spot RLNG $12/MMBtu at ₹83/$."),
       bullet("Volumes: PPAC Ready Reckoner FY2025-26 (H1), Table 6.1 (MS 40.0 MMT, HSD 91.4 MMT FY24-25); outlets Table 6.6/6.7 (99,281); dealer commission Table 8.10."),
       bullet("Mileage drops: SIAM/ARAI central figures (E20 4%, band 2–6%; up to ~12% for older vehicles); E25/E30 scaled on ethanol's calorific deficit; isobutanol and biodiesel rows are energy-basis."),
       bullet("Per-litre levies are editable levers shared with omc_model.py and statewise_tax_impact.py: excise ₹19.90/L petrol, ₹15.80/L diesel; VAT 25% on ₹78/L petrol base, 17.5% on ₹70/L diesel base; OMC margins ₹3.5/₹2.5."),

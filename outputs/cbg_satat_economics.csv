@@ -1,0 +1,15 @@
+metric,item,value,note
+rs_per_mj_procurement,Petrol (refinery/trade parity),1.81,Rs58/L
+rs_per_mj_procurement,Ethanol (OMC procurement),2.94,Rs62/L
+rs_per_mj_procurement,Domestic APM gas,0.51,~Rs24/kg eq
+rs_per_mj_procurement,Imported spot RLNG,0.94,~Rs45/kg eq
+rs_per_mj_procurement,CBG (SATAT assured),1.16,Rs54/kg ex-plant
+rs_per_km_siam_fe,Petrol E0,6.3,16.67 kmpl (SIAM decl.)
+rs_per_km_siam_fe,Petrol E20,6.56,E20 real-world -4%
+rs_per_km_siam_fe,Petrol E30,6.77,E30 real-world -7%
+rs_per_km_siam_fe,Diesel B0,5.14,17.91 kmpl (SIAM decl.)
+rs_per_km_siam_fe,Diesel B20,5.23,B20 energy-basis -1.7%
+rs_per_km_siam_fe,CNG,2.74,27.40 km/kg (SIAM decl.)
+rs_per_km_siam_fe,CBG (any % in CNG stream),2.8,energy-scaled 46.5/47.5 MJ/kg
+cbo,1.0%,378,"pump +Rs0.12/kg, mileage 0.02%"
+cbo,5.0%,1891,"pump +Rs0.59/kg, mileage 0.11%"
