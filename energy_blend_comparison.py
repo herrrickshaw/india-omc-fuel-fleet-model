@@ -64,6 +64,8 @@ BLENDS = [
     ("IB16 (isobutanol)", E_PETROL, E_IBU, 0.16, "petrol"),
     ("IB24 (isobutanol)", E_PETROL, E_IBU, 0.24, "petrol"),
     ("B7  (biodiesel)",  E_DIESEL, E_FAME, 0.07, "diesel"),
+    ("B10 (biodiesel)",  E_DIESEL, E_FAME, 0.10, "diesel"),
+    ("B15 (biodiesel)",  E_DIESEL, E_FAME, 0.15, "diesel"),
     ("B20 (biodiesel)",  E_DIESEL, E_FAME, 0.20, "diesel"),
 ]
 
@@ -109,6 +111,45 @@ def national(blend, drop):
 
 nat_rows = [national(b, d) for b, d in [("E20", 0.040), ("E25", 0.055), ("E30", 0.070),
                                         ("IB16 (energy-basis)", 0.028), ("IB24 (energy-basis)", 0.041)]]
+
+# ── Incremental E20 -> E30 walk: what the NEXT blend step adds vs today ──────
+# Today's baseline is E20. Each step's delta = its extra litres minus E20's.
+def incremental(blend, drop, ref=nat_rows[0]):
+    r = national(blend, drop)
+    d = {"blend": f"{blend} (vs E20 today)"}
+    for k in ("extra_bnL", "consumer_extra_cr", "excise_extra_cr", "vat_extra_cr",
+              "dealer_extra_cr", "omc_extra_cr"):
+        d[k] = round(r[k] - ref[k], 2 if k == "extra_bnL" else 0)
+    return d
+
+inc_rows = [incremental("E25", 0.055), incremental("E27", 0.0625), incremental("E30", 0.070)]
+
+# ── Diesel pool: B10 / B15 / B20 (biodiesel walk) ───────────────────────────
+# Diesel has no octane-recovery mechanism, so real-world ~= energy basis.
+# FAME dilutes only -0.85% per B10 step, but the pool is 2x petrol's.
+HSD_BNL      = 91.4 * 1e3 / 0.83 / 1e3          # 110.12 bn L FY24-25
+D_PUMP       = 92.0     # Rs/L indicative pan-India diesel
+D_EXCISE     = 15.80    # Rs/L central excise on diesel
+D_VAT_PER_L  = 0.175 * 70.0   # ~Rs12.3/L effective state VAT (lower rates than petrol)
+D_DEALER     = 3.1      # Rs/L dealer commission (RR 8.10)
+D_OMC        = 2.5      # Rs/L OMC marketing margin (omc_model.py lever)
+
+def diesel_national(blend, frac):
+    e_mix = E_DIESEL * (1 - frac) + E_FAME * frac
+    drop = 1 - e_mix / E_DIESEL
+    litres = HSD_BNL / (1 - drop)      # pool today ~B0; L0 = HSD_BNL
+    extra = litres - HSD_BNL
+    e = extra * 1e9
+    return {"blend": blend, "mileage_drop_pct": round(drop * 100, 2),
+            "pool_bnL": round(litres, 2), "extra_bnL": round(extra, 2),
+            "consumer_extra_cr": round(e * D_PUMP / CR),
+            "excise_extra_cr": round(e * D_EXCISE / CR),
+            "vat_extra_cr": round(e * D_VAT_PER_L / CR),
+            "dealer_extra_cr": round(e * D_DEALER / CR),
+            "omc_extra_cr": round(e * D_OMC / CR)}
+
+diesel_rows = [diesel_national(b, f) for b, f in
+               [("B7", 0.07), ("B10", 0.10), ("B15", 0.15), ("B20", 0.20)]]
 
 # Per-vehicle: hatchback 20 km/L on E0, 10,000 km/yr
 KMPL_E0, KM_YR = 20.0, 10_000
@@ -177,7 +218,46 @@ for r in nat_rows:
     L.append(f"| {r['blend']} | {r['extra_bnL']} | {r['consumer_extra_cr']:,} | "
              f"{r['excise_extra_cr']:,} | {r['vat_extra_cr']:,} | "
              f"{r['dealer_extra_cr']:,} | {r['omc_extra_cr']:,} |")
-L.append("\nEvery rupee column is a *per-litre* levy × extra litres: the volume effect "
+L.append("\n### 4a. The E20 → E30 walk: what each NEXT step adds (vs today's E20)\n")
+L.append("India is already at ~E20, so the live policy question is the *increment*. "
+         "Deltas below are each blend's extra litres/rupees **beyond what E20 already "
+         "extracts** (real-world drops: E25 5.5%, E27 6.25%, E30 7%):\n")
+L.append("| Step | Δ bn L | Δ Consumer | Δ Excise | Δ VAT | Δ Dealer comm. | Δ OMC margin |")
+L.append("|---|---|---|---|---|---|---|")
+for r in inc_rows:
+    L.append(f"| {r['blend']} | +{r['extra_bnL']} | +{r['consumer_extra_cr']:,} | "
+             f"+{r['excise_extra_cr']:,} | +{r['vat_extra_cr']:,} | "
+             f"+{r['dealer_extra_cr']:,} | +{r['omc_extra_cr']:,} |")
+L.append("\nThe walk from E20 to E30 roughly **doubles** the volume-effect take: "
+         "~₹18,300 cr/yr more consumer spend, ~₹6,900 cr/yr more excise+VAT, "
+         "~₹715 cr/yr more dealer commission — on top of what E20 already collects. "
+         "Per rupee of renewable content added, the increments get *worse*: mileage "
+         "loss scales linearly with ethanol share, so each step buys the same "
+         "import-substitution at the same hidden-levy rate, with no efficiency "
+         "recovery left (engines are calibrated for E20, not E30).\n")
+
+L.append("### 4b. Diesel pool: B7 → B20 biodiesel walk\n")
+L.append(f"Diesel is the bigger prize by volume: {HSD_BNL:.0f} bn L/yr (91.4 MMT) — "
+         "2× the petrol pool. FAME dilutes far less per litre (−8.5% vs ethanol's "
+         "−34%), and diesel engines have no octane-recovery offset, so real-world "
+         f"≈ energy basis. Pump ₹{D_PUMP:.0f}/L, excise ₹{D_EXCISE:.2f}/L, effective "
+         f"VAT ~₹{D_VAT_PER_L:.1f}/L, dealer ₹{D_DEALER:.1f}/L, OMC ₹{D_OMC:.1f}/L:\n")
+L.append("| Blend | Mileage drop | Extra bn L | Consumer pays | Excise | VAT | Dealer comm. | OMC margin |")
+L.append("|---|---|---|---|---|---|---|---|")
+for r in diesel_rows:
+    L.append(f"| {r['blend']} | −{r['mileage_drop_pct']}% | {r['extra_bnL']} | "
+             f"{r['consumer_extra_cr']:,} | {r['excise_extra_cr']:,} | {r['vat_extra_cr']:,} | "
+             f"{r['dealer_extra_cr']:,} | {r['omc_extra_cr']:,} |")
+L.append("\nB20 on the diesel pool pulls **~1.9 bn extra litres** — nearly as many as "
+         "E20 does on petrol — because the pool is huge even though the per-litre "
+         "dilution is mild. But the consumer burden per km is far gentler (−1.7% vs "
+         "−4%), and diesel's freight exposure means the extra cost cascades into "
+         "logistics/inflation rather than household budgets. Feasibility caveat: "
+         "India's biodiesel supply is nowhere near B10 nationally (blending was "
+         "<1% in FY24-25; the NBP target is B5 by 2030) — B15/B20 rows are a "
+         "what-if ceiling, and OEM warranties beyond B7 are unresolved.\n")
+
+L.append("Every rupee column is a *per-litre* levy × extra litres: the volume effect "
          "alone hands the exchequer ~₹8,500 cr/yr at E20 (excise+VAT) and retail "
          "outlets ~₹900 cr/yr in commission — rising with the blend walk to E30. "
          "The OMC-margin column reconciles with omc_model.py's ₹757 cr E20 figure.\n")
@@ -216,6 +296,12 @@ with (OUT / "fuel_energy_table.csv").open("w", newline="") as f:
 with (OUT / "blend_dilution_fiscal.csv").open("w", newline="") as f:
     w = csv.DictWriter(f, fieldnames=list(nat_rows[0])); w.writeheader(); w.writerows(nat_rows)
 
+with (OUT / "blend_walk_incremental.csv").open("w", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=list(inc_rows[0])); w.writeheader(); w.writerows(inc_rows)
+
+with (OUT / "diesel_biodiesel_fiscal.csv").open("w", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=list(diesel_rows[0])); w.writeheader(); w.writerows(diesel_rows)
+
 print(f"Petrol {E_PETROL:.1f} MJ/L | ethanol {E_ETH:.1f} ({E_ETH/E_PETROL-1:+.0%}) | "
       f"isobutanol {E_IBU:.1f} ({E_IBU/E_PETROL-1:+.0%})")
 for r in blend_rows:
@@ -225,5 +311,15 @@ for r in nat_rows:
     print(f"{r['blend']:22s} extra {r['extra_bnL']:5.2f} bnL  consumer ₹{r['consumer_extra_cr']:>6,} cr  "
           f"excise ₹{r['excise_extra_cr']:>5,} cr  VAT ₹{r['vat_extra_cr']:>5,} cr  "
           f"dealer ₹{r['dealer_extra_cr']:>4,} cr  OMC ₹{r['omc_extra_cr']:>4,} cr")
+print("-- incremental walk vs E20 --")
+for r in inc_rows:
+    print(f"{r['blend']:20s} Δ{r['extra_bnL']:+5.2f} bnL  consumer +₹{r['consumer_extra_cr']:>6,} cr  "
+          f"excise +₹{r['excise_extra_cr']:>5,} cr  VAT +₹{r['vat_extra_cr']:>5,} cr  "
+          f"dealer +₹{r['dealer_extra_cr']:>4,} cr")
+print("-- diesel biodiesel walk --")
+for r in diesel_rows:
+    print(f"{r['blend']:5s} drop {r['mileage_drop_pct']:4.2f}%  extra {r['extra_bnL']:5.2f} bnL  "
+          f"consumer ₹{r['consumer_extra_cr']:>6,} cr  excise ₹{r['excise_extra_cr']:>5,} cr  "
+          f"VAT ₹{r['vat_extra_cr']:>5,} cr  dealer ₹{r['dealer_extra_cr']:>4,} cr  OMC ₹{r['omc_extra_cr']:>4,} cr")
 xl, xr = per_vehicle(0.04)
 print(f"Hatchback E20: +{xl:.0f} L/yr = ₹{xr:,.0f}/yr hidden cost")
