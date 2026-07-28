@@ -54,6 +54,25 @@ CBG throughput uplift** for the CNG book; CBG's OMC/CGD value is procurement/pol
 green-fuel tax treatment, LNG import substitution), not extra kg dispensed. *(The request's "IS 1876"
 reads as shorthand for IS 16087.)*
 
+## The Volume Dividend — energy comparison, parity pricing & CBG economics (2026-07-28)
+
+A four-script extension quantifying the **volume effect**: blends dilute energy per litre, vehicles
+buy more litres for the same km, and every per-litre levy (excise ₹19.90, effective VAT ~₹19.5,
+dealer ₹4.1, OMC ₹3.5) scales with the extra volume. Published as a paper + slide deck (also
+mirrored in [`vehicle_fuel_mileage`](https://github.com/herrrickshaw/vehicle_fuel_mileage)).
+
+| Script | What it shows |
+|---|---|
+| `energy_blend_comparison.py` | LHV table (ethanol −34%/L vs petrol, isobutanol −17%, FAME −8% vs diesel; CBG ≈ CNG per kg). E20 volume effect: **+2.16 bn L = ₹22,703 cr/yr consumer spend** (excise ₹4,303 / VAT ₹4,216 / dealer ₹886 / OMC ₹757 cr — reconciles with `omc_model.py`). Incremental E20→E30 walk (+₹18,300 cr) and diesel B7→B20 (B20: 1.85 bn L on the 110 bn L pool). |
+| `price_parity_scenarios.py` | Honest pricing `P_blend = P_E0×(1−drop)`: E20 ₹100.80, E25 ₹99.22, E30 ₹97.65 (vs ₹105). **S1 — passing through the dual-tax exemption already embedded in the ethanol fraction funds parity 1.3–1.5× at every blend** (no new subsidy). S4 (cheaper ethanol) fails: needs ₹37–41/L vs the ₹57.97 cheapest feedstock slab — grain prices set the floor. |
+| `cbg_satat_economics.py` | Renewable ₹/MJ: SATAT CBG 1.16 vs ethanol 2.94 (**2.5× cheaper**), +23% over spot RLNG (undercuts LNG above ~$14.8/MMBtu). ₹/km on SIAM FE: CNG 2.74 vs petrol E20 6.56. CBO 1→5%: ₹378→1,891 cr/yr, pump +₹0.12→0.59/kg, mileage −0.02→−0.11% — vs E20's silent 4%. |
+| `build_energy_doc.js` → `docs/Energy_Blend_Volume_Dividend.docx/.pdf` | 8-section paper (docx-js; do not hand-edit outputs). |
+| `build_slides.js` → `docs/Volume_Dividend_Slides.pptx` | 10-slide deck: mechanism → who collects → blend walk → consumer parity prices → funding scenarios → **ethanol SGST (E27@5% ≈ ₹4,787 cr/yr, price-neutral)** → the E27 grand bargain (parity ₹98.44 + SGST still leaves ₹1.27/L slack) → CBG. |
+
+Headline synthesis: **blend more (E27), charge less (₹98.44/L), tax smarter (5% ethanol SGST)** all
+fit simultaneously inside the ₹8.72/L tax headroom the blend itself creates — while CBG delivers the
+gas-side decarbonisation with no hidden consumer levy at all.
+
 ## Files
 
 | File | What |
