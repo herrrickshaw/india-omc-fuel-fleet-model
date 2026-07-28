@@ -30,14 +30,14 @@ const bullet = (t) => new Paragraph({
   numbering: { reference: "bullets", level: 0 }, spacing: { after: 100 },
   children: [new TextRun({ text: t, size: 21, color: INK, font: "Calibri" })] });
 
-function table(headers, rows, widths) {
+function table(headers, rows, widths, alignAllLeft = false) {
   const total = widths.reduce((a, b) => a + b, 0);
   const mk = (text, i, isHead, alt) => new TableCell({
     width: { size: widths[i], type: WidthType.DXA },
     shading: { type: ShadingType.CLEAR, fill: isHead ? HEAD_BG : alt ? ALT_BG : "ffffff" },
     margins: { top: 70, bottom: 70, left: 110, right: 110 },
     children: [new Paragraph({
-      alignment: i === 0 ? AlignmentType.LEFT : AlignmentType.RIGHT,
+      alignment: (i === 0 || alignAllLeft) ? AlignmentType.LEFT : AlignmentType.RIGHT,
       children: [new TextRun({ text: String(text), size: 19, font: "Calibri",
         bold: isHead, color: isHead ? "ffffff" : INK })],
     })],
@@ -260,14 +260,88 @@ const doc = new Document({
       spacer(),
       p("Grain and cane mandi prices set these floors — and maize, the marginal feedstock the E30 walk leans on, is the most expensive slab, pushing average procurement up, not down. Squeezing procurement to the cheapest slab funds only ₹0.81/L of E20's ₹4.20 need (~19%). Ethanol economics cannot pay for parity; only the tax side can. CBG needs no such scenario at all — its energy parity per kilogram is physical, not fiscal."),
 
-      h1("8. Caveats and sources"),
+      h1("8. Ethanol supply: can the distilleries serve the blend walk?"),
+      p("Methodology. Demand per blend is computed from this paper's own pool arithmetic — the FY 2024-25 blended petrol pool (54.05 billion litres) is held at constant distance-demand, each blend's real-world mileage drop re-inflates the litres dispensed, and the ethanol fraction of those litres is the fuel-ethanol requirement. To this we add non-fuel ethanol demand (potable liquor and industrial chemicals). Supply is taken from three independent sources: (i) CareEdge Ratings — the credit-rating agency formerly CARE Ratings — in its 14 May 2026 study 'E85 Impact: Ethanol Overcapacity to Persist as Flex-fuel Transition to Remain Gradual'; (ii) the sanction register of the Department of Food & Public Distribution (DFPD) Ethanol Interest Subvention Scheme (ISS), extracted in the companion E20→E30 stakeholder workbook; and (iii) the National Cooperative Development Corporation (NCDC) disbursement split for the Ministry of Cooperation's Cooperative Sugar Mill (CSM) strengthening scheme, as reported to the Rajya Sabha."),
+      table(
+        ["Supply-side item", "Value", "Source"],
+        [
+          ["Installed distillery capacity, ESY* 2025-26", "~2,000 crore litres/yr", "CareEdge May-2026"],
+          ["Additions expected operational by FY27", "+400 crore litres/yr", "CareEdge May-2026"],
+          ["DFPD ISS sanction register (approved, not all built)", "1,212 projects · 1,37,282 KLPD† = 4,530 cr L/yr", "DFPD annexures"],
+          ["Ethanol offered that OMCs currently absorb", "~60%", "CareEdge May-2026"],
+          ["Non-fuel demand (potable + industrial)", "300–350 crore litres/yr", "CareEdge May-2026"],
+          ["FCI‡ rice leg, effective", "~211 crore litres/yr (≈3.9 blend points)", "7.2 MMT/yr allocation × 65% lifting × 450 L/tonne"],
+          ["State skew", "Maharashtra +277 / Tamil Nadu −77 cr L", "CareEdge May-2026"],
+        ],
+        [4000, 2900, 2900]),
+      p("*ESY = Ethanol Supply Year (November–October). †KLPD = kilolitres per day; annualised at 330 operating days. ‡FCI = Food Corporation of India, which sells surplus rice to distilleries under the Open Market Sale Scheme (Domestic).", { size: 18, color: MUTE, italics: true }),
+      spacer(),
+      p("Result — the higher blends are the cure for the overcapacity, not a casualty of it. Capacity utilisation (fuel + non-fuel demand ÷ capacity) by blend, on today's 2,000 crore litres and on the 2,400 available by FY27:"),
+      table(
+        ["Blend", "Fuel ethanol (cr L)", "Total incl. non-fuel", "Utilisation on 2,000", "On 2,400 (FY27)", "Verdict"],
+        [
+          ["E20 (today)", "1,081", "1,406", "70%", "59%", "structural overcapacity — CareEdge's ~60% absorption"],
+          ["E25", "1,373", "1,698", "85%", "71%", "mid consolidation band"],
+          ["E27", "1,494", "1,819", "91%", "76%", "sweet spot — absorbs state surpluses, no new build"],
+          ["E30 (today's pool)", "1,674", "1,999", "100%", "83%", "fits; leans on marginal maize"],
+          ["E30 demand-grown, FY30-31", "2,173", "2,498", "—", "~104%", "sanction register must actually build"],
+        ],
+        [1500, 1300, 1400, 1300, 1200, 3100]),
+      spacer(),
+      p("Two subsidiary findings. First, the cooperative-sugar-mill 'wave' is a working-capital rescue, not a capacity wave: of the ₹10,005 crore the NCDC disbursed to 56 cooperative sugar mills, 96.5% (₹9,657 crore) went to working capital, ₹97 crore to cogeneration, and only ₹251 crore to ethanol plants — which at the DFPD scheme's average intensity (₹96.8 crore of loan per 113-KLPD project) buys roughly 293 KLPD ≈ 9.7 crore litres a year, 0.5% of installed capacity. India's 229 functional cooperative mills (~30% of sugar output) remain marginal to an ethanol build-out that is in fact a private, grain-based wave (Uttar Pradesh alone added ~50 crore litres of capacity in 2025). Second, the Food Corporation of India rice leg is small and politically fragile: ~211 crore litres effective (at a 65% lifting assumption against the 7.2-million-tonne allocation), about 3.9 blending points, and it carries the July-2023 precedent when rice-to-ethanol was suspended outright — so the E27/E30 increment leans on open-market maize, which is also the dearest procurement slab (₹71.86/L). Feedstock, not distillation steel, is the binding constraint."),
+      p("Assumptions and caveats: capacity figures are nameplate, not effective (maintenance, feedstock switching and working-capital stress reduce them); the 65% FCI lifting rate is a lever (FY26 all-channel offtake experience, band 55–75%); non-fuel demand is held flat at the CareEdge midpoint (325 cr L); the FY30-31 row uses this repo's petrol-demand forecast base case (5.0% CAGR, moderating on electric-vehicle penetration); and CareEdge's infrastructure caveat transfers intact — a single-grade retail network of ~1.03 lakh outlets, ~77.8 crore litres of storage and ~300 blending depots suits one national blend stepped E20→E27, but not a multi-grade E85/flex-fuel world.", { size: 18, color: MUTE, italics: true }),
+
+      h1("9. The RON95 octane dividend: the credit the consumer never sees"),
+      p("RON — the Research Octane Number — measures a fuel's resistance to knock (uncontrolled combustion), which is what limits an engine's compression ratio and therefore its thermal efficiency. Indian regular petrol is specified at RON 91 (Bureau of Indian Standards IS 2796); premium grades (XP95, Speed 95) at RON 95 sell for roughly ₹8–10/L more. Ethanol is a poor energy carrier but an excellent octane carrier: its blending RON is ~112 (neat RON ~108; the blending value is higher because ethanol's effect in a mixture is super-linear). Every blend step therefore delivers an octane credit alongside its energy debit — and where that credit lands is a policy choice."),
+      p("Methodology. We evaluate the two limiting routes with a linear blending model: route (a), today's practice, holds the finished pump fuel at RON 91 and solves for the blendstock-for-oxygenate-blending (BOB — the petrol base the refinery actually makes) the refiner needs; route (b) holds the BOB at RON 91 and computes the pump RON the blend delivers. The octane credit is priced two ways: at the retail premium-grade spread (~₹2.25 per RON point, an upper bound reflecting willingness to pay) and, as the caveat notes, at refining cost (₹0.3–0.8/L per 4–5 points, the resource-cost lower bound)."),
+      table(
+        ["Blend", "(a) BOB needed if pump stays RON 91", "(b) Pump RON if BOB stays 91", "Octane credit at retail spread (₹/L)"],
+        [
+          ["E10", "88.7", "93.1", "4.7"],
+          ["E20", "85.7", "95.2", "9.5"],
+          ["E25", "84.0", "96.2", "11.8"],
+          ["E27", "83.2", "96.7", "12.8"],
+          ["E30", "82.0", "97.3", "14.2"],
+        ],
+        [1200, 3200, 2700, 2700]),
+      spacer(),
+      p("Route (a) — today — means that at E20 the refinery only has to make ~85.7-RON blendstock, five points below the old specification: lower reforming severity, more cheap naphtha in the pool, a saving retained upstream on top of the tax headroom of Section 6. Route (b) is the opportunity: the identical E20 on an unchanged 91-RON base is a RON-95 fuel — premium-grade octane, nationally, at zero incremental refining cost, and the blend walk carries it to RON 97.3 at E30."),
+      p("Why this matters for mileage: a RON95-labelled E20 lets manufacturers raise compression ratios (about 10.5 → 12, feasible within the knock limit at RON 95). At the standard ~1.5% thermal-efficiency gain per compression-ratio point, that is +2.2% efficiency against E20's −4% energy drop — a net penalty of ≈ −1.8% on an engine designed for the fuel. This is Brazil's actual playbook: E27 regular petrol at ~RON 95+, high-compression engines, no headline mileage complaint. It composes cleanly with Section 7: parity pricing compensates the existing fleet immediately, while RON95 labelling plus E20-plus engines make the penalty physically shrink as the fleet turns over (~2.9 crore new registrations a year; the Vahan registry already tracks PETROL(E20) as its own fuel type, 21% of CY2025 registrations)."),
+      p("Assumptions and caveats: octane blending is non-linear and blendstock-dependent — 112 is a central literature value (range 108–115) and the linear model is an estimate; the retail-spread valuation of the credit is a willingness-to-pay ceiling, not a refining cost; the compression-ratio gain arrives only with new, RON95-calibrated engines, not by relabelling the fuel for the existing parc; and compressed biogas needs no octane accounting at all — methane's octane rating is ~120+, and CNG engines already run compression ratios above 12.", { size: 18, color: MUTE, italics: true }),
+
+      h1("10. Caveats and sources"),
       bullet("Vehicle mileage: SIAM/ARAI BS-VI FE declarations (form 2344, 303 four-wheeler models, Apr 2020) from the vehicle_fuel_mileage repo — type-approval figures, used for relative fuel-type gaps; the +40.3% petrol→CNG uplift is anchored on 11 same-nameplate pairs."),
       bullet("CBG/SATAT: MoPNG assured ex-plant price ₹54/kg (+5% GST); CBO 1% of CGD gas FY25-26 → ~5% FY28-29; gas comparators APM $6.5/MMBtu, spot RLNG $12/MMBtu at ₹83/$."),
       bullet("Volumes: PPAC Ready Reckoner FY2025-26 (H1), Table 6.1 (MS 40.0 MMT, HSD 91.4 MMT FY24-25); outlets Table 6.6/6.7 (99,281); dealer commission Table 8.10."),
       bullet("Mileage drops: SIAM/ARAI central figures (E20 4%, band 2–6%; up to ~12% for older vehicles); E25/E30 scaled on ethanol's calorific deficit; isobutanol and biodiesel rows are energy-basis."),
       bullet("Per-litre levies are editable levers shared with omc_model.py and statewise_tax_impact.py: excise ₹19.90/L petrol, ₹15.80/L diesel; VAT 25% on ₹78/L petrol base, 17.5% on ₹70/L diesel base; OMC margins ₹3.5/₹2.5."),
       bullet("This volume effect is distinct from — and additive to — the tax-differential effect (states forgo VAT on the ethanol fraction, ~₹9,000 cr/yr at E20): states lose on substitution while every per-litre stakeholder gains on volume."),
-      bullet("Generated by build_energy_doc.js from energy_blend_comparison.py outputs; do not hand-edit. Repository: github.com/herrrickshaw/india-omc-fuel-fleet-model."),
+      bullet("Supply side: CareEdge Ratings, 'E85 Impact: Ethanol Overcapacity to Persist as Flex-fuel Transition to Remain Gradual', 14 May 2026; DFPD Ethanol Interest Subvention Scheme annexures (via the E20→E30 stakeholder workbook); NCDC/Ministry of Cooperation CSM-scheme disbursements (Rajya Sabha reply); FCI rice allocations from the FCI-warehouse repo (OMSS(D) 2024-25/2025-26 orders); Uttar Pradesh capacity from the PARIVESH environmental-clearance register (digital-twin layer 24d)."),
+      bullet("RON side: BIS IS 2796 fuel specification; ethanol blending-RON literature (108–115, central 112); retail XP95/Speed-95 price spreads; compression-ratio/efficiency literature (~1.5% per CR point)."),
+      bullet("Generated by build_energy_doc.js from energy_blend_comparison.py / price_parity_scenarios.py / cbg_satat_economics.py / ethanol_supply_match.py / ron_octane_analysis.py outputs; do not hand-edit. Repository: github.com/herrrickshaw/india-omc-fuel-fleet-model."),
+
+      h2("Glossary of abbreviations"),
+      table(
+        ["Abbreviation", "Meaning"],
+        [
+          ["LHV", "Lower Heating Value — usable energy content of a fuel, excluding water-vapour condensation heat"],
+          ["RON / BOB", "Research Octane Number (knock resistance) / Blendstock for Oxygenate Blending (the petrol base before ethanol is added)"],
+          ["E20, E25, E27, E30", "Petrol blended with 20/25/27/30% ethanol by volume; B7–B20 likewise for biodiesel in diesel"],
+          ["FAME / HVO", "Fatty-Acid Methyl Ester (conventional biodiesel) / Hydrotreated Vegetable Oil (drop-in renewable diesel)"],
+          ["CNG / CBG / CBO", "Compressed Natural Gas / Compressed Biogas (purified to IS 16087) / CBG Blending Obligation on city-gas distributors"],
+          ["SATAT", "Sustainable Alternative Towards Affordable Transportation — MoPNG scheme assuring CBG offtake at ₹54/kg ex-plant"],
+          ["OMC / RO", "Oil Marketing Company (IOCL, BPCL, HPCL…) / Retail Outlet (petrol pump)"],
+          ["VAT / SGST / GST", "state Value-Added Tax on petrol · State share of Goods & Services Tax · Goods & Services Tax (ethanol pays 5%)"],
+          ["DFPD / ISS", "Department of Food & Public Distribution / its Ethanol Interest Subvention Scheme (2018–22 windows)"],
+          ["NCDC / CSM", "National Cooperative Development Corporation / Cooperative Sugar Mill"],
+          ["FCI / OMSS(D)", "Food Corporation of India / Open Market Sale Scheme (Domestic) under which FCI rice reaches distilleries"],
+          ["KLPD / cr L / MMT / ESY", "Kilolitres per day · crore litres (10 million L) · million metric tonnes · Ethanol Supply Year (Nov–Oct)"],
+          ["SIAM / ARAI / FE", "Society of Indian Automobile Manufacturers / Automotive Research Association of India / Fuel Efficiency"],
+          ["PPAC / RR", "Petroleum Planning & Analysis Cell / its Ready Reckoner data book"],
+          ["RLNG / APM / MMBtu", "Regasified Liquefied Natural Gas · Administered Price Mechanism (domestic gas) · Million British thermal units"],
+          ["FFV / CR / NBP", "Flex-Fuel Vehicle · Compression Ratio · National Biofuel Policy"],
+        ],
+        [2300, 7500], true),
     ],
   }],
 });

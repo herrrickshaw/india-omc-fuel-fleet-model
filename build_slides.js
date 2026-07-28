@@ -255,13 +255,68 @@ bullets(s, 8.75, 2.5, 3.75, 4.4, [
   "Undercuts imported LNG above ~$14.8/MMBtu; subsidy sits on-budget (SATAT + GOBARdhan), not in the fuel gauge",
 ], { size: 12.5, color: "E8F1EC", gap: 10 });
 
-/* ── 10. CLOSING ──────────────────────────────────────────────────────── */
+/* ── 10. SUPPLY CHECK ─────────────────────────────────────────────────── */
+s = pres.addSlide(); s.background = { color: P.bg };
+title(s, "Supply check: higher blends CURE the distillery overcapacity",
+  "Capacity utilisation = (fuel + non-fuel ethanol demand) ÷ capacity · CareEdge Ratings May-2026 supply data");
+s.addChart(pres.ChartType.bar, [
+  { name: "Utilisation on 2,000 cr L (today)", labels: ["E20", "E25", "E27", "E30"], values: [70, 85, 91, 100] },
+  { name: "On 2,400 cr L (FY27)", labels: ["E20", "E25", "E27", "E30"], values: [59, 71, 76, 83] },
+], {
+  x: 0.6, y: 1.65, w: 7.4, h: 5.3, barDir: "col", barGapWidthPct: 60,
+  chartColors: [P.dark2, P.green], showLegend: true, legendPos: "b", legendColor: P.ink,
+  showTitle: false, showValue: true, dataLabelPosition: "outEnd", dataLabelColor: P.ink,
+  dataLabelFontSize: 11, catAxisLabelColor: P.ink, valAxisLabelColor: P.mute, valAxisMaxVal: 110,
+  valGridLine: { color: P.line, size: 0.5 }, catGridLine: { style: "none" },
+});
+card(s, 8.3, 1.65, 4.45, 5.3);
+bullets(s, 8.55, 1.9, 3.95, 4.9, [
+  "Installed ~2,000 cr L (+400 by FY27); at E20 only ~60% of offered ethanol is absorbed — CareEdge sees 65–75% utilisation for 3 years",
+  "E27 lifts utilisation to 76% — top of the band, absorbs Maharashtra's +277 cr L surplus, zero new construction",
+  "Coop-mill scheme ≠ capacity: of ₹10,005 cr NCDC gave 56 mills, 96.5% is working capital; the ₹251 cr ethanol tranche ≈ 9.7 cr L/yr (0.5% of installed)",
+  "FCI rice leg ~211 cr L (3.9 blend pts, Jul-2023 suspension risk) — the E27/E30 increment rides on open-market maize, the dearest slab",
+  "Demand-grown E30 (FY31, 2,173 cr L) hits ~104% — only then does the 4,530 cr L DFPD sanction register need to build",
+], { size: 11.5, gap: 8 });
+
+/* ── 11. RON95 ────────────────────────────────────────────────────────── */
+s = pres.addSlide(); s.background = { color: P.bg };
+title(s, "The RON95 dividend: octane the consumer never sees",
+  "RON = knock resistance (regular petrol 91, premium 95) · ethanol blending RON ~112 · BOB = the petrol base before blending");
+const ronRows = [["Blend", "BOB needed if pump stays RON 91", "Pump RON if BOB stays 91", "Octane credit ₹/L*"],
+  ["E10", "88.7", "93.1", "4.7"], ["E20", "85.7", "95.2", "9.5"],
+  ["E25", "84.0", "96.2", "11.8"], ["E27", "83.2", "96.7", "12.8"], ["E30", "82.0", "97.3", "14.2"]];
+ronRows.forEach((r, i) => {
+  const y = 1.75 + i * 0.62, head = i === 0;
+  r.forEach((t, j) => {
+    const x = [0.6, 1.9, 5.0, 8.1][j], w = [1.2, 3.0, 3.0, 1.7][j];
+    s.addShape(pres.ShapeType.rect, { x, y, w, h: 0.56,
+      fill: { color: head ? P.dark : i % 2 ? P.card : "FFFFFF" }, line: { color: P.line, width: 0.75 } });
+    s.addText(t, { x: x + 0.08, y, w: w - 0.16, h: 0.56, fontFace: FONT, fontSize: head ? 11.5 : 13,
+      bold: head || j === 0, color: head ? "FFFFFF" : P.ink, valign: "middle",
+      align: j === 0 ? "left" : "center", margin: 0 });
+  });
+});
+s.addText("*valued at the retail XP95 spread (~₹2.25/RON point) — a willingness-to-pay ceiling; refining cost is lower (₹0.3–0.8/L per 4–5 points)",
+  { x: 0.6, y: 5.6, w: 9.2, h: 0.4, fontFace: FONT, fontSize: 10.5, italic: true, color: P.mute, margin: 0 });
+card(s, 10.1, 1.75, 2.65, 3.7, P.dark);
+s.addText("net E20 penalty on a RON95-calibrated engine", { x: 10.3, y: 1.95, w: 2.25, h: 0.85,
+  fontFace: FONT, fontSize: 11.5, color: "CFE3DA", margin: 0 });
+s.addText("−1.8%", { x: 10.3, y: 2.8, w: 2.25, h: 0.9, fontFace: HEAD, fontSize: 40, bold: true,
+  color: P.amber, margin: 0 });
+s.addText("−4% energy +2.2% from CR 10.5→12", { x: 10.3, y: 3.75, w: 2.25, h: 0.8, fontFace: FONT,
+  fontSize: 11, color: "CFE3DA", margin: 0 });
+bullets(s, 0.6, 6.15, 12.1, 1.2, [
+  "Today India blends to pump RON 91 → refiners quietly drop the blendstock to 85.7 and keep the saving. Holding the blendstock at 91 instead makes E20 a FREE national RON95 fuel — Brazil's E27 playbook: parity pricing compensates today's fleet, RON95 + high-compression E20+ engines erase the penalty as the fleet turns over (~2.9 cr new vehicles/yr)",
+], { size: 12.5 });
+
+/* ── 12. CLOSING ──────────────────────────────────────────────────────── */
 s = pres.addSlide(); s.background = { color: P.dark };
 title(s, "What honest blending policy looks like", null, true);
 bullets(s, 0.9, 1.6, 11.5, 4.6, [
   "Price blends for parity: E20 at ₹100.80, stepping to ₹98.44 at E27 — funded by passing through the tax break already embedded (1.3–1.5× coverage; no new subsidy)",
   "Give states a 1–5% SGST on ethanol — up to ₹4,787 cr/yr at E27, price-neutral, ending their structural objection to higher blends",
   "Walk the blend E20 → E27 with the fleet, not ahead of it (Brazil precedent); label pumps with energy content, not just blend %",
+  "Label E20+ as RON95 (hold the blendstock at 91) — the free octane lets high-compression engines shrink the mileage penalty to ~−1.8% as the fleet turns over",
   "Keep diesel at B5–B7 until supply and OEM warranties mature — the pool is too big for silent dilution",
   "Scale CBG on the gas side: CNG-parity energy per kg means decarbonisation with no volume dividend to hide — the fiscally honest blend",
 ], { size: 17, color: "FFFFFF", gap: 16 });
