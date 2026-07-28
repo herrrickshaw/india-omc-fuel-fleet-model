@@ -309,7 +309,36 @@ bullets(s, 0.6, 6.15, 12.1, 1.2, [
   "Today India blends to pump RON 91 → refiners quietly drop the blendstock to 85.7 and keep the saving. Holding the blendstock at 91 instead makes E20 a FREE national RON95 fuel — Brazil's E27 playbook: parity pricing compensates today's fleet, RON95 + high-compression E20+ engines erase the penalty as the fleet turns over (~2.9 cr new vehicles/yr)",
 ], { size: 12.5 });
 
-/* ── 12. CLOSING ──────────────────────────────────────────────────────── */
+/* ── 12. CBG INCENTIVE STACK ──────────────────────────────────────────── */
+s = pres.addSlide(); s.background = { color: P.bg };
+title(s, "The CBG incentive stack: every leg de-risked, all on-budget",
+  "GOBARdhan important-circulars register (70 circulars, ~half dated 2025-26) · full detail in the paper's Annex A");
+const stack = [
+  ["Offtake & pricing", "SATAT assured ₹54/kg ex-plant (2022, rev. 2025) · CGD synchronization (2021→2026) · CBO mandate 1%→5% (2024)"],
+  ["Capital support", "MNRE Waste-to-Energy CFA (2022, rev. 2025) · SBM 2.0 bio-methanation VGF (2025) · SASCI state capital assistance (2026)"],
+  ["Infrastructure & feedstock", "DPI pipeline-connectivity scheme (2024→2026) · biomass aggregation machinery (2024-25) · crop-residue channelling (2023-24)"],
+  ["Fertiliser (digestate) leg", "FCO Schedule VIII 'Organic Carbon Enhancer' (2025, gazette-verified) · Bulk Sale Notifications I–VII · MDA ~₹1,500/t · ICAR practice guide"],
+  ["Finance access", "RBI Priority Sector Lending (2020) · Agriculture Infrastructure Fund (2020/23) · AHIDF (2022)"],
+  ["Tax & carbon", "5% GST · excise exemption on CBG-blended CNG (2023) · carbon-credit eligibility (MoEFCC 2023)"],
+  ["Standards & easing", "IS 16087:2025 (= legal CNG fungibility) · MoRTH bio-CNG fuel notification (2015) · CPCB re-categorisation (2021/25)"],
+  ["State layer", "UP · Bihar · Rajasthan · AP · Assam · MP · Chhattisgarh (Jul-2026) + MoPNG Model State CBG Policy (Apr-2026)"],
+];
+stack.forEach(([h, d], i) => {
+  const col = i % 2, row = Math.floor(i / 2);
+  const x = 0.6 + col * 6.2, y = 1.7 + row * 1.28;
+  card(s, x, y, 5.95, 1.16, row === 1 && col === 1 ? P.dark : P.card);
+  const hl = row === 1 && col === 1;
+  s.addText(h, { x: x + 0.18, y: y + 0.07, w: 5.6, h: 0.34, fontFace: FONT, fontSize: 13, bold: true,
+    color: hl ? P.amber : P.dark, margin: 0 });
+  s.addText(d, { x: x + 0.18, y: y + 0.42, w: 5.6, h: 0.7, fontFace: FONT, fontSize: 10.5,
+    color: hl ? "E8F1EC" : P.mute, margin: 0 });
+});
+card(s, 0.6, 6.8, 12.15, 0.6, P.dark);
+s.addText("Feedstock, capex, debt, gas revenue, digestate revenue, carbon revenue — all supported ON-BUDGET and ex-plant: the structural opposite of ethanol's consumer-funded volume dividend.",
+  { x: 0.85, y: 6.83, w: 11.7, h: 0.54, fontFace: FONT, fontSize: 12, bold: true, color: "FFFFFF",
+    valign: "middle", margin: 0 });
+
+/* ── 13. CLOSING ──────────────────────────────────────────────────────── */
 s = pres.addSlide(); s.background = { color: P.dark };
 title(s, "What honest blending policy looks like", null, true);
 bullets(s, 0.9, 1.6, 11.5, 4.6, [
