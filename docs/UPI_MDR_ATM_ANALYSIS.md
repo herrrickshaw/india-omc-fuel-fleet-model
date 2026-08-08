@@ -85,7 +85,7 @@ guessed.
   **₹19 per cash withdrawal** (₹7 non-financial), customer charge beyond free limits
   capped at ₹23 — raised, notably, *at the request of white-label operators* whose rural
   economics did not close at ₹17.
-- India has **99,281 fuel retail outlets** (PPAC, 01.10.2025) — a network reaching rural
+- India has **103,682 fuel retail outlets** (PPAC Snapshot July-26 Table 14, as on 01.07.2026; 29,684 rural — the analysis was first written on the 99,281 count of 01.10.2025) — a network reaching rural
   and highway India far more densely than the WLA fleet, with what an ATM host needs:
   power, lighting, security presence, 24×7 staffing, footfall, and — decisively — **a
   daily cash float from fuel sales**.

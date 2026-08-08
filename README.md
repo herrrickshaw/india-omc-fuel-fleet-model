@@ -24,7 +24,7 @@ Built on **PPAC Ready Reckoner FY 2025-26 (H1)** data.
 
 ## Drivers modelled (as requested)
 
-1. **Number of retail outlets** — 99,281 (01.10.2025; PSU 90,022 + private 9,259).
+1. **Number of retail outlets** — 103,682 as on 01.07.2026 (Snapshot July-26 Table 14; 29,684 rural). Model baseline remains 99,281 (01.10.2025; PSU 90,022 + private 9,259).
 2. **Average sales per outlet** — true throughput ~45 KL/mo petrol, ~92 KL/mo diesel;
    plus the *network-dilution* finding (outlets +8% vs demand +3-7% → per-RO throughput falling).
 3. **Increased sales from vehicle-sales growth** — MS +7.1%/yr, HSD +2.9%/yr (RR 6.1 H1 YoY).
