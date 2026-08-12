@@ -70,3 +70,13 @@ Blending is mandated and rising anyway; ethanol is cheaper than the taxed petrol
 
 ---
 *Policy scenario from PPAC-anchored economics + editable levers; not fiscal advice.*
+
+---
+
+*A lighter take on the same premise:*
+
+> CGST, SGST, and IGST — behold the confusion,
+> With devolution too thin, cue talk of revolution;
+> Ethanol's the new brew,
+> Petrol's purity's askew —
+> Could federal tax be the true resolution?
