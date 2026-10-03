@@ -1,0 +1,596 @@
+{
+  "build_cbg_pitch.js": {
+    "mtime": 1785230931.9212253,
+    "seen": 1789193318.743395,
+    "ast_hash": "91646abae10e5225c8546fbd095d4d22",
+    "semantic_hash": ""
+  },
+  "build_distillery_pitch.js": {
+    "mtime": 1785234160.6351566,
+    "seen": 1789193318.743399,
+    "ast_hash": "c315949e40440d27b650c51d0a9daa5e",
+    "semantic_hash": ""
+  },
+  "build_dme_pitch.js": {
+    "mtime": 1785243399.2537196,
+    "seen": 1789193318.7433999,
+    "ast_hash": "dd30e9647d011b4774f71a3ea2600be3",
+    "semantic_hash": ""
+  },
+  "build_energy_doc.js": {
+    "mtime": 1785240833.579627,
+    "seen": 1789193318.743401,
+    "ast_hash": "9cb5e9b3856c82f3dfaa4f9f3e8a47e9",
+    "semantic_hash": ""
+  },
+  "build_isobutanol_pitch.js": {
+    "mtime": 1785245195.7686188,
+    "seen": 1789193318.743402,
+    "ast_hash": "021182e9612e889baec19af87187cfe8",
+    "semantic_hash": ""
+  },
+  "build_slides.js": {
+    "mtime": 1785240853.9270027,
+    "seen": 1789193318.743402,
+    "ast_hash": "9b3813d6bd28ab15edd76f64f7b5d765",
+    "semantic_hash": ""
+  },
+  "build_xlsx.py": {
+    "mtime": 1784893988.2827568,
+    "seen": 1789193318.743403,
+    "ast_hash": "8f612bf2513072032f5fd6b44a5a809b",
+    "semantic_hash": ""
+  },
+  "cbg_pitch_model.py": {
+    "mtime": 1785230707.9015899,
+    "seen": 1789193318.7434042,
+    "ast_hash": "ef33cd53641492729f25b35099aa7e33",
+    "semantic_hash": ""
+  },
+  "cbg_satat_economics.py": {
+    "mtime": 1785209408.8827794,
+    "seen": 1789193318.743405,
+    "ast_hash": "a935cc8a4ad6338b84aa6488b6460d96",
+    "semantic_hash": ""
+  },
+  "distillery_conversion_model.py": {
+    "mtime": 1785234043.4174702,
+    "seen": 1789193318.743405,
+    "ast_hash": "70b812d29c93fb56caf79950b69cdcf4",
+    "semantic_hash": ""
+  },
+  "dme_lpg_blending.py": {
+    "mtime": 1785240675.5102787,
+    "seen": 1789193318.743406,
+    "ast_hash": "a641b858af8781fdff0ab1fbe18a7add",
+    "semantic_hash": ""
+  },
+  "dme_pitch_model.py": {
+    "mtime": 1785243234.2268033,
+    "seen": 1789193318.743407,
+    "ast_hash": "ea8aa49cb7698de53919b9025d70aa99",
+    "semantic_hash": ""
+  },
+  "energy_blend_comparison.py": {
+    "mtime": 1785206340.0195014,
+    "seen": 1789193318.743407,
+    "ast_hash": "82628029358099f7c40e60b54b0b0149",
+    "semantic_hash": ""
+  },
+  "ethanol_sgst_sweetspot.py": {
+    "mtime": 1784897280.2880228,
+    "seen": 1789193318.7434082,
+    "ast_hash": "6e229574e8aec582d3a462946a229547",
+    "semantic_hash": ""
+  },
+  "ethanol_supply_match.py": {
+    "mtime": 1785210523.3230739,
+    "seen": 1789193318.743409,
+    "ast_hash": "ca3400e075d4423c6d03d462c34a446f",
+    "semantic_hash": ""
+  },
+  "fleet_from_fuel.py": {
+    "mtime": 1784896059.248086,
+    "seen": 1789193318.743409,
+    "ast_hash": "d78cd111bc48f2534ce8a0b334c4d938",
+    "semantic_hash": ""
+  },
+  "isobutanol_pitch_model.py": {
+    "mtime": 1785244947.7331374,
+    "seen": 1789193318.7434099,
+    "ast_hash": "decc739cff48d09ded4bc27e880c42ac",
+    "semantic_hash": ""
+  },
+  "omc_model.py": {
+    "mtime": 1784893900.2072425,
+    "seen": 1789193318.7434108,
+    "ast_hash": "fc311258d15f7ba3182536fd478876c9",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1785209893.4192874,
+    "seen": 1789193318.7434108,
+    "ast_hash": "fed4211e5325765cfd6d3ae20d6821c3",
+    "semantic_hash": ""
+  },
+  "petrol_demand_forecast.py": {
+    "mtime": 1784899313.4919477,
+    "seen": 1789193318.743412,
+    "ast_hash": "748a764106ce71213b02b36968ff20fe",
+    "semantic_hash": ""
+  },
+  "petrol_export_value.py": {
+    "mtime": 1784904787.722725,
+    "seen": 1789193318.743413,
+    "ast_hash": "32c9b6d89d3c43bd322b77133c0f2129",
+    "semantic_hash": ""
+  },
+  "policy/forex_essentials_pli_case.py": {
+    "mtime": 1784905330.4068868,
+    "seen": 1789193318.743413,
+    "ast_hash": "364c90ea7cc9f305d673603c3dc547c4",
+    "semantic_hash": ""
+  },
+  "price_parity_scenarios.py": {
+    "mtime": 1785209159.2366433,
+    "seen": 1789193318.743414,
+    "ast_hash": "a873612e15e3d5ee8ac4dac851764c72",
+    "semantic_hash": ""
+  },
+  "refining/ethanol_forex_substitution.py": {
+    "mtime": 1784904746.755188,
+    "seen": 1789193318.743415,
+    "ast_hash": "588b62305f26e243bca530ea5648ff51",
+    "semantic_hash": ""
+  },
+  "refining/petchem_import_substitution.py": {
+    "mtime": 1784906217.4202435,
+    "seen": 1789193318.743416,
+    "ast_hash": "cbe0afc3638eda626d92aa3244fb2d07",
+    "semantic_hash": ""
+  },
+  "refining/refining_trade_analysis.py": {
+    "mtime": 1784901002.4446712,
+    "seen": 1789193318.743416,
+    "ast_hash": "22ab4b4579622a9a3cdb4a78156f039d",
+    "semantic_hash": ""
+  },
+  "ron_octane_analysis.py": {
+    "mtime": 1785210598.693793,
+    "seen": 1789193318.743417,
+    "ast_hash": "35101c7467f8845319cd557ef99071f9",
+    "semantic_hash": ""
+  },
+  "statewise_tax_impact.py": {
+    "mtime": 1784896835.098617,
+    "seen": 1789193318.7434182,
+    "ast_hash": "5abf913e11c61defc9c506829c38242c",
+    "semantic_hash": ""
+  },
+  "textile_data/analysis/chapter_level_analysis.py": {
+    "mtime": 1785123417.4889793,
+    "seen": 1789193318.7434182,
+    "ast_hash": "f4bb7c6b772601afc41ecb06429cceca",
+    "semantic_hash": ""
+  },
+  "textile_data/analysis/segment_trade_extractor.py": {
+    "mtime": 1785123417.4891927,
+    "seen": 1789193318.743419,
+    "ast_hash": "b56422d4dca94469badeb68139745586",
+    "semantic_hash": ""
+  },
+  "textile_data/raw/tradestat_hsn_2018-26.json": {
+    "mtime": 1785123417.4903545,
+    "seen": 1789193318.74342,
+    "ast_hash": "b548ecc8e9b03debbc872a0ba141709e",
+    "semantic_hash": ""
+  },
+  "textile_data/raw/tradestat_textile_hsn8_fy26.json": {
+    "mtime": 1785728834.1112447,
+    "seen": 1789193318.74342,
+    "ast_hash": "277ac971620637dbc6de2a767938a6e3",
+    "semantic_hash": ""
+  },
+  "textile_data/research/create_presentation.py": {
+    "mtime": 1785126773.6830802,
+    "seen": 1789193318.7434208,
+    "ast_hash": "17d59998de32ebec78e8562d3218979f",
+    "semantic_hash": ""
+  },
+  "textile_data/research/trend_analysis_5yr.json": {
+    "mtime": 1785123657.2835288,
+    "seen": 1789193318.743422,
+    "ast_hash": "4e1d3dbbd39e740eb10e416c62716849",
+    "semantic_hash": ""
+  },
+  "textile_data/research/visualization_data.json": {
+    "mtime": 1785123417.4929304,
+    "seen": 1789193318.743422,
+    "ast_hash": "a66cb562c6694a2c9e60c8ba23f9f084",
+    "semantic_hash": ""
+  },
+  "upstream/upstream_acreage_analysis.py": {
+    "mtime": 1784900166.9264681,
+    "seen": 1789193318.743423,
+    "ast_hash": "4e170adb70ca76f4fb7b70d0deb7f934",
+    "semantic_hash": ""
+  },
+  "vahan/analyze_vahan_fuel.py": {
+    "mtime": 1784895011.816603,
+    "seen": 1789193318.743424,
+    "ast_hash": "e085ccc91daff8bd42f2be276e11e2b2",
+    "semantic_hash": ""
+  },
+  "vahan/build_state_deck.js": {
+    "mtime": 1784942150.9605117,
+    "seen": 1789193318.743424,
+    "ast_hash": "85eb39bea8bf11f203441ca3b37d71a0",
+    "semantic_hash": ""
+  },
+  "vahan/statewise_concentration.py": {
+    "mtime": 1784940548.7217383,
+    "seen": 1789193318.7434251,
+    "ast_hash": "fa457dcf13cdea87ffb7ab89c1f2d093",
+    "semantic_hash": ""
+  },
+  "vahan/statewise_fuel_analysis.py": {
+    "mtime": 1784940201.7946012,
+    "seen": 1789193318.743426,
+    "ast_hash": "3f3efca1cfbcc6ab9c03b1a411129edd",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1789402247.6490273,
+    "seen": 1789968801.964601,
+    "ast_hash": "0f8d2c67673c9fb77bc6fc705b1eef9b",
+    "semantic_hash": ""
+  },
+  "docs/UPI_MDR_ATM_ANALYSIS.md": {
+    "mtime": 1786188095.110974,
+    "seen": 1789193318.743427,
+    "ast_hash": "2df4128316dbc280d882753c46cb16d7",
+    "semantic_hash": ""
+  },
+  "docs/ethanol_omc_waterfall.html": {
+    "mtime": 1784901322.9902024,
+    "seen": 1789193318.743428,
+    "ast_hash": "fcf984d1f4d551df8a4ba55c7825d65d",
+    "semantic_hash": ""
+  },
+  "docs/petchem_import_tree.html": {
+    "mtime": 1784904179.753909,
+    "seen": 1789193318.7434292,
+    "ast_hash": "8890bae5cc362d3d17d206fa177593fc",
+    "semantic_hash": ""
+  },
+  "outputs/cbg_pitch_model.md": {
+    "mtime": 1785230714.4954143,
+    "seen": 1789193318.7434292,
+    "ast_hash": "6c698f7405e508aa43001434ed5f9d50",
+    "semantic_hash": ""
+  },
+  "outputs/cbg_satat_economics.md": {
+    "mtime": 1785209408.9641697,
+    "seen": 1789193318.74343,
+    "ast_hash": "f3d4acddb881fbe0f4e64e507cdce700",
+    "semantic_hash": ""
+  },
+  "outputs/distillery_conversion_model.md": {
+    "mtime": 1785234048.0206091,
+    "seen": 1789193318.7434309,
+    "ast_hash": "9f9ce8f36c47211b09e5b132179b4b5e",
+    "semantic_hash": ""
+  },
+  "outputs/dme_lpg_blending.md": {
+    "mtime": 1785240682.0651755,
+    "seen": 1789193318.743432,
+    "ast_hash": "fe7b7bfd43c0cc0e107fa431c3693bf1",
+    "semantic_hash": ""
+  },
+  "outputs/dme_pitch_model.md": {
+    "mtime": 1785243240.4618762,
+    "seen": 1789193318.743432,
+    "ast_hash": "b27f042004f08490656822140ca55f3b",
+    "semantic_hash": ""
+  },
+  "outputs/energy_blend_comparison.md": {
+    "mtime": 1785206346.7736976,
+    "seen": 1789193318.743433,
+    "ast_hash": "2639efa3625f9c2ce6776c301a78501e",
+    "semantic_hash": ""
+  },
+  "outputs/ethanol_sgst_sweetspot.md": {
+    "mtime": 1786549337.404856,
+    "seen": 1789193318.743434,
+    "ast_hash": "9b9994b0b7ef6b8bb88ab09e947b3fa6",
+    "semantic_hash": ""
+  },
+  "outputs/ethanol_supply_match.md": {
+    "mtime": 1785210552.6890516,
+    "seen": 1789193318.743434,
+    "ast_hash": "c4abe032ec6e2d62e804a44b44e74a42",
+    "semantic_hash": ""
+  },
+  "outputs/fleet_from_fuel.md": {
+    "mtime": 1784896062.4910283,
+    "seen": 1789193318.743435,
+    "ast_hash": "f9b82a47bd0cc467b71ad466795421bb",
+    "semantic_hash": ""
+  },
+  "outputs/isobutanol_pitch_model.md": {
+    "mtime": 1785244947.778068,
+    "seen": 1789193318.743436,
+    "ast_hash": "73f8c8dd753162f3bd7f676431dd9f89",
+    "semantic_hash": ""
+  },
+  "outputs/omc_profitability_report.md": {
+    "mtime": 1784893904.3722856,
+    "seen": 1789193318.743436,
+    "ast_hash": "5aa88f6b1e73f52d98b8aa29ee21de48",
+    "semantic_hash": ""
+  },
+  "outputs/petrol_demand_forecast.md": {
+    "mtime": 1784899325.3714254,
+    "seen": 1789193318.743437,
+    "ast_hash": "8dc476d473f27840f0b1299ac8059399",
+    "semantic_hash": ""
+  },
+  "outputs/petrol_export_value.md": {
+    "mtime": 1784904820.4244788,
+    "seen": 1789193318.743438,
+    "ast_hash": "2b8fe240145118b366e59a82cd51afc5",
+    "semantic_hash": ""
+  },
+  "outputs/price_parity_scenarios.md": {
+    "mtime": 1785209168.2099035,
+    "seen": 1789193318.743438,
+    "ast_hash": "3dbb79862517e3d11ad0a76873401089",
+    "semantic_hash": ""
+  },
+  "outputs/ron_octane_analysis.md": {
+    "mtime": 1785210602.2141314,
+    "seen": 1789193318.7434392,
+    "ast_hash": "aa52152ff3b4c6a538b63c8d560a1763",
+    "semantic_hash": ""
+  },
+  "outputs/statewise_tax_impact.md": {
+    "mtime": 1784896838.9856691,
+    "seen": 1789193318.74344,
+    "ast_hash": "57be86dedffea313a547a4ed564aeba2",
+    "semantic_hash": ""
+  },
+  "policy/outputs/forex_essentials_pli_case.md": {
+    "mtime": 1784905360.5151665,
+    "seen": 1789193318.74344,
+    "ast_hash": "70b74b8cd836a625d5a1c9792c89f2a7",
+    "semantic_hash": ""
+  },
+  "refining/dcpc_validation.md": {
+    "mtime": 1784906175.2677395,
+    "seen": 1789193318.7434409,
+    "ast_hash": "739beaeccbcb8947e6bcc34598776cbd",
+    "semantic_hash": ""
+  },
+  "refining/naphtha_btx_routes.md": {
+    "mtime": 1784906402.8474033,
+    "seen": 1789193318.7434418,
+    "ast_hash": "966a57065e9f3776d32fbb6b06c29e5d",
+    "semantic_hash": ""
+  },
+  "refining/naphtha_to_chemicals_pivot.md": {
+    "mtime": 1784906570.9760647,
+    "seen": 1789193318.7434418,
+    "ast_hash": "b6202a3fa0f3ef0b725a125238362327",
+    "semantic_hash": ""
+  },
+  "refining/outputs/ethanol_forex_substitution.md": {
+    "mtime": 1784904752.0837708,
+    "seen": 1789193318.743443,
+    "ast_hash": "0d0476c86af3656f573789037502f8b1",
+    "semantic_hash": ""
+  },
+  "refining/outputs/petchem_import_substitution.md": {
+    "mtime": 1784906230.8143685,
+    "seen": 1789193318.743444,
+    "ast_hash": "168ea84f7e4f102b0dcccef2597e0376",
+    "semantic_hash": ""
+  },
+  "refining/outputs/refining_trade_analysis.md": {
+    "mtime": 1784901007.9689815,
+    "seen": 1789193318.743444,
+    "ast_hash": "b7610146c09b1ff494f2eb90067023de",
+    "semantic_hash": ""
+  },
+  "requirements.txt": {
+    "mtime": 1784896287.677335,
+    "seen": 1789193318.743445,
+    "ast_hash": "5b6fb37a16d698dd4cb84a6e4287bcf5",
+    "semantic_hash": ""
+  },
+  "textile_data/README.md": {
+    "mtime": 1785123417.4882853,
+    "seen": 1789193318.743446,
+    "ast_hash": "62d5f4a4daa3a61f5773abda50ae34a3",
+    "semantic_hash": ""
+  },
+  "textile_data/TRADESTAT_HSN_QUERY_GUIDE.md": {
+    "mtime": 1785123417.4885225,
+    "seen": 1789193318.743446,
+    "ast_hash": "88ba20351d30782c4167d055ddf884da",
+    "semantic_hash": ""
+  },
+  "textile_data/VALIDATION_CHECKLIST.md": {
+    "mtime": 1785123417.4887252,
+    "seen": 1789193318.743447,
+    "ast_hash": "7d1cea82570e076ef2eb08f3f948d5eb",
+    "semantic_hash": ""
+  },
+  "textile_data/research/BHARAT_TEX_PM_MITRA_DHAR_ANALYSIS.md": {
+    "mtime": 1785125266.4462683,
+    "seen": 1789193318.743448,
+    "ast_hash": "a546c76006c4251b914fef640873c555",
+    "semantic_hash": ""
+  },
+  "textile_data/research/BHARAT_TEX_PM_MITRA_EXECUTIVE_SUMMARY.md": {
+    "mtime": 1785125415.9791915,
+    "seen": 1789193318.743449,
+    "ast_hash": "6fdd410e88f27fd7ee4136f1576f1369",
+    "semantic_hash": ""
+  },
+  "textile_data/research/CHEMICAL_SUBSTITUTION_OPPORTUNITY.md": {
+    "mtime": 1785123417.49154,
+    "seen": 1789193318.743449,
+    "ast_hash": "da8e62c55ba0837a2fd05b9e081b5b43",
+    "semantic_hash": ""
+  },
+  "textile_data/research/IMPORT_SUBSTITUTION_OPPORTUNITY_MATRIX.md": {
+    "mtime": 1785126469.1523724,
+    "seen": 1789193318.7434502,
+    "ast_hash": "5b1b7d9209fc834e2e519a1d82fbf128",
+    "semantic_hash": ""
+  },
+  "textile_data/research/INDIAN_CHEMICAL_MANUFACTURERS_CAPACITY.md": {
+    "mtime": 1785124887.784422,
+    "seen": 1789193318.7434509,
+    "ast_hash": "f5fb221749cd701a081583829700207d",
+    "semantic_hash": ""
+  },
+  "textile_data/research/MASTER_INVESTMENT_LIST_BY_COMPANY.md": {
+    "mtime": 1785126376.7859337,
+    "seen": 1789193318.7434518,
+    "ast_hash": "5cd0a30c8f2609a040dfb0d858bf7fa4",
+    "semantic_hash": ""
+  },
+  "textile_data/research/MINISTRY_HISTORICAL_DATA_FY22-FY26.md": {
+    "mtime": 1785126166.9836555,
+    "seen": 1789193318.7434518,
+    "ast_hash": "22a9d9af1c564ca90b6e57d745cb7798",
+    "semantic_hash": ""
+  },
+  "textile_data/research/MINISTRY_UPDATES_FY26_LATEST.md": {
+    "mtime": 1785126059.7476401,
+    "seen": 1789193318.743453,
+    "ast_hash": "e46e1c67953828096571b94971e32ceb",
+    "semantic_hash": ""
+  },
+  "textile_data/research/PROCESSOR_ACTION_CHECKLIST_FY26-30.md": {
+    "mtime": 1785125589.996306,
+    "seen": 1789193318.743454,
+    "ast_hash": "9f7c64c7013b7001d574d11e28b3e7a4",
+    "semantic_hash": ""
+  },
+  "textile_data/research/SEGMENT_MARGIN_OPPORTUNITY_ANALYSIS.md": {
+    "mtime": 1785124636.6394434,
+    "seen": 1789193318.743454,
+    "ast_hash": "ee257f8cb6f8f1a5e8dbfbba87ca89e4",
+    "semantic_hash": ""
+  },
+  "textile_data/research/SEGMENT_MARGIN_SUMMARY_VISUAL.md": {
+    "mtime": 1785124728.8178797,
+    "seen": 1789193318.743455,
+    "ast_hash": "e2251942fba3ab7968859421648d0725",
+    "semantic_hash": ""
+  },
+  "textile_data/research/SPECIALTY_FIBRES_DEFENSE_TEXTILES_ANALYSIS.md": {
+    "mtime": 1785234291.446373,
+    "seen": 1789193318.743456,
+    "ast_hash": "06960efd42266890be15348d189228a3",
+    "semantic_hash": ""
+  },
+  "textile_data/research/TEXTILE_ANALYSIS_PRESENTATION.html": {
+    "mtime": 1785124257.9292088,
+    "seen": 1789193318.743456,
+    "ast_hash": "ca4f309362963588b438268ed64205f0",
+    "semantic_hash": ""
+  },
+  "textile_data/research/TEXTILE_HSN_DEEP_DIVE_5YR_ANALYSIS.md": {
+    "mtime": 1785124226.0544517,
+    "seen": 1789193318.743457,
+    "ast_hash": "103631b441c5b0e26bf6d1e398b1cc3c",
+    "semantic_hash": ""
+  },
+  "textile_data/research/TEXTILE_SECTOR_INVESTMENT_LANDSCAPE_2024-25.md": {
+    "mtime": 1785125838.3468394,
+    "seen": 1789193318.743458,
+    "ast_hash": "d70ed82d4b4b23e0632a2eadbb288940",
+    "semantic_hash": ""
+  },
+  "textile_data/research/TRADESTAT_FY26_UPDATE_AND_HSN_VALIDATION.md": {
+    "mtime": 1785729182.4103277,
+    "seen": 1789193318.743459,
+    "ast_hash": "b2633f1eb343a37f3b38f57d0bf8c423",
+    "semantic_hash": ""
+  },
+  "textile_data/research/VISUALIZATIONS.md": {
+    "mtime": 1785123417.4925292,
+    "seen": 1789193318.7434602,
+    "ast_hash": "df6974b7f44d49a5c7f4c100f0fe445d",
+    "semantic_hash": ""
+  },
+  "upstream/outputs/upstream_acreage_analysis.md": {
+    "mtime": 1784900203.4407523,
+    "seen": 1789193318.7434602,
+    "ast_hash": "7cfdce9abb4297b1dd7a67ec407a923e",
+    "semantic_hash": ""
+  },
+  "vahan/outputs/statewise_concentration.md": {
+    "mtime": 1784942151.0797212,
+    "seen": 1789193318.7434611,
+    "ast_hash": "b6a2b771f7fd885241d41be7db91fab1",
+    "semantic_hash": ""
+  },
+  "vahan/outputs/statewise_fuel_analysis.md": {
+    "mtime": 1784940219.629408,
+    "seen": 1789193318.7434618,
+    "ast_hash": "2f2885fd96537e6839c7dd92b2b440a3",
+    "semantic_hash": ""
+  },
+  "vahan/outputs/vahan_fuel_analysis.md": {
+    "mtime": 1784895015.4646375,
+    "seen": 1789193318.7434618,
+    "ast_hash": "cc97a21bd242cebd7bdaee15ae7eb5c6",
+    "semantic_hash": ""
+  },
+  "docs/CBG_Investment_Pitch.md": {
+    "mtime": 1789386604.0342493,
+    "seen": 1789968801.964607,
+    "ast_hash": "933f7a19151c05f9c3b6f02df2744d80",
+    "semantic_hash": ""
+  },
+  "docs/DME_Blending_Pitch.md": {
+    "mtime": 1789386597.2278254,
+    "seen": 1789968801.964612,
+    "ast_hash": "3a6075474823af05df539d8feceb38ba",
+    "semantic_hash": ""
+  },
+  "docs/Distillery_MultiFeed_Pitch.md": {
+    "mtime": 1789386598.7147121,
+    "seen": 1789968801.964617,
+    "ast_hash": "166a8110ea973c6ff4d425efbd80899a",
+    "semantic_hash": ""
+  },
+  "docs/Energy_Blend_Volume_Dividend.md": {
+    "mtime": 1789386602.9003904,
+    "seen": 1789968801.964622,
+    "ast_hash": "c5abe23cb8a031e0538b67b891943c61",
+    "semantic_hash": ""
+  },
+  "docs/Isobutanol_Blending_Pitch.md": {
+    "mtime": 1789386600.120881,
+    "seen": 1789968801.9646258,
+    "ast_hash": "9da1e493cae07bbaeb98954301099647",
+    "semantic_hash": ""
+  },
+  "from-global-market-research-platform/ppac-ready-reckoner-data/requirements-ocr.txt": {
+    "mtime": 1789402598.7547262,
+    "seen": 1789968801.9646468,
+    "ast_hash": "4d926c918f77d6259a828cc3574bc134",
+    "semantic_hash": ""
+  },
+  "textile_data/research/Textile_Chemical_Investment_Analysis.md": {
+    "mtime": 1789389447.090473,
+    "seen": 1789968801.964891,
+    "ast_hash": "a87c64e32292a08086258633a15f05c4",
+    "semantic_hash": ""
+  }
+}
