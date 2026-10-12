@@ -1,4 +1,8 @@
 # India's Multi-Market Analysis Platform
+
+<!-- how-to-use-with-ai -->
+> **New here?** See [How to use this repo with AI (Claude, Gemini, ChatGPT)](HOW_TO_USE_WITH_AI.md) — clone it, paste it into an AI tool, and ask in plain English.
+
 ## Petrol-Ethanol-Textiles Integrated Research
 
 This repository combines **three interconnected research areas**:
