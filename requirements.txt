@@ -1,3 +1,6 @@
 # omc_model.py, fleet_from_fuel.py, vahan/analyze_vahan_fuel.py are pure stdlib.
 # Only the Excel builder needs a dependency:
 openpyxl>=3.1
+# textile_data/ side scripts (analysis/*.py, research/create_presentation.py):
+pandas>=2.0
+python-pptx>=0.6
