@@ -13,11 +13,12 @@ editable levers. Volumes anchored on Table 6.1 national consumption (not the
 
 Units: volumes in billion litres (bn L); money in ₹ crore (1 cr = 1e7).
 """
+from __future__ import annotations
+
 import csv
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / "outputs"
-OUT.mkdir(exist_ok=True)
 
 # ────────────────────────────────────────────────────────────────────────────
 # INPUTS  (edit these; everything downstream recomputes)
@@ -70,38 +71,50 @@ PETROL_REFINERY    = 58.0    # ₹/L indicative refinery/trade-parity cost of pe
 CR = 1e7   # ₹ per crore
 
 
-def bnL_from_MMT(mmt, dens):
+def bnL_from_MMT(mmt: float, dens: float) -> float:
     """MMT -> billion litres.  1 MMT = 1e9 kg; /density = L; /1e9 = bn L."""
     return mmt * 1e9 / dens / 1e9
 
 
-# ────────────────────────────────────────────────────────────────────────────
-# BASE (FY24-25 actual)
-# ────────────────────────────────────────────────────────────────────────────
-ms_bnL_base  = bnL_from_MMT(MS_MMT_FY2425, DENS_MS)     # blended petrol dispensed (incl. ethanol)
-hsd_bnL_base = bnL_from_MMT(HSD_MMT_FY2425, DENS_HSD)
+ORDER = ("E0", "E20", "E25", "E30")          # column order of MIX_SCENARIOS shares
+SCENARIO_TAGS = ("E0", "E20", "E25", "E30")
+ROADMAP = {  # fiscal-year-end -> blend tag (NBP roadmap; editable)
+    "FY25-26": "E20", "FY26-27": "E20", "FY27-28": "E25",
+    "FY28-29": "E25", "FY29-30": "E30",
+}
 
-def omc_income(ms_bnL, hsd_bnL):
-    """OMC retail marketing gross margin, ₹ crore."""
-    ms  = ms_bnL * 1e9 * OMC_MARGIN_MS / CR
+
+# ────────────────────────────────────────────────────────────────────────────
+# PURE COMPUTATION  (no I/O; every function returns plain dicts/floats)
+# ────────────────────────────────────────────────────────────────────────────
+def omc_income(ms_bnL: float, hsd_bnL: float) -> tuple[float, float, float]:
+    """OMC retail marketing gross margin (petrol, diesel, total), ₹ crore, from bn L."""
+    ms = ms_bnL * 1e9 * OMC_MARGIN_MS / CR
     hsd = hsd_bnL * 1e9 * OMC_MARGIN_HSD / CR
     return ms, hsd, ms + hsd
 
-ms_inc, hsd_inc, tot_inc = omc_income(ms_bnL_base, hsd_bnL_base)
 
-# per-RO throughput (true, from national volume / outlets)
-ms_perRO_klmo  = ms_bnL_base * 1e9 / N_RO_2025 / 12 / 1000
-hsd_perRO_klmo = hsd_bnL_base * 1e9 / N_RO_2025 / 12 / 1000
+def base_book() -> dict:
+    """FY24-25 actual retail book: volumes (bn L), income (₹ cr) and per-RO throughput (KL/month)."""
+    ms_bnL = bnL_from_MMT(MS_MMT_FY2425, DENS_MS)     # blended petrol dispensed (incl. ethanol)
+    hsd_bnL = bnL_from_MMT(HSD_MMT_FY2425, DENS_HSD)
+    ms_inc, hsd_inc, tot_inc = omc_income(ms_bnL, hsd_bnL)
+    return {
+        "ms_bnL": ms_bnL, "hsd_bnL": hsd_bnL,
+        "ms_inc": ms_inc, "hsd_inc": hsd_inc, "tot_inc": tot_inc,
+        # per-RO throughput (true, from national volume / outlets)
+        "ms_perRO_klmo": ms_bnL * 1e9 / N_RO_2025 / 12 / 1000,
+        "hsd_perRO_klmo": hsd_bnL * 1e9 / N_RO_2025 / 12 / 1000,
+    }
 
-# ────────────────────────────────────────────────────────────────────────────
-# ETHANOL SCENARIOS  (petrol only; diesel unaffected by ethanol)
-# ────────────────────────────────────────────────────────────────────────────
-# Hold distance driven fixed at the E0-equivalent implied by the CURRENT blend,
-# so scenarios are comparable. L0 = petrol litres needed with NO ethanol.
-m_now = BLEND[CURRENT_BLEND]["mileage_drop"]
-L0 = ms_bnL_base * (1 - m_now)      # E0-equivalent petrol volume (fixed distance)
 
-def scenario(tag):
+def e0_equivalent_volume(ms_bnL: float) -> float:
+    """E0-equivalent petrol volume (bn L) for the distance served by `ms_bnL` of CURRENT_BLEND."""
+    return ms_bnL * (1 - BLEND[CURRENT_BLEND]["mileage_drop"])
+
+
+def scenario(tag: str, L0: float) -> dict:
+    """One uniform-blend scenario (petrol only; diesel unaffected) at fixed distance L0."""
     b = BLEND[tag]
     m = b["mileage_drop"]
     blend_vol = L0 / (1 - m)                     # blended petrol dispensed for same distance
@@ -123,12 +136,9 @@ def scenario(tag):
         "ethanol_cost_gap_cr": ethanol_cost_gap,
     }
 
-scenarios = [scenario(t) for t in ("E0", "E20", "E25", "E30")]
 
-# ── MIX scenarios: petrol pool split across E0/E20/E25/E30 in a ratio ─────────
-ORDER = ("E0", "E20", "E25", "E30")
-
-def mix_scenario(name, shares):
+def mix_scenario(name: str, shares: tuple, L0: float) -> dict:
+    """Petrol pool split across E0/E20/E25/E30 by volume `shares` (must sum to 1)."""
     assert abs(sum(shares) - 1) < 1e-9, f"{name}: shares must sum to 1"
     blend_vol = ethanol_vol = wdrop = 0.0
     for tag, sh in zip(ORDER, shares):
@@ -152,60 +162,83 @@ def mix_scenario(name, shares):
         "extra_OMC_income_cr": extra_vs_e0 * 1e9 * OMC_MARGIN_MS / CR,
     }
 
-mixes = [mix_scenario(n, sh) for n, sh in MIX_SCENARIOS.items()]
+
+def project(L0: float, hsd_bnL: float) -> list[dict]:
+    """YoY projection FY25-26 → FY29-30: vehicle-driven demand compounds distance (L0 and HSD),
+    the blend steps up per ROADMAP, the outlet network grows."""
+    proj = []
+    L0_y, hsd_y, nro_y = L0, hsd_bnL, N_RO_2025
+    prev_tot = None
+    for i, (fy, tag) in enumerate(ROADMAP.items()):
+        if i:  # grow demand & network from year 1 onward
+            L0_y  *= (1 + MS_GROWTH)
+            hsd_y *= (1 + HSD_GROWTH)
+            nro_y *= (1 + RO_GROWTH)
+        m = BLEND[tag]["mileage_drop"]
+        blend_vol = L0_y / (1 - m)
+        ms_i  = blend_vol * 1e9 * OMC_MARGIN_MS / CR
+        hsd_i = hsd_y * 1e9 * OMC_MARGIN_HSD / CR
+        tot   = ms_i + hsd_i
+        ethanol_extra = (blend_vol - L0_y) * 1e9 * OMC_MARGIN_MS / CR
+        proj.append({
+            "fy": fy, "blend": tag,
+            "outlets": round(nro_y),
+            "petrol_blend_bnL": round(blend_vol, 2),
+            "diesel_bnL": round(hsd_y, 2),
+            "omc_income_cr": round(tot),
+            "yoy_growth_cr": None if prev_tot is None else round(tot - prev_tot),
+            "ethanol_attributable_cr": round(ethanol_extra),
+        })
+        prev_tot = tot
+    return proj
+
+
+def run_model() -> dict:
+    """Run the full model from the module-level levers; returns base book + all scenario tables."""
+    base = base_book()
+    L0 = e0_equivalent_volume(base["ms_bnL"])
+    return {
+        "base": base,
+        "L0": L0,
+        "scenarios": [scenario(t, L0) for t in SCENARIO_TAGS],
+        "mixes": [mix_scenario(n, sh, L0) for n, sh in MIX_SCENARIOS.items()],
+        "proj": project(L0, base["hsd_bnL"]),
+    }
+
 
 # ────────────────────────────────────────────────────────────────────────────
-# YoY PROJECTION  FY25-26 → FY29-30
-#   - vehicle-driven demand growth compounds distance (L0 and HSD)
-#   - ethanol blend steps up per NBP roadmap (editable)
-#   - outlet network grows
+# OUTPUT  (I/O at the edges)
 # ────────────────────────────────────────────────────────────────────────────
-ROADMAP = {  # fiscal-year-end -> blend tag
-    "FY25-26": "E20", "FY26-27": "E20", "FY27-28": "E25",
-    "FY28-29": "E25", "FY29-30": "E30",
-}
-proj = []
-L0_y, hsd_y, nro_y = L0, hsd_bnL_base, N_RO_2025
-prev_tot = None
-for i, (fy, tag) in enumerate(ROADMAP.items()):
-    if i:  # grow demand & network from year 1 onward
-        L0_y  *= (1 + MS_GROWTH)
-        hsd_y *= (1 + HSD_GROWTH)
-        nro_y *= (1 + RO_GROWTH)
-    m = BLEND[tag]["mileage_drop"]
-    blend_vol = L0_y / (1 - m)
-    ms_i  = blend_vol * 1e9 * OMC_MARGIN_MS / CR
-    hsd_i = hsd_y * 1e9 * OMC_MARGIN_HSD / CR
-    tot   = ms_i + hsd_i
-    ethanol_extra = (blend_vol - L0_y) * 1e9 * OMC_MARGIN_MS / CR
-    proj.append({
-        "fy": fy, "blend": tag,
-        "outlets": round(nro_y),
-        "petrol_blend_bnL": round(blend_vol, 2),
-        "diesel_bnL": round(hsd_y, 2),
-        "omc_income_cr": round(tot),
-        "yoy_growth_cr": None if prev_tot is None else round(tot - prev_tot),
-        "ethanol_attributable_cr": round(ethanol_extra),
-    })
-    prev_tot = tot
+def _round_floats(row: dict) -> dict:
+    return {k: (round(v, 3) if isinstance(v, float) else v) for k, v in row.items()}
 
-# ────────────────────────────────────────────────────────────────────────────
-# OUTPUT
-# ────────────────────────────────────────────────────────────────────────────
-def write_csvs():
-    with (OUT / "scenarios.csv").open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(scenarios[0].keys())); w.writeheader()
+
+def write_csvs(result: dict, out: Path = OUT) -> None:
+    """Write scenarios.csv, yoy_projection.csv and blend_mix_scenarios.csv into `out`."""
+    out.mkdir(exist_ok=True)
+    scenarios, mixes, proj = result["scenarios"], result["mixes"], result["proj"]
+    with (out / "scenarios.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(scenarios[0].keys()))
+        w.writeheader()
         for s in scenarios:
-            w.writerow({k: (round(v, 3) if isinstance(v, float) else v) for k, v in s.items()})
-    with (OUT / "yoy_projection.csv").open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(proj[0].keys())); w.writeheader(); w.writerows(proj)
-    with (OUT / "blend_mix_scenarios.csv").open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(mixes[0].keys())); w.writeheader()
+            w.writerow(_round_floats(s))
+    with (out / "yoy_projection.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(proj[0].keys()))
+        w.writeheader()
+        w.writerows(proj)
+    with (out / "blend_mix_scenarios.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(mixes[0].keys()))
+        w.writeheader()
         for m in mixes:
-            w.writerow({k: (round(v, 3) if isinstance(v, float) else v) for k, v in m.items()})
+            w.writerow(_round_floats(m))
 
 
-def write_md():
+def render_md(result: dict) -> str:
+    """Render the markdown report text from `run_model()` output."""
+    base, scenarios, mixes, proj = result["base"], result["scenarios"], result["mixes"], result["proj"]
+    ms_bnL_base, hsd_bnL_base = base["ms_bnL"], base["hsd_bnL"]
+    ms_inc, hsd_inc, tot_inc = base["ms_inc"], base["hsd_inc"], base["tot_inc"]
+    ms_perRO_klmo, hsd_perRO_klmo = base["ms_perRO_klmo"], base["hsd_perRO_klmo"]
     L = []
     L.append("# OMC Retail Profitability Model — petrol & diesel, with E20/E25/E30 ethanol effect\n")
     L.append("Inputs from PPAC *Oil & Gas Ready Reckoner FY 2025-26 (H1)*; margins and mileage-drop "
@@ -299,19 +332,34 @@ def write_md():
     L.append("---")
     L.append("*Generated by `omc_model.py`. Illustrative analytical estimates, not investment advice. "
              "OMC marketing margin is the key editable assumption.*")
-    (OUT / "omc_profitability_report.md").write_text("\n".join(L))
+    return "\n".join(L)
 
 
-write_csvs()
-write_md()
+def write_md(result: dict, out: Path = OUT) -> None:
+    """Write omc_profitability_report.md into `out`."""
+    out.mkdir(exist_ok=True)
+    (out / "omc_profitability_report.md").write_text(render_md(result))
 
-print(f"Base FY24-25: OMC retail gross ≈ ₹{tot_inc:,.0f} cr/yr "
-      f"(petrol ₹{ms_inc:,.0f} + diesel ₹{hsd_inc:,.0f})")
-sc = {s["scenario"]: s for s in scenarios}
-print(f"Ethanol extra pump income:  E20 ₹{sc['E20']['extra_OMC_income_cr']:,.0f} cr | "
-      f"E25 ₹{sc['E25']['extra_OMC_income_cr']:,.0f} cr | E30 ₹{sc['E30']['extra_OMC_income_cr']:,.0f} cr")
-print("Mix scenarios (OMC petrol income ₹cr):",
-      " | ".join(f"{m['scenario'].split()[0]} ₹{m['omc_petrol_income_cr']:,.0f}" for m in mixes))
-print(f"YoY projection {proj[0]['fy']}→{proj[-1]['fy']}: "
-      f"₹{proj[0]['omc_income_cr']:,} → ₹{proj[-1]['omc_income_cr']:,} cr")
-print(f"Wrote: outputs/omc_profitability_report.md, scenarios.csv, yoy_projection.csv")
+
+def main() -> None:
+    result = run_model()
+    write_csvs(result)
+    write_md(result)
+
+    base, scenarios, mixes, proj = result["base"], result["scenarios"], result["mixes"], result["proj"]
+    tot_inc, ms_inc, hsd_inc = base["tot_inc"], base["ms_inc"], base["hsd_inc"]
+
+    print(f"Base FY24-25: OMC retail gross ≈ ₹{tot_inc:,.0f} cr/yr "
+          f"(petrol ₹{ms_inc:,.0f} + diesel ₹{hsd_inc:,.0f})")
+    sc = {s["scenario"]: s for s in scenarios}
+    print(f"Ethanol extra pump income:  E20 ₹{sc['E20']['extra_OMC_income_cr']:,.0f} cr | "
+          f"E25 ₹{sc['E25']['extra_OMC_income_cr']:,.0f} cr | E30 ₹{sc['E30']['extra_OMC_income_cr']:,.0f} cr")
+    print("Mix scenarios (OMC petrol income ₹cr):",
+          " | ".join(f"{m['scenario'].split()[0]} ₹{m['omc_petrol_income_cr']:,.0f}" for m in mixes))
+    print(f"YoY projection {proj[0]['fy']}→{proj[-1]['fy']}: "
+          f"₹{proj[0]['omc_income_cr']:,} → ₹{proj[-1]['omc_income_cr']:,} cr")
+    print("Wrote: outputs/omc_profitability_report.md, scenarios.csv, yoy_projection.csv")
+
+
+if __name__ == "__main__":
+    main()

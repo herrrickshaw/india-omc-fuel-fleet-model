@@ -12,16 +12,24 @@ every segment carries an editable daily-usage assumption. Non-road diesel (farm
 pumps, gensets, railways, industry) is separated out — it burns fuel but is not a
 'vehicle going daily on the road'. Pure stdlib.
 """
+from __future__ import annotations
+
 import csv
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parent / "outputs"; OUT.mkdir(exist_ok=True)
+OUT = Path(__file__).resolve().parent / "outputs"
 
 # ── PPAC national consumption (FY24-25, Table 6.1 & 3.7) ─────────────────────
 PETROL_MMT, DIESEL_MMT = 40.0, 91.4
 CNG_MMT = 6.67                          # all-India CNG sales FY24-25 (RR Table 3.7)
 DENS_MS, DENS_HSD = 0.74, 0.83          # kg/L
-def bnL(mmt, dens): return mmt * 1e9 / dens / 1e9
+
+
+def bnL(mmt: float, dens: float) -> float:
+    """MMT -> billion litres (1 MMT = 1e9 kg)."""
+    return mmt * 1e9 / dens / 1e9
+
+
 PETROL_BNL, DIESEL_BNL = bnL(PETROL_MMT, DENS_MS), bnL(DIESEL_MMT, DENS_HSD)
 CNG_BNKG = CNG_MMT                      # CNG billed by mass: 1 MMT = 1 bn kg; mileage in km/kg
 
@@ -63,24 +71,24 @@ VAHAN_CY2025    = 29_290_589         # one year's new registrations
 MORTH_LIVE_EST  = 350_000_000        # ~ MoRTH-style live-parc order (illustrative)
 
 
-def two_w_active(km_day):
+def two_w_active(km_day: float) -> float:
     """2-wheeler active count for a given daily-km (for the sensitivity band)."""
-    for fuel, sector, share, on_road, kmd, mpl, days in SEGMENTS:
+    for _fuel, sector, share, _on_road, _kmd, mpl, days in SEGMENTS:
         if sector == "Two-wheeler":
             return PETROL_BNL * share * 1e9 / (km_day * days / mpl)
     return 0
 
 
-def main():
+def build_rows() -> tuple[list[dict], float]:
+    """Per-segment rows (active vehicles from the fuel balance) and non-road fuel (bn L)."""
     fuel_bnl = {"Petrol": PETROL_BNL, "Diesel": DIESEL_BNL, "CNG": CNG_BNKG}
-    rows, road_total = [], 0
+    rows = []
     nonroad_bnl = 0.0
     for fuel, sector, share, on_road, kmd, mpl, days in SEGMENTS:
         seg_bnl = fuel_bnl[fuel] * share
         if on_road:
             l_per_veh_yr = kmd * days / mpl                    # litres/vehicle/year
             active = seg_bnl * 1e9 / l_per_veh_yr
-            road_total += active
             rows.append({
                 "fuel": fuel, "sector": sector, "share_pct": round(share*100, 1),
                 "fuel_bnL": round(seg_bnl, 2), "km_day": kmd, "mileage": mpl,
@@ -95,10 +103,11 @@ def main():
                 "active_days": "", "L_per_veh_day": "", "L_per_veh_yr": "",
                 "active_vehicles": "(non-road)",
             })
+    return rows, nonroad_bnl
 
-    with (OUT / "fleet_from_fuel.csv").open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
 
+def summarise(rows: list[dict], nonroad_bnl: float) -> dict:
+    """Aggregate active-fleet totals by energy type plus the +/-20% two-wheeler band."""
     # split active counts by energy type
     liquid_active = sum(r["active_vehicles"] for r in rows
                         if isinstance(r["active_vehicles"], int) and r["fuel"] in ("Petrol", "Diesel"))
@@ -118,7 +127,27 @@ def main():
                      ("2W usage +20% (33.6 km/day)", 33.6)):
         delta = two_w_active(kmd) - base_2w
         band[tag] = grand_active + delta
+    return {
+        "liquid_active": liquid_active, "cng_active": cng_active, "ev_active": ev_active,
+        "grand_active": grand_active, "liquid_road_bnl": liquid_road_bnl,
+        "nonroad_bnl": nonroad_bnl, "avg_l_day": avg_l_day, "band": band,
+    }
 
+
+def write_csv(rows: list[dict], out: Path = OUT) -> None:
+    """Write fleet_from_fuel.csv (segment detail) into `out`."""
+    out.mkdir(exist_ok=True)
+    with (out / "fleet_from_fuel.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+
+
+def render_md(rows: list[dict], summ: dict) -> str:
+    """Render the markdown report text."""
+    liquid_active, cng_active, ev_active = summ["liquid_active"], summ["cng_active"], summ["ev_active"]
+    grand_active, liquid_road_bnl = summ["grand_active"], summ["liquid_road_bnl"]
+    nonroad_bnl, avg_l_day, band = summ["nonroad_bnl"], summ["avg_l_day"], summ["band"]
     L = []
     L.append("# Actively-driven fleet, implied from fuel burn (PPAC) — petrol, diesel, CNG + EV\n")
     L.append(f"Method: for each sector, **active vehicles = annual fuel ÷ (km/day × active-days ÷ mileage)**. "
@@ -186,8 +215,19 @@ def main():
              "churn, so the active-rate is a lever.")
     L.append("- 'Active' = driven enough to appear in annual fuel, not a legal-status count.\n")
     L.append("---\n*Fuel-balance + registration estimate; editable assumptions; not an official census.*\n")
-    (OUT / "fleet_from_fuel.md").write_text("\n".join(L))
+    return "\n".join(L)
 
+
+def main() -> None:
+    rows, nonroad_bnl = build_rows()
+    summ = summarise(rows, nonroad_bnl)
+    write_csv(rows)
+    OUT.mkdir(exist_ok=True)
+    (OUT / "fleet_from_fuel.md").write_text(render_md(rows, summ))
+
+    liquid_active, cng_active, ev_active = summ["liquid_active"], summ["cng_active"], summ["ev_active"]
+    grand_active, avg_l_day, band = summ["grand_active"], summ["avg_l_day"], summ["band"]
+    lo, hi = min(band.values()), max(band.values())
     print(f"Liquid road: {liquid_active:,} | CNG: {cng_active:,} | EV: {round(ev_active):,}")
     print(f"TOTAL actively-driven: {round(grand_active):,} (~{grand_active/1e7:.1f} crore) "
           f"= {100*grand_active/VAHAN_CUM_TOTAL:.0f}% of Vahan cumulative")
