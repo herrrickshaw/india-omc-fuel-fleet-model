@@ -54,6 +54,7 @@ E20 pool so scenarios are comparable. Units: volumes in billion litres, money in
 | `docs/` | Decks, papers, pitch write-ups and the full legacy README |
 | `textile_data/` | Textile import-export study (own README) |
 | `tests/` | Characterisation tests |
+| `HOW_TO_USE_WITH_AI.md` | Using this repo with an AI assistant |
 
 ## Data sources
 | Source | What is taken | Access route | Licence / caveat |
