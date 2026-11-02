@@ -11,3 +11,5 @@ venv/
 # OS
 .DS_Store
 node_modules/
+.pytest_cache/
+.ruff_cache/
