@@ -34,8 +34,9 @@ def test_script_stdout_and_outputs_identical(repo_copy, script):
     # non-ASCII text such as the rupee sign without an explicit encoding).
     env = {**os.environ, "PYTHONUTF8": "1"}
     r = subprocess.run(
-        [sys.executable, script], cwd=repo_copy, capture_output=True, text=True, encoding="utf-8", env=env, check=True
+        [sys.executable, script], cwd=repo_copy, capture_output=True, text=True, encoding="utf-8", env=env
     )
+    assert r.returncode == 0, r.stderr[-2000:]
     assert hashlib.sha256(r.stdout.encode()).hexdigest() == MANIFEST[script]["stdout_sha256"]
     for rel, digest in MANIFEST[script]["files"].items():
         assert hashlib.sha256((repo_copy / rel).read_bytes()).hexdigest() == digest, rel
