@@ -86,7 +86,8 @@ def match_vat(ms_key, vat):
     return vat[cands[0]] if cands else None
 
 
-def main():
+def compute():
+    """Per-state, per-blend VAT-foregone rows (sorted by net loss) and national context figures."""
     ms, vat = load_ms(), load_vat()
     matched = {k: match_vat(k, vat) for k in ms}
     keys = sorted(k for k, v in matched.items() if v)
@@ -110,20 +111,29 @@ def main():
                 "net_state_loss_cr": round(net),
             })
         scen_rows[b].sort(key=lambda r: -r["net_state_loss_cr"])
+    def tot(b, key): return sum(r[key] for r in scen_rows[b])
 
+    # national central-excise context (all-India MS 40 MMT blended)
+    natl_ms_l = 40.0 * 1e6 / DENS_MS * 1000    # 40 MMT -> L  (=54.05 bn L)
+    return {
+        "keys": keys, "scen_rows": scen_rows, "tot": tot,
+        "natl_ms_l": natl_ms_l,
+    }
+
+
+def write_csvs(m):
+    """Write the CSV outputs into OUT."""
+    scen_rows = m["scen_rows"]
     # write per-scenario CSV
     for b in BLENDS:
         with (OUT / f"statewise_tax_{b}.csv").open("w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(scen_rows[b][0].keys()))
             w.writeheader(); w.writerows(scen_rows[b])
 
-    def tot(b, key): return sum(r[key] for r in scen_rows[b])
 
-    # national central-excise context (all-India MS 40 MMT blended)
-    natl_ms_l = 40.0 * 1e6 / DENS_MS * 1000    # 40 MMT -> L  (=54.05 bn L)
-
-    # markdown
-    L = []
+def _intro(L, m):
+    """Title, premise and assumptions."""
+    keys = m["keys"]
     L.append("# State-wise tax revenue foregone from ethanol displacing petrol\n")
     L.append("When ethanol (5% GST) replaces petrol in the blend, each displaced litre no longer bears "
              "the state's petrol **VAT** — the state instead gets only its SGST share of 5% on the "
@@ -132,6 +142,10 @@ def main():
     L.append(f"Assumptions (editable): VAT charged on ₹{PRE_VAT_BASE:.0f}/L pre-VAT base; ethanol ₹{ETHANOL_PRICE:.0f}/L; "
              f"ethanol GST {GST_ETHANOL*100:.0f}% (SGST half); {len(keys)} states matched.\n")
 
+
+def _sec_national(L, m):
+    """Section 1: national state-VAT impact by blend."""
+    scen_rows, tot, natl_ms_l = (m[k] for k in ("scen_rows", "tot", "natl_ms_l"))
     # national totals per scenario
     L.append("## 1. National state-VAT impact by blend\n")
     L.append("| Blend | Ethanol displacing petrol | State VAT foregone | SGST gained | **Net state loss** |")
@@ -145,6 +159,10 @@ def main():
              f"petrol: at E20 that is ~₹{round(natl_ms_l*0.20*EXCISE_PETROL/CR):,} cr/yr of central excise "
              "(net of CGST on ethanol) — larger than the state VAT loss, but borne by the Union, not states.\n")
 
+
+def _sec_top_states(L, m):
+    """Section 2: top 15 states at E20."""
+    scen_rows = m["scen_rows"]
     # top states at E20
     L.append("## 2. Top 15 states by net VAT foregone (E20)\n")
     L.append("| State | Petrol VAT | Petrol (bn L) | Ethanol (bn L) | VAT foregone (₹ cr) | net state loss (₹ cr) |")
@@ -157,6 +175,10 @@ def main():
              "and **petrol volume** (UP, Maharashtra, Tamil Nadu, Gujarat are big markets). States high on "
              "both lose most.\n")
 
+
+def _sec_scaling(L, m):
+    """Section 3: how the loss scales E20 to E30."""
+    scen_rows = m["scen_rows"]
     # E20 vs E30 for the top few
     L.append("## 3. How the loss scales E20 → E30 (top 8 states)\n")
     L.append("| State | E20 net (₹ cr) | E25 net (₹ cr) | E30 net (₹ cr) |")
@@ -169,6 +191,9 @@ def main():
                  f"| {e30[st]['net_state_loss_cr']:,} |")
     L.append("")
 
+
+def _sec_caveats(L, m):
+    """Section 4: caveats."""
     L.append("## 4. Caveats\n")
     L.append("- **Framing:** this is the counterfactual revenue-foregone (petrol-vs-ethanol tax "
              "differential), the standard policy view. At the pump the E20 blend is still sold as petrol "
@@ -181,8 +206,22 @@ def main():
              "blend% × MS (consistent with the OMC model). Central excise is the Union's loss, shown for "
              "context only.\n")
     L.append("---\n*Analytical estimate from PPAC data + editable assumptions; not a fiscal forecast.*\n")
-    (OUT / "statewise_tax_impact.md").write_text("\n".join(L))
 
+
+def render_md(m):
+    """Render the markdown report from the computed dict."""
+    L = []
+    _intro(L, m)
+    _sec_national(L, m)
+    _sec_top_states(L, m)
+    _sec_scaling(L, m)
+    _sec_caveats(L, m)
+    return "\n".join(L)
+
+
+def print_summary(m):
+    """Print the console summary."""
+    keys, scen_rows, tot = (m[k] for k in ("keys", "scen_rows", "tot"))
     print(f"Matched {len(keys)} states.")
     for b in BLENDS:
         print(f"{b}: net state VAT foregone ₹{tot(b,'net_state_loss_cr'):,} cr "
@@ -190,6 +229,13 @@ def main():
     print("\nTop 8 states by net loss (E20):")
     for r in scen_rows["E20"][:8]:
         print(f"  {r['state']:20s} VAT {r['vat_pct']:5.1f}%  petrol {r['ms_bnL']:5.2f} bnL  net ₹{r['net_state_loss_cr']:>6,} cr")
+
+
+def main():
+    m = compute()
+    write_csvs(m)
+    (OUT / "statewise_tax_impact.md").write_text(render_md(m))
+    print_summary(m)
     print("Wrote outputs/statewise_tax_impact.md + statewise_tax_E20/E25/E30.csv")
 
 

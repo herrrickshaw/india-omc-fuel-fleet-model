@@ -11,11 +11,13 @@ Writes:
   outputs/fuel_by_class.csv             fuel mix within 2W / 3W / 4W+ classes
   outputs/vahan_fuel_analysis.md        narrative + tables
 """
+from __future__ import annotations
+
 import csv
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE / "outputs"; OUT.mkdir(exist_ok=True)
+OUT = HERE / "outputs"
 
 # 17 Vahan category columns, in order:
 CATS = ["2WIC","2WN","2WT","3WIC","3WN","3WT","4WIC","HGV","HMV","HPV",
@@ -75,7 +77,7 @@ GROUP_ORDER = [
     "Ethanol (E100/flex)", "Other (H2/LNG/methanol/solar/NA)",
 ]
 
-def classify(f):
+def classify(f: str) -> str:
     """Map any Vahan fuel label to a headline group (works for both datasets)."""
     if f in ("PURE EV", "ELECTRIC(BOV)", "PLUG-IN HYBRID EV"):
         return "Electric (BEV/PHEV)"
@@ -93,10 +95,12 @@ def classify(f):
         return "Ethanol (E100/flex)"
     return "Other (H2/LNG/methanol/solar/NA)"
 
-def is_e20(f):
+def is_e20(f: str) -> bool:
+    """True for Vahan E20-badged fuel labels."""
     return "(E20)" in f
 
-def group_totals(tot_map):
+def group_totals(tot_map: dict) -> dict:
+    """Sum a fuel->count map into the headline GROUP_ORDER groups."""
     g = {k: 0 for k in GROUP_ORDER}
     for f, v in tot_map.items():
         g[classify(f)] += v
@@ -107,40 +111,37 @@ GRAND = sum(tot.values())
 CUM_GRAND = sum(CUM.values())
 
 
-def broad(cat):
-    if cat.startswith("2W"): return "2W"
-    if cat.startswith("3W"): return "3W"
+def broad(cat: str) -> str:
+    """Collapse a Vahan category code into 2W / 3W / 4W+."""
+    if cat.startswith("2W"):
+        return "2W"
+    if cat.startswith("3W"):
+        return "3W"
     return "4W+"
 
 
-def main():
-    # integrity: CY2025 row categories sum to reported total
+def check_integrity() -> None:
+    """CY2025 row categories must sum to the reported row total."""
     bad = [(f, sum(c), t) for f, c, t in RAW if sum(c) != t]
     assert not bad, f"row/total mismatch: {bad}"
 
-    # raw CSVs (annual matrix + cumulative fuel totals)
-    with (HERE / "vahan_fuel_registrations_cy2025.csv").open("w", newline="") as fh:
-        w = csv.writer(fh); w.writerow(["fuel"] + CATS + ["TOTAL"])
+
+def write_raw_csvs(here: Path = HERE) -> None:
+    """Write the annual fuel x category matrix and the cumulative fuel totals."""
+    with (here / "vahan_fuel_registrations_cy2025.csv").open("w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["fuel"] + CATS + ["TOTAL"])
         for f, c, t in RAW:
             w.writerow([f] + c + [t])
-    with (HERE / "vahan_fuel_registrations_cumulative.csv").open("w", newline="") as fh:
-        w = csv.writer(fh); w.writerow(["fuel", "cumulative_registrations", "group"])
+    with (here / "vahan_fuel_registrations_cumulative.csv").open("w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["fuel", "cumulative_registrations", "group"])
         for f, v in sorted(CUM.items(), key=lambda kv: -kv[1]):
             w.writerow([f, v, classify(f)])
 
-    # fuel-group summaries — annual (flow) and cumulative (stock)
-    grp = group_totals(tot)
-    cgrp = group_totals(CUM)
-    with (OUT / "fuel_group_summary.csv").open("w", newline="") as fh:
-        w = csv.writer(fh)
-        w.writerow(["fuel_group", "cy2025_vehicles", "cy2025_share_pct",
-                    "cumulative_vehicles", "cumulative_share_pct"])
-        for g in GROUP_ORDER:
-            w.writerow([g, grp[g], round(100*grp[g]/GRAND, 2),
-                        cgrp[g], round(100*cgrp[g]/CUM_GRAND, 2)])
-        w.writerow(["TOTAL", GRAND, 100.0, CUM_GRAND, 100.0])
 
-    # fuel mix within broad classes (CY2025 only — category split available there)
+def class_breakdown() -> tuple[dict, dict]:
+    """Fuel-group counts within broad classes (2W/3W/4W+) and class totals, CY2025."""
     classes = ["2W", "3W", "4W+"]
     class_grp = {c: {k: 0 for k in GROUP_ORDER} for c in classes}
     class_tot = {c: 0 for c in classes}
@@ -150,24 +151,42 @@ def main():
             b = broad(cat)
             class_grp[b][g] += n
             class_tot[b] += n
-    with (OUT / "fuel_by_class.csv").open("w", newline="") as fh:
-        w = csv.writer(fh); w.writerow(["fuel_group"] + classes)
+    return class_grp, class_tot
+
+
+def write_summary_csvs(grp: dict, cgrp: dict, class_grp: dict, class_tot: dict, out: Path = OUT) -> None:
+    """Write fuel_group_summary.csv and fuel_by_class.csv into `out`."""
+    out.mkdir(exist_ok=True)
+    with (out / "fuel_group_summary.csv").open("w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["fuel_group", "cy2025_vehicles", "cy2025_share_pct",
+                    "cumulative_vehicles", "cumulative_share_pct"])
+        for g in GROUP_ORDER:
+            w.writerow([g, grp[g], round(100*grp[g]/GRAND, 2),
+                        cgrp[g], round(100*cgrp[g]/CUM_GRAND, 2)])
+        w.writerow(["TOTAL", GRAND, 100.0, CUM_GRAND, 100.0])
+    classes = ["2W", "3W", "4W+"]
+    with (out / "fuel_by_class.csv").open("w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["fuel_group"] + classes)
         for g in GROUP_ORDER:
             w.writerow([g] + [class_grp[c][g] for c in classes])
         w.writerow(["TOTAL"] + [class_tot[c] for c in classes])
 
+
+def render_md(grp: dict, cgrp: dict, class_grp: dict, class_tot: dict) -> str:
+    """Render the vahan_fuel_analysis.md narrative from group totals."""
     e20 = sum(v for f, v in tot.items() if is_e20(f))
     ce20 = sum(v for f, v in CUM.items() if is_e20(f))
     petrol_any = grp["Petrol (mono, incl. E20 & hybrid)"] + grp["Petrol + gas bi-fuel (CNG/LPG)"]
     cpetrol_any = cgrp["Petrol (mono, incl. E20 & hybrid)"] + cgrp["Petrol + gas bi-fuel (CNG/LPG)"]
     ev = grp["Electric (BEV/PHEV)"]
 
-    # markdown
     L = []
     L.append("# Fuel-wise vehicle registrations — Vahan dashboard (all-India)\n")
     L.append("Source: **Vahan4 dashboard** (vahan.parivahan.gov.in), Y-Axis=Fuel, all 36 states/UTs, "
              "Actual Value. Captured 2026-07-24. Two views: **CY2025** (one year's new registrations, "
-             f"with the vehicle-category split) and **cumulative 'Till Today'** (all registrations "
+             "with the vehicle-category split) and **cumulative 'Till Today'** (all registrations "
              "ever recorded).\n")
     L.append(f"- **CY2025 registrations:** {GRAND:,} (~{GRAND/1e7:.2f} crore)")
     L.append(f"- **Cumulative registrations:** {CUM_GRAND:,} (~{CUM_GRAND/1e7:.1f} crore)\n")
@@ -207,7 +226,8 @@ def main():
     L.append(f"| **Total** | **{class_tot['2W']:,}** | **{class_tot['3W']:,}** | **{class_tot['4W+']:,}** |")
     L.append("")
     tw, th = class_tot["2W"], class_tot["3W"]
-    ev2 = class_grp["2W"]["Electric (BEV/PHEV)"]; ev3 = class_grp["3W"]["Electric (BEV/PHEV)"]
+    ev2 = class_grp["2W"]["Electric (BEV/PHEV)"]
+    ev3 = class_grp["3W"]["Electric (BEV/PHEV)"]
     cng3 = class_grp["3W"]["CNG/CBG (dedicated)"]
     L.append(f"- **2-wheelers** ({tw:,}) — overwhelmingly petrol, EV {100*ev2/tw:.1f}%.")
     L.append(f"- **3-wheelers** ({th:,}) — the most electrified/gas class: EV {100*ev3/th:.0f}%, "
@@ -223,8 +243,22 @@ def main():
              "shift fast, the on-road stock changes slowly, so petrol/diesel volumes persist for years.\n")
     L.append("---\n*Vahan retail registration data (the source FADA compiles). Cumulative includes "
              "scrapped/de-registered vehicles and overstates the live parc.*\n")
-    (OUT / "vahan_fuel_analysis.md").write_text("\n".join(L))
+    return "\n".join(L)
 
+
+def main() -> None:
+    check_integrity()
+    write_raw_csvs()
+    # fuel-group summaries — annual (flow) and cumulative (stock)
+    grp = group_totals(tot)
+    cgrp = group_totals(CUM)
+    class_grp, class_tot = class_breakdown()
+    write_summary_csvs(grp, cgrp, class_grp, class_tot)
+    OUT.mkdir(exist_ok=True)
+    (OUT / "vahan_fuel_analysis.md").write_text(render_md(grp, cgrp, class_grp, class_tot))
+
+    e20 = sum(v for f, v in tot.items() if is_e20(f))
+    ce20 = sum(v for f, v in CUM.items() if is_e20(f))
     print(f"CY2025 total: {GRAND:,}   |   Cumulative total: {CUM_GRAND:,} (~{CUM_GRAND/1e7:.1f} cr)")
     print(f"{'group':40s}{'CY2025':>14s}{'share':>7s}{'cumulative':>16s}{'share':>7s}")
     for g in sorted(GROUP_ORDER, key=lambda k: -cgrp[k]):

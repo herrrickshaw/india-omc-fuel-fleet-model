@@ -1,0 +1,66 @@
+{
+ "energy_blend_comparison.py": {
+  "files": {
+   "outputs/blend_dilution_fiscal.csv": "8bd682ec4bb765c790fc3be98cdf542595ce5abda50be80d6dd1683251403fe7",
+   "outputs/blend_walk_incremental.csv": "ae833f5289b5d31d4285addbe7fbcc54418704085977445e4f081da53fa0c48e",
+   "outputs/diesel_biodiesel_fiscal.csv": "7c163217d3ef5e42687cafbc4f942b20fd46e61c23c6f9602ddcaad30779010a",
+   "outputs/energy_blend_comparison.md": "f463fce69afa9fa4d58ab90c2f59589dec923a3b12bfd0698ee3a07abb01411c",
+   "outputs/fuel_energy_table.csv": "f7a94a9ba5256c43b206526e27d435d11332879f0524431cdeea5c1f53995d3f"
+  },
+  "stdout_sha256": "0c9e788ee86d44d9e88f519fbab27890a9fa6a16bb36ce19ca80abe079273d50"
+ },
+ "ethanol_sgst_sweetspot.py": {
+  "files": {
+   "outputs/ethanol_sgst_grid.csv": "fc63616cc0cde6f975d82af52ec2d275ee4152111e4910b3a4fc4252af99c663",
+   "outputs/ethanol_sgst_sweetspot.md": "1809ff995079a992e3b66adb6b65828bc16a3cd5ecdcfc3fbbe97bea641b338c"
+  },
+  "stdout_sha256": "3e7fbc30a681d5d98e29d487d9275e0d20a96826b5ad7ad2517c59b23bf81a2c"
+ },
+ "petrol_demand_forecast.py": {
+  "files": {
+   "outputs/ethanol_requirement_forecast.csv": "0b1962dfc5c30e8cd9ca1ce7daa20f0206acacdc8cc3c75bd0960a91ab46d952",
+   "outputs/petrol_demand_forecast.csv": "fcf05d69d94bd96ec2ea5b15d4b2781c211dd12f41d1b2ee4d4b93f72591a8eb",
+   "outputs/petrol_demand_forecast.md": "a3f04b9786c81c110581fa751b70e715da9e9f02594a9d9948b75f05c1fe1abd"
+  },
+  "stdout_sha256": "ec6f11db23098022675643f1c7e3d357fb55cde8b7d958c7263658d335f8a08b"
+ },
+ "petrol_export_value.py": {
+  "files": {
+   "outputs/petrol_export_trend.csv": "58915c613cf5f85394f359058f7990e0fc587c9b7c78c6f0065155305af34f43",
+   "outputs/petrol_export_value.csv": "6d1e7127bc6eab541a70f992532ecabbb184cb9df31565e50c56ddbef5aa2771",
+   "outputs/petrol_export_value.md": "81a55a86e4dc32ad722db811c78985228b30ba757586a37c8f674fbc3152a03c"
+  },
+  "stdout_sha256": "faef067e1910b70e70bb7e60b2e10fb5f123c385e315b3d2b8a33a5f4153fcd5"
+ },
+ "refining/ethanol_forex_substitution.py": {
+  "files": {
+   "refining/outputs/ethanol_forex_substitution.csv": "33298edb21e1b2f09a23258e34c5e244bdfbbcd3cd54a80c8a4c7f61b9b10c0b",
+   "refining/outputs/ethanol_forex_substitution.md": "3c4cc1edaf71f314acb36970e1ec61c83bde981172115ea73164749bc789b31e"
+  },
+  "stdout_sha256": "e4fadbd092eb803588365b28a15a08e870cb33f0ca3d3dabc81181b43b56ca61"
+ },
+ "refining/refining_trade_analysis.py": {
+  "files": {
+   "refining/outputs/refining_trade_analysis.md": "4924082f82c7fcfb4d69425c888cfd602e778426badf5f2801ace211e857be25",
+   "refining/outputs/refining_trade_summary.csv": "65a942cfa69d16859470fa38fb96e3919313ea5c54b6d20ef52674e16865236e"
+  },
+  "stdout_sha256": "989737470383dc921f48a70ef0dc936680e17dbc2d9f1f1b743bf8fa826b6e4a"
+ },
+ "statewise_tax_impact.py": {
+  "files": {
+   "outputs/statewise_tax_E20.csv": "22a10ad1bba06c7a8180327f75b40fcdddfe08eff9d77d71d3fcc71c5bcde9d7",
+   "outputs/statewise_tax_E25.csv": "bd78d4313ce3757ae46f543e417c3f088843072f3ae8e27b90300c3fff3b416c",
+   "outputs/statewise_tax_E30.csv": "e2f193cd4c2013a470178a9e2722cb81ac67bef83e672f8a7eb50a65890167e6",
+   "outputs/statewise_tax_impact.md": "9622bb7b69fcbd0b191f9122d6196b37357bbd43a89f324dc6a0a47b91a42196"
+  },
+  "stdout_sha256": "ecc4d14346b7ec6a34d8bab36cdca954876732a707db5bf8ff387bd4ce4a986c"
+ },
+ "upstream/upstream_acreage_analysis.py": {
+  "files": {
+   "upstream/outputs/crude_production_trend.csv": "092727be105f6afbc166572efcc4a8ddc45441f373f3b84d245feb70c5ec7c41",
+   "upstream/outputs/new_area_recommendations.csv": "0b6349e5e9ca478900aad4991a09a3090ee6d9c016bfd200362214311f557381",
+   "upstream/outputs/upstream_acreage_analysis.md": "e8854482566e01c476869057c0d20d51c0f3321a012090adfcae4e3f5d3145cc"
+  },
+  "stdout_sha256": "51aca1a57dfcf9e7e11833e5fa8546b45b7ca235c805eb200cd6616ade51983b"
+ }
+}

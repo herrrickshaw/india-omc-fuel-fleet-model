@@ -55,10 +55,26 @@ def vat_foregone_cr(blend):
     return blend * PETROL_BNL * 1e9 * AVG_VAT_PER_L / CR
 
 
-def main():
+def compute():
+    """Grid of SGST revenue (Rs cr) per blend x rate, plus the constrained sweet-spot figures."""
     # grid: state SGST revenue (₹ cr) for each blend × rate
     grid = {b: {r: sgst_cr(frac, r)[0] for r in RATES} for b, frac in BLENDS.items()}
+    # sweet spot: max price-neutral state revenue within the fleet ceiling, at 5%
+    feasible = [(b, frac) for b, frac in BLENDS.items() if frac <= FLEET_CEILING + 1e-9]
+    sweet_b, sweet_frac = max(feasible, key=lambda kv: kv[1])
+    sweet_rev, sweet_levy, sweet_eth = sgst_cr(sweet_frac, 5)
+    sweet_recovery = sweet_levy / AVG_VAT_PER_L
+    full_rate = AVG_VAT_PER_L / eth_price(sweet_frac) * 100     # rate for 100% recovery
+    return {
+        "grid": grid, "sweet_b": sweet_b, "sweet_frac": sweet_frac,
+        "sweet_rev": sweet_rev, "sweet_levy": sweet_levy, "sweet_recovery": sweet_recovery,
+        "full_rate": full_rate,
+    }
 
+
+def write_csvs(m):
+    """Write the CSV outputs into OUT."""
+    grid = m["grid"]
     with (OUT / "ethanol_sgst_grid.csv").open("w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["blend", "blend_pct", "ethanol_bnL", "ethanol_price", "fiscal_space_per_L"]
@@ -71,14 +87,9 @@ def main():
             row += [f"{eth_price(frac)*r/100/AVG_VAT_PER_L*100:.1f}%" for r in RATES]
             w.writerow(row)
 
-    # sweet spot: max price-neutral state revenue within the fleet ceiling, at 5%
-    feasible = [(b, frac) for b, frac in BLENDS.items() if frac <= FLEET_CEILING + 1e-9]
-    sweet_b, sweet_frac = max(feasible, key=lambda kv: kv[1])
-    sweet_rev, sweet_levy, sweet_eth = sgst_cr(sweet_frac, 5)
-    sweet_recovery = sweet_levy / AVG_VAT_PER_L
-    full_rate = AVG_VAT_PER_L / eth_price(sweet_frac) * 100     # rate for 100% recovery
 
-    L = []
+def _intro(L, m):
+    """Title and premise."""
     L.append("# The case for a state SGST on ethanol (1-5%), price-fixed, from E20 to E30\n")
     L.append("**Premise.** Ethanol (~₹60/L) is cheaper than the petrol base + central excise it "
              f"displaces (~₹{PETROL_BASE+EXCISE:.0f}/L), so at a **fixed pump price** every litre of "
@@ -87,6 +98,11 @@ def main():
              "dedicated **state SGST on ethanol**, funded from that space, is new state revenue at zero "
              "cost to the consumer.\n")
 
+
+
+def _sec_grid(L, m):
+    """Section 1: blend x rate revenue grid."""
+    grid = m["grid"]
     L.append("## 1. State SGST revenue — blend × rate grid (₹ crore/yr)\n")
     L.append("| Blend | Ethanol (bn L) | SGST 1% | 2% | 3% | 4% | 5% |")
     L.append("|---|--:|--:|--:|--:|--:|--:|")
@@ -98,6 +114,11 @@ def main():
              f"5% take from ₹{round(grid['E20'][5]):,} cr to ₹{round(grid['E30'][5]):,} cr; the ethanol "
              "base grows 50% as blend goes 20→30%.\n")
 
+
+
+def _sec_recovery(L, m):
+    """Section 2: recovery insight."""
+    sweet_frac, full_rate = (m[k] for k in ("sweet_frac", "full_rate"))
     L.append("## 2. The recovery insight — rate sets the %, blend sets the ₹\n")
     L.append("Because both the SGST take **and** the foregone petrol-VAT scale with ethanol volume, the "
              "*fraction* of foregone VAT a state recovers depends only on the **rate**:\n")
@@ -111,6 +132,10 @@ def main():
              f"{full_rate:.0f}%** — still price-neutral (it fits inside the ₹{space(sweet_frac):.0f}/L "
              "space) but a heavy levy on green fuel. The realistic play is a modest rate on a big base.\n")
 
+
+
+def _sec_price_fixed(L, m):
+    """Section 3: levy fits the fiscal space."""
     L.append("## 3. Price stays fixed — the levy fits the fiscal space\n")
     L.append("| Blend | Ethanol price | Fiscal space ₹/L | 5% levy ₹/L | Price-neutral? |")
     L.append("|---|--:|--:|--:|:--:|")
@@ -123,8 +148,15 @@ def main():
              "**consumer price never moves**. The space shrinks as ethanol gets pricier at high blends "
              "(grain/imported feedstock), which is what eventually bounds the design.\n")
 
+
+
+def _sec_sweet_spot(L, m):
+    """Section 4: the E27 sweet spot."""
+    grid, sweet_b, sweet_frac, sweet_rev, sweet_levy, sweet_recovery = (
+        m[k] for k in ("grid", "sweet_b", "sweet_frac", "sweet_rev", "sweet_levy", "sweet_recovery")
+    )
     L.append("## 4. Is there a Brazil-E27 sweet spot?\n")
-    L.append(f"State SGST revenue is monotone in blend and rate, so the optimum is a **constrained** one, "
+    L.append("State SGST revenue is monotone in blend and rate, so the optimum is a **constrained** one, "
              "set by the fleet, not a revenue peak. Brazil settled at **E27** as the practical ceiling for "
              "regular (non-flex) engines (now moving to E30 with a flex fleet). India's fleet is E20-rated "
              "in 2025, stretching toward E27 as E20+ vehicles diffuse.\n")
@@ -134,6 +166,11 @@ def main():
              "tolerates, mirroring Brazil. E30 @ 5% would add more (₹{:,} cr) but needs a flex/E20+ fleet "
              "and pricier ethanol, so it is the frontier, not the near-term optimum.\n".format(round(grid['E30'][5])))
 
+
+
+def _sec_top_states(L, m):
+    """Top-5 states at the sweet spot."""
+    sweet_b, sweet_frac = (m[k] for k in ("sweet_b", "sweet_frac"))
     L.append(f"### Top-5 states at the {sweet_b} @ 5% sweet spot\n")
     L.append("| State | Petrol (bn L) | Ethanol (bn L) | New SGST (₹ cr) |")
     L.append("|---|--:|--:|--:|")
@@ -143,6 +180,11 @@ def main():
         L.append(f"| {name} | {pv} | {ethb:.2f} | {round(rev):,} |")
     L.append("")
 
+
+
+def _sec_one_line(L, m):
+    """Section 5: the case in one line."""
+    sweet_b = m["sweet_b"]
     L.append("## 5. The case, in one line\n")
     L.append(f"Blending is mandated and rising anyway; ethanol is cheaper than the taxed petrol it "
              f"replaces; so a **1-5% state SGST on ethanol, funded from the ₹{space(0.20):.0f}/L cost "
@@ -150,6 +192,10 @@ def main():
              f"the pragmatic design point is **{sweet_b} at ~5%**, India's Brazil-style equilibrium, with "
              "room to push the rate toward ~30% if states ever want full VAT-parity recovery.\n")
 
+
+
+def _sec_caveats(L, m):
+    """Section 6: caveats."""
     L.append("## 6. Caveats\n")
     L.append("- Recovery is *partial* at 1-5% (~3-18%); this augments, not replaces, the VAT base. "
              "It reallocates the ethanol fiscal space (largely foregone central excise) toward states — a "
@@ -159,8 +205,27 @@ def main():
     L.append("- Keeps GST-council reality aside: ethanol GST is centrally set; a *dedicated state* ethanol "
              "levy would need a GST-council/legal route. Modeled as an economic proposal.\n")
     L.append("---\n*Policy scenario from PPAC-anchored economics + editable levers; not fiscal advice.*\n")
-    (OUT / "ethanol_sgst_sweetspot.md").write_text("\n".join(L))
 
+
+def render_md(m):
+    """Render the markdown report from the computed dict."""
+    L = []
+    _intro(L, m)
+    _sec_grid(L, m)
+    _sec_recovery(L, m)
+    _sec_price_fixed(L, m)
+    _sec_sweet_spot(L, m)
+    _sec_top_states(L, m)
+    _sec_one_line(L, m)
+    _sec_caveats(L, m)
+    return "\n".join(L)
+
+
+def print_summary(m):
+    """Print the console summary."""
+    grid, sweet_b, sweet_frac, sweet_rev, sweet_levy, sweet_recovery, full_rate = (
+        m[k] for k in ("grid", "sweet_b", "sweet_frac", "sweet_rev", "sweet_levy", "sweet_recovery", "full_rate")
+    )
     print("State SGST-on-ethanol revenue (₹ cr/yr):")
     print(f"  {'blend':14s}" + "".join(f"{str(r)+'%':>9s}" for r in RATES))
     for b in BLENDS:
@@ -169,6 +234,13 @@ def main():
           f"{eth_price(0.25)*5/100/AVG_VAT_PER_L*100:.0f}% (5%); full recovery ~{full_rate:.0f}%")
     print(f"SWEET SPOT: {sweet_b} @ 5% -> ₹{round(sweet_rev):,} cr/yr, price-neutral "
           f"(levy ₹{sweet_levy:.2f}/L < space ₹{space(sweet_frac):.0f}/L), recovers ~{sweet_recovery*100:.0f}%")
+
+
+def main():
+    m = compute()
+    write_csvs(m)
+    (OUT / "ethanol_sgst_sweetspot.md").write_text(render_md(m))
+    print_summary(m)
     print("Wrote outputs/ethanol_sgst_sweetspot.md + ethanol_sgst_grid.csv")
 
 

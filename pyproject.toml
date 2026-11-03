@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 130
+target-version = "py39"
+extend-exclude = ["node_modules", "graphify-out"]
+
+[tool.ruff.lint]
+select = ["F", "E9", "E7", "B"]
+# Legacy scripts outside Phase 1 still use one-line `a; b` statements and unused loop vars.
+ignore = ["E702", "E701", "E731", "B007"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -55,14 +55,25 @@ PETCHEM = {
 }
 
 
-def main():
+def compute_metrics():
+    """Derived trade/arbitrage figures (US$ bn, US$/bbl) as a dict."""
     net_hs27 = HS27["imports_2024"] - HS27["exports_2024"]
     trade_deficit = HS27["total_imports_2024"] - HS27["total_exports_2024"]
     hs27_share_of_deficit = net_hs27 / trade_deficit
     crude_per_bbl = RR["crude_import_usdbn"] * 1e9 / (RR["crude_import_MMT"] * 1e6 * 7.33)   # ~7.33 bbl/t crude
     prod_per_bbl = RR["product_export_usdbn"] * 1e9 / (RR["product_export_MMT"] * 1e6 * 8.0)  # ~8 bbl/t products
     implied_valadd = prod_per_bbl - crude_per_bbl
+    return {
+        "net_hs27": net_hs27, "trade_deficit": trade_deficit, "hs27_share_of_deficit": hs27_share_of_deficit,
+        "crude_per_bbl": crude_per_bbl, "prod_per_bbl": prod_per_bbl, "implied_valadd": implied_valadd,
+    }
 
+
+def write_summary_csv(m):
+    """Write refining_trade_summary.csv into OUT."""
+    net_hs27, hs27_share_of_deficit, crude_per_bbl, prod_per_bbl, implied_valadd = (
+        m[k] for k in ("net_hs27", "hs27_share_of_deficit", "crude_per_bbl", "prod_per_bbl", "implied_valadd")
+    )
     with (OUT / "refining_trade_summary.csv").open("w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["metric", "value", "unit", "source"])
@@ -80,7 +91,9 @@ def main():
         ]
         w.writerows(rows)
 
-    L = []
+
+def _intro(L, m):
+    """Title and framing paragraph."""
     L.append("# India's refinery economics — crude-in, product-out, under pressure\n")
     L.append("India is the **world's 4th-largest refiner** (~%d MMT capacity) and a structural **net "
              "exporter of refined products**: it imports crude, refines it, sells the surplus abroad, and "
@@ -88,6 +101,13 @@ def main():
              "**DGCIS/Tradestat** (HS-27 trade), **PPAC Ready Reckoner** (FY24-25), and Argus/Platts "
              "market data.\n" % CAPACITY_MMT)
 
+
+
+def _sec_scale(L, m):
+    """Section 1: HS-27 scale."""
+    net_hs27, trade_deficit, hs27_share_of_deficit = (
+        m[k] for k in ("net_hs27", "trade_deficit", "hs27_share_of_deficit")
+    )
     L.append("## 1. The scale — energy is half the trade deficit\n")
     L.append("HS-27 (mineral fuels), DGCIS/Tradestat, CY2024:\n")
     L.append("| | US$ bn | Share of India total |")
@@ -102,6 +122,11 @@ def main():
              f"${trade_deficit:.0f} bn merchandise trade deficit** — no other commodity group comes close. "
              "The refining export book is what stops it being far worse.\n")
 
+
+
+def _sec_arbitrage(L, m):
+    """Section 2: crude-in / product-out arbitrage."""
+    crude_per_bbl, prod_per_bbl, implied_valadd = (m[k] for k in ("crude_per_bbl", "prod_per_bbl", "implied_valadd"))
     L.append("## 2. The arbitrage — what a barrel earns\n")
     L.append("PPAC RR Table 4.11 (FY24-25), the narrower petroleum-products cut:\n")
     L.append("| Flow | Volume | Value | Per barrel |")
@@ -118,6 +143,10 @@ def main():
     L.append("- Top destinations (DGCIS): **Netherlands, UAE, Singapore** — i.e. Europe is the marginal, "
              "highest-value market, which is exactly what's now at risk.\n")
 
+
+
+def _sec_ppac(L, m):
+    """Section 3: PPAC net oil bill."""
     L.append("## 3. PPAC view — the net oil-import bill\n")
     net_oil = RR["total_oil_import_usdbn"] - RR["product_export_usdbn"]
     export_offset = RR["product_export_usdbn"] / RR["total_oil_import_usdbn"]
@@ -139,6 +168,10 @@ def main():
              "with self-sufficiency at ~12%, it only falls if domestic demand slows (EV/ethanol) or "
              "output rises (upstream).\n")
 
+
+
+def _sec_market(L, m):
+    """Section 4: market read."""
     L.append("## 4. Market read — cracks healthy, GRMs normalised, one big spike\n")
     lo, hi = MARKET["grm_fy25"]
     L.append(f"- **MS (gasoline) crack** — Singapore Mogas 92 vs Brent ≈ **${MARKET['ms_crack_sing92_brent']}/bbl** "
@@ -151,6 +184,10 @@ def main():
     L.append("- **RIL Jamnagar** (world's most complex single site) and **MRPL** (now India's #2 fuel "
              "exporter) anchor the export machine; India shipped a record ~1.28 mn b/d of products in 2025.\n")
 
+
+
+def _sec_russia(L, m):
+    """Section 5: Russian-crude unwinding."""
     L.append("## 5. The pressure point — the Russian-crude model is unwinding\n")
     L.append(f"India's recent GRM edge leaned heavily on **discounted Russian crude** (~"
              f"{MARKET['russian_share_2023']*100:.0f}% of imports in 2023-24). Two 2025-26 shocks hit it:\n")
@@ -163,6 +200,10 @@ def main():
              "narrows *and* the premium European outlet closes for Russian-fed barrels at the same time — "
              "a double squeeze on the export margin.\n")
 
+
+
+def _sec_petchem(L, m):
+    """Section 6: petrochemical integration."""
     L.append("## 6. Petrochemical integration — the GRM upside (Digital Refining)\n")
     mlo, mhi = PETCHEM["marginal_uplift_bbl"]
     bbl_yr = THROUGHPUT_MMT * 1e6 * BBL_PER_T_CRUDE
@@ -190,6 +231,10 @@ def main():
              "HPCL-Barmer and BPCL/IOCL COTC plans are the pipeline. The +$1.5-2/bbl is the realistic "
              "near-term GRM prize on the existing base; COTC is the long-game re-rating.\n")
 
+
+
+def _sec_evaluation(L, m):
+    """Section 7: evaluation."""
     L.append("## 7. Evaluation — strengths, risks, and where to lean\n")
     L.append("**Strengths:** scale (4th-largest, ~%d MMT, expanding toward ~450 MMT by 2030); Jamnagar-class "
              "complexity that lifts light-product yield and GRM; a proven forex-earning export machine that "
@@ -204,6 +249,10 @@ def main():
              "peak; and keep the ethanol/EV domestic shift working *for* the export book — every litre of "
              "petrol ethanol frees at home is a litre that can be exported at global cracks (~$24/bbl MS).\n")
 
+
+
+def _sec_bottom_line(L, m):
+    """Section 8: bottom line."""
     L.append("## 8. Bottom line\n")
     L.append(f"India's refining sector is a **strategic value-add machine bolted onto a huge energy import "
              f"bill**: it turns ~${RR['crude_import_usdbn']:.0f} bn of crude into ~${HS27['exports_2024']:.0f} bn "
@@ -213,6 +262,10 @@ def main():
              "**both of which closed in 2025-26**. The next leg of value has to come from crude "
              "diversification, new export geographies, and moving from fuels into petrochemicals.\n")
 
+
+
+def _sec_sources(L, m):
+    """Sources and disclaimer."""
     L.append("## Sources & how to drill deeper\n")
     L.append("- **DGCIS / Tradestat** (`tradestat.commerce.gov.in`) — HS-code trade: crude HS-2709, products "
              "HS-2710, gas HS-2711; HS-27 aggregate used above. **Niryat** (`niryat.gov.in`) — commodity- & "
@@ -221,8 +274,29 @@ def main():
     L.append("- **Argus / Platts** — Mogas 92 & gasoil cracks, GRM commentary; CareEdge/analysts for GRM bands.\n")
     L.append("---\n*Synthesis of official trade data + market reporting; analytical evaluation, not "
              "investment advice. HS-27/PPAC differ in scope (mineral-fuels CY vs petroleum-products FY).*\n")
-    (OUT / "refining_trade_analysis.md").write_text("\n".join(L))
 
+
+def render_md(m):
+    """Render the full markdown report from the metrics dict."""
+    L = []
+    _intro(L, m)
+    _sec_scale(L, m)
+    _sec_arbitrage(L, m)
+    _sec_ppac(L, m)
+    _sec_market(L, m)
+    _sec_russia(L, m)
+    _sec_petchem(L, m)
+    _sec_evaluation(L, m)
+    _sec_bottom_line(L, m)
+    _sec_sources(L, m)
+    return "\n".join(L)
+
+
+def print_summary(m):
+    """Print the five-line console summary."""
+    net_hs27, trade_deficit, hs27_share_of_deficit, crude_per_bbl, prod_per_bbl, implied_valadd = (
+        m[k] for k in ("net_hs27", "trade_deficit", "hs27_share_of_deficit", "crude_per_bbl", "prod_per_bbl", "implied_valadd")
+    )
     print(f"HS-27 (CY2024): imports ${HS27['imports_2024']:.1f}bn | exports ${HS27['exports_2024']:.1f}bn "
           f"| net −${net_hs27:.1f}bn = {hs27_share_of_deficit*100:.0f}% of ${trade_deficit:.0f}bn trade deficit")
     print(f"Arbitrage: crude ~${crude_per_bbl:.0f}/bbl -> products ~${prod_per_bbl:.0f}/bbl "
@@ -236,7 +310,15 @@ def main():
           f"full COTC ${PETCHEM['cotc_margin_bbl'][0]}-{PETCHEM['cotc_margin_bbl'][1]}/bbl vs fuels ${PETCHEM['fuels_margin_bbl'][0]}-{PETCHEM['fuels_margin_bbl'][1]}")
     print(f"Russian crude share {MARKET['russian_share_2023']*100:.0f}%->{MARKET['russian_share_jan26']*100:.0f}%; "
           f"EU-ban export drop {MARKET['eu_ban_export_drop']*100:.0f}%")
+
+
+def main():
+    m = compute_metrics()
+    write_summary_csv(m)
+    (OUT / "refining_trade_analysis.md").write_text(render_md(m))
+    print_summary(m)
     print("Wrote outputs/refining_trade_analysis.md + refining_trade_summary.csv")
+
 
 
 if __name__ == "__main__":
