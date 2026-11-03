@@ -40,7 +40,8 @@ def realisation_usd_per_t(mmt, usd_bn):
     return usd_bn * 1e9 / (mmt * 1e6)                  # $/tonne
 
 
-def main():
+def compute():
+    """Export-price trend and per-blend freed-petrol export value (central, low, high)."""
     # export price trend
     trend = []
     for fy, mmt, usdbn, rscr in EXPORTS:
@@ -72,19 +73,38 @@ def main():
             "export_value_usd_bn": round(rev_usd_bn, 1),
             "export_value_cr_low": round(rev_lo), "export_value_cr_high": round(rev_hi),
         })
+    e20, e30 = rows[0], rows[-1]
+    return {
+        "trend": trend, "latest": latest, "price_central": price_central,
+        "lows": lows, "highs": highs, "cur_exp_mmt": cur_exp_mmt,
+        "cur_exp_cr": cur_exp_cr, "rows": rows, "e20": e20,
+        "e30": e30,
+    }
 
+
+def write_csvs(m):
+    """Write the CSV outputs into OUT."""
+    trend, rows = (m[k] for k in ("trend", "rows"))
     with (OUT / "petrol_export_value.csv").open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
     with (OUT / "petrol_export_trend.csv").open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(trend[0].keys())); w.writeheader(); w.writerows(trend)
 
-    L = []
+
+def _intro(L, m):
+    """Title and premise."""
     L.append("# Valuing the petrol freed by ethanol blending as export revenue\n")
     L.append("Ethanol blended into petrol frees domestic petrol (MS) that India — a net product exporter "
              "with surplus refining — can sell abroad at FOB prices. Freed volume = ethanol blended = "
              "blend% × domestic petrol volume (54.05 bn L / 40 MMT). Valued at India's own petrol-export "
              "realisation (PPAC RR Table 4.11).\n")
 
+
+def _sec_trend(L, m):
+    """Section 1: petrol-export trend."""
+    trend, latest, price_central, lows, highs, cur_exp_mmt, cur_exp_cr = (
+        m[k] for k in ("trend", "latest", "price_central", "lows", "highs", "cur_exp_mmt", "cur_exp_cr")
+    )
     L.append("## 1. India's petrol-export trend (RR Table 4.11)\n")
     L.append("| FY | Exports (MMT) | Value (₹ cr) | Value ($ bn) | Realisation (₹/L) | ($/tonne) |")
     L.append("|---|--:|--:|--:|--:|--:|")
@@ -96,6 +116,12 @@ def main():
              f"years. Realisation swung ₹{lows:.0f}–₹{highs:.0f}/L with crude — central (FY24-25) "
              f"**₹{price_central}/L (~${latest['realisation_usd_per_t']:,}/tonne, ~$86/bbl)**.\n")
 
+
+def _sec_freed(L, m):
+    """Section 2: freed petrol and its export value."""
+    price_central, lows, highs, rows, e20, e30 = (
+        m[k] for k in ("price_central", "lows", "highs", "rows", "e20", "e30")
+    )
     L.append("## 2. Petrol freed by blending, and its export value\n")
     L.append("| Blend | Freed petrol (bn L) | Freed (MMT) | vs current exports | Export value @ ₹%.0f/L (central) | ($ bn) | range ₹%.0f–%.0f/L |"
              % (price_central, lows, highs))
@@ -105,7 +131,6 @@ def main():
                  f"| ₹{r['export_value_cr_central']:,} cr | ${r['export_value_usd_bn']} bn "
                  f"| ₹{r['export_value_cr_low']:,}–{r['export_value_cr_high']:,} cr |")
     L.append("")
-    e20, e30 = rows[0], rows[-1]
     L.append(f"- At **E20**, blending frees **{e20['freed_MMT']} MMT** of petrol — **{e20['vs_current_exports_pct']}% "
              f"of India's current 15.8 MMT petrol exports** — worth **~₹{e20['export_value_cr_central']:,} cr "
              f"(${e20['export_value_usd_bn']} bn)/yr** at FOB. In effect, ethanol has *already enabled roughly "
@@ -113,6 +138,10 @@ def main():
     L.append(f"- Pushing to **E30** frees **{e30['freed_MMT']} MMT** (~₹{e30['export_value_cr_central']:,} cr / "
              f"${e30['export_value_usd_bn']} bn), which would roughly **double** exportable petrol vs the E20 level.\n")
 
+
+def _sec_stack(L, m):
+    """Section 3: comparison with the other flows."""
+    e20 = m["e20"]
     L.append("## 3. How this stacks against the other flows in this repo (E20, ₹ cr/yr)\n")
     L.append("| Flow | ₹ cr/yr | Beneficiary |")
     L.append("|---|--:|---|")
@@ -126,6 +155,9 @@ def main():
              "rupee item ethanol blending creates, and it accrues as **export/forex earnings** rather "
              "than domestic tax.\n")
 
+
+def _sec_caveats(L, m):
+    """Section 4: caveats."""
     L.append("## 4. Caveats\n")
     L.append("- **Export vs import-substitution:** the freed petrol can either be exported (valued here) "
              "*or* let India cut crude imports — the same barrels, valued at a similar FOB/import-parity "
@@ -138,14 +170,35 @@ def main():
     L.append("- Freed volume = ethanol volume (blend%×domestic petrol), consistent with the sibling "
              "models; second-order mileage effects are ignored here.\n")
     L.append("---\n*Analytical estimate from PPAC export data + editable assumptions; not a trade forecast.*\n")
-    (OUT / "petrol_export_value.md").write_text("\n".join(L))
 
-    print(f"Export realisation trend (₹/L): " + ", ".join(f"{t['fy']} {t['realisation_rs_per_L']}" for t in trend))
+
+def render_md(m):
+    """Render the markdown report from the computed dict."""
+    L = []
+    _intro(L, m)
+    _sec_trend(L, m)
+    _sec_freed(L, m)
+    _sec_stack(L, m)
+    _sec_caveats(L, m)
+    return "\n".join(L)
+
+
+def print_summary(m):
+    """Print the console summary."""
+    trend, price_central, lows, highs, rows = (m[k] for k in ("trend", "price_central", "lows", "highs", "rows"))
+    print("Export realisation trend (₹/L): " + ", ".join(f"{t['fy']} {t['realisation_rs_per_L']}" for t in trend))
     print(f"Central price {price_central} ₹/L (FY24-25); band {lows:.0f}-{highs:.0f}\n")
     print(f"{'blend':6s}{'freed bnL':>11s}{'freed MMT':>11s}{'%curExp':>9s}{'₹cr central':>13s}{'$bn':>7s}")
     for r in rows:
         print(f"{r['blend']:6s}{r['freed_bnL']:>11}{r['freed_MMT']:>11}{r['vs_current_exports_pct']:>8}%"
               f"{r['export_value_cr_central']:>13,}{r['export_value_usd_bn']:>7}")
+
+
+def main():
+    m = compute()
+    write_csvs(m)
+    (OUT / "petrol_export_value.md").write_text(render_md(m))
+    print_summary(m)
     print("Wrote outputs/petrol_export_value.md + petrol_export_value.csv + petrol_export_trend.csv")
 
 
