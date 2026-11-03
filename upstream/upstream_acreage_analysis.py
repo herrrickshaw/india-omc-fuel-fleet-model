@@ -71,11 +71,21 @@ def chg(series):
     return series[-1] / series[0] - 1
 
 
-def main():
+def compute():
+    """Onshore/offshore/total crude series (TMT) and the sources sorted by 5-yr change."""
     onshore_tot = [sum(CRUDE[k][i] for k in ONSHORE) for i in range(6)]
     offshore_tot = [sum(CRUDE[k][i] for k in OFFSHORE) for i in range(6)]
     total = [onshore_tot[i] + offshore_tot[i] for i in range(6)]
+    ordered = sorted(CRUDE.items(), key=lambda kv: -chg(kv[1]))
+    return {
+        "onshore_tot": onshore_tot, "offshore_tot": offshore_tot, "total": total,
+        "ordered": ordered,
+    }
 
+
+def write_csvs(m):
+    """Write the CSV outputs into OUT."""
+    onshore_tot, offshore_tot, total = (m[k] for k in ("onshore_tot", "offshore_tot", "total"))
     # producer trend CSV
     with (OUT / "crude_production_trend.csv").open("w", newline="") as fh:
         w = csv.writer(fh); w.writerow(["source"] + FY + ["chg_5yr_pct", "cagr_pct"])
@@ -90,12 +100,19 @@ def main():
         for i, r in enumerate(RECS, 1):
             w.writerow([i] + list(r))
 
-    L = []
+
+def _intro(L, m):
+    """Title and base-data paragraph."""
     L.append("# India upstream: crude decline, offshore acreage & where to drill next\n")
     L.append("Base data: PPAC Ready Reckoner FY2025-26 (H1). India's crude output is in structural "
              "decline while import dependence sits near 88% — the exploration question is not *whether* "
              "to open new acreage but *where*.\n")
 
+
+
+def _sec_problem(L, m):
+    """Section 1: production decline."""
+    onshore_tot, offshore_tot, total = (m[k] for k in ("onshore_tot", "offshore_tot", "total"))
     L.append("## 1. The problem — production down, self-sufficiency at ~12%\n")
     L.append(f"- Total crude **{total[0]/1000:.1f} → {total[-1]/1000:.1f} MMT** FY20→FY25 "
              f"({chg(total)*100:+.0f}%, {cagr(total)*100:+.1f}%/yr).")
@@ -105,6 +122,11 @@ def main():
              f"vs **offshore {offshore_tot[0]/1000:.1f}→{offshore_tot[-1]/1000:.1f} MMT ({chg(offshore_tot)*100:+.0f}%)** — "
              "offshore is now the majority and the only side holding up.\n")
 
+
+
+def _sec_basins(L, m):
+    """Section 2: by basin."""
+    ordered = m["ordered"]
     L.append("## 2. Where the barrels are moving — by basin\n")
     L.append("| Source | FY20 (MMT) | FY25 (MMT) | 5-yr change | Read |")
     L.append("|---|--:|--:|--:|---|")
@@ -116,7 +138,6 @@ def main():
         "Assam (onshore)":"stable",
         "Gujarat Offshore":"declining",
     }
-    ordered = sorted(CRUDE.items(), key=lambda kv: -chg(kv[1]))
     for k, v in ordered:
         L.append(f"| {k} | {v[0]/1000:.2f} | {v[-1]/1000:.2f} | {chg(v)*100:+.0f}% | {reads.get(k,'—')} |")
     L.append("")
@@ -124,13 +145,16 @@ def main():
              "source growing is **Eastern Offshore deepwater (KG), up 4×**. New oil in India is a "
              "**deepwater, East-Coast** story.\n")
 
+
+def _sec_acreage(L, m):
+    """Section 3: acreage."""
     L.append("## 3. Acreage — a lot explored and dropped, a new offshore push\n")
     L.append("| Regime | Offered | Awarded | Operational | Note |")
     L.append("|---|--:|--:|--:|---|")
     for name, b in BLOCKS.items():
         L.append(f"| {name} | {b['offered']} | {b['awarded']} | {b['operational']} | {b['note']} |")
     L.append("")
-    L.append(f"- **NELP's legacy:** of 360 blocks offered, only **27 are operational** — 227 were "
+    L.append("- **NELP's legacy:** of 360 blocks offered, only **27 are operational** — 227 were "
              "relinquished. Much of the *easy, already-mapped* acreage has been tried; the remaining "
              "prize is frontier and deepwater.")
     L.append(f"- **OALP is tilting offshore:** {OALP_DW_AWARDED} deep/ultra-deep blocks awarded, and "
@@ -140,6 +164,10 @@ def main():
              f"vs {CBM['established_TCF']} TCF established; only ~{100*CBM['area_explored_sqkm']/CBM['area_total_sqkm']:.0f}% "
              "of coal-bearing area explored.\n")
 
+
+
+def _sec_recommendations(L, m):
+    """Section 4: ranked new areas."""
     L.append("## 4. Recommended new areas to explore — ranked\n")
     L.append("Ranked by a blend of *evidence in the data* (what's already growing / discovered) and "
              "*basin prospectivity* (India's Cat-I→III sedimentary framework + regional analogs).\n")
@@ -149,6 +177,10 @@ def main():
         L.append(f"| {i} | **{r[0]}** | {r[1]} | {r[2]} | {r[3]} | {r[4]} |")
     L.append("")
 
+
+
+def _sec_thesis(L, m):
+    """Section 5: the thesis."""
     L.append("## 5. The thesis in three moves\n")
     L.append("1. **Defend the base cheaply** — EOR in Mumbai High & Barmer and fast-track the 87 DSF "
              "fields; these are the lowest-risk barrels and slow the decline now.")
@@ -158,6 +190,10 @@ def main():
              "*giant* upside, validated by Indonesia's back-to-back multi-TCF discoveries next door. "
              "High risk, but it's where a step-change in self-sufficiency could actually come from.\n")
 
+
+
+def _sec_caveats(L, m):
+    """Section 6: caveats."""
     L.append("## 6. Caveats\n")
     L.append("- Production & acreage figures are PPAC RR (DGH/ONGC/OIL); basin classes and analog "
              "reasoning are geological judgement, not reserve estimates. 'Suggestions' are exploration "
@@ -168,8 +204,24 @@ def main():
              "success is uncertain. TMT = thousand tonnes; MMT = million tonnes; TCF = trillion cu ft.\n")
     L.append("---\n*Analysis from PPAC RR data + basin framework; exploration priorities, not investment "
              "advice or reserve certification.*\n")
-    (OUT / "upstream_acreage_analysis.md").write_text("\n".join(L))
 
+
+def render_md(m):
+    """Render the markdown report from the computed dict."""
+    L = []
+    _intro(L, m)
+    _sec_problem(L, m)
+    _sec_basins(L, m)
+    _sec_acreage(L, m)
+    _sec_recommendations(L, m)
+    _sec_thesis(L, m)
+    _sec_caveats(L, m)
+    return "\n".join(L)
+
+
+def print_summary(m):
+    """Print the console summary."""
+    total, ordered = (m[k] for k in ("total", "ordered"))
     print(f"Total crude FY20->FY25: {total[0]/1000:.1f} -> {total[-1]/1000:.1f} MMT ({chg(total)*100:+.0f}%)")
     print(f"Self-sufficiency: {SELF_SUFFICIENCY[0]:.0f}% -> {SELF_SUFFICIENCY[-1]:.1f}%")
     print("Source 5-yr change (sorted):")
@@ -177,6 +229,13 @@ def main():
         print(f"  {k:34s} {chg(v)*100:+6.0f}%   {v[0]/1000:5.2f} -> {v[-1]/1000:5.2f} MMT")
     print(f"\nBlocks: NELP 27 operational of 360 offered; OALP {OALP_DW_AWARDED} deepwater awarded (IX: 11 DW+8 SW)")
     print("Top-3 new-area picks: KG deepwater extension, Andaman deepwater, Mahanadi/Cauvery deepwater")
+
+
+def main():
+    m = compute()
+    write_csvs(m)
+    (OUT / "upstream_acreage_analysis.md").write_text(render_md(m))
+    print_summary(m)
     print("Wrote outputs/upstream_acreage_analysis.md + crude_production_trend.csv + new_area_recommendations.csv")
 
 
