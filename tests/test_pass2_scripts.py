@@ -21,6 +21,19 @@ MANIFEST = json.loads((Path(__file__).parent / "golden" / "pass2_manifest.json")
 _SKIP = shutil.ignore_patterns(".git", ".venv", "node_modules", "graphify-out", "__pycache__", ".pytest_cache", ".ruff_cache")
 
 
+# statewise_tax_impact.py reads two public PPAC tables from ~/ppac-ready-reckoner-data/...; the tests
+# point HOME at a temp dir holding tracked copies so they do not depend on the developer's machine.
+PPAC_FIXTURES = Path(__file__).parent / "fixtures" / "ppac_csv"
+PPAC_REL = Path("ppac-ready-reckoner-data") / "annual_fy2025-26_h1" / "csv"
+
+
+@pytest.fixture(scope="module")
+def fake_home(tmp_path_factory):
+    home = tmp_path_factory.mktemp("home")
+    shutil.copytree(PPAC_FIXTURES, home / PPAC_REL)
+    return home
+
+
 @pytest.fixture(scope="module")
 def repo_copy(tmp_path_factory):
     dest = tmp_path_factory.mktemp("repo") / "repo"
@@ -29,10 +42,10 @@ def repo_copy(tmp_path_factory):
 
 
 @pytest.mark.parametrize("script", sorted(MANIFEST))
-def test_script_stdout_and_outputs_identical(repo_copy, script):
+def test_script_stdout_and_outputs_identical(repo_copy, fake_home, script):
     # Force UTF-8 so the result does not depend on the runner's locale (scripts read/write
     # non-ASCII text such as the rupee sign without an explicit encoding).
-    env = {**os.environ, "PYTHONUTF8": "1"}
+    env = {**os.environ, "PYTHONUTF8": "1", "HOME": str(fake_home)}
     r = subprocess.run(
         [sys.executable, script], cwd=repo_copy, capture_output=True, text=True, encoding="utf-8", env=env
     )
