@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -29,7 +30,12 @@ def repo_copy(tmp_path_factory):
 
 @pytest.mark.parametrize("script", sorted(MANIFEST))
 def test_script_stdout_and_outputs_identical(repo_copy, script):
-    r = subprocess.run([sys.executable, script], cwd=repo_copy, capture_output=True, text=True, check=True)
+    # Force UTF-8 so the result does not depend on the runner's locale (scripts read/write
+    # non-ASCII text such as the rupee sign without an explicit encoding).
+    env = {**os.environ, "PYTHONUTF8": "1"}
+    r = subprocess.run(
+        [sys.executable, script], cwd=repo_copy, capture_output=True, text=True, encoding="utf-8", env=env, check=True
+    )
     assert hashlib.sha256(r.stdout.encode()).hexdigest() == MANIFEST[script]["stdout_sha256"]
     for rel, digest in MANIFEST[script]["files"].items():
         assert hashlib.sha256((repo_copy / rel).read_bytes()).hexdigest() == digest, rel
