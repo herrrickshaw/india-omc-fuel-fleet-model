@@ -30,7 +30,8 @@ BLENDS = {"E20": 0.20, "E25": 0.25, "E30": 0.30}
 CR = 1e7
 
 
-def main():
+def compute():
+    """Per-blend freed-petrol, petchem and forex rows plus the E20/E30 endpoints and ethanol premium."""
     rows = []
     for tag, frac in BLENDS.items():
         freed_bnL = frac * PETROL_BNL
@@ -48,21 +49,34 @@ def main():
             "ethanol_rupee_cr": round(ethanol_rupee_cr),
             "petchem_import_share_pct": round(petchem_share * 100),
         })
-
-    with (OUT / "ethanol_forex_substitution.csv").open("w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
-
     e20, e30 = rows[0], rows[-1]
     petrol_fob_rs_l = PETROL_FOB_USD_BBL / L_PER_BBL * USD_INR   # ₹/L equivalent of FOB petrol
     premium = ETHANOL_RS_L - petrol_fob_rs_l
+    return {
+        "rows": rows, "e20": e20, "e30": e30,
+        "petrol_fob_rs_l": petrol_fob_rs_l, "premium": premium,
+    }
 
-    L = []
+
+def write_csvs(m):
+    """Write the CSV outputs into OUT."""
+    rows = m["rows"]
+    with (OUT / "ethanol_forex_substitution.csv").open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
+
+
+def _intro(L, m):
+    """Title and premise."""
     L.append("# Ethanol → freed petrol → petrochemicals: the rupee-vs-dollar substitution\n")
     L.append("**The premise.** Ethanol blending is paid for in **rupees** — to Indian sugarcane/grain "
              "farmers and distilleries — while the crude it offsets and the petrochemicals India imports are "
              "paid in **dollars**. So beyond the litres saved, ethanol does something structural: it swaps a "
              "*forex* outflow for a *domestic rupee* flow. This traces the volume and the forex.\n")
 
+
+def _sec_volume(L, m):
+    """Section 1: petrol saved to petchem."""
+    rows, e20, e30 = (m[k] for k in ("rows", "e20", "e30"))
     L.append("## 1. Volume — petrol saved → petrochemicals producible\n")
     L.append("| Blend | Petrol freed (bn L) | = MMT | If cracked → petchem (MMT, 60% yield) | Share of India's ~13 MMT substitutable polymer imports |")
     L.append("|---|--:|--:|--:|--:|")
@@ -74,6 +88,10 @@ def main():
              f"enough to substitute **~{e20['petchem_import_share_pct']}% (E20) to ~{e30['petchem_import_share_pct']}% "
              "(E30) of India's entire substitutable polymer import bill**, from freed feedstock alone.\n")
 
+
+def _sec_fates(L, m):
+    """Section 2: three fates of the freed petrol."""
+    rows, e20, e30 = (m[k] for k in ("rows", "e20", "e30"))
     L.append("## 2. The three fates of the freed petrol — all forex-positive\n")
     L.append("| Blend | (a) Crude saved / petrol exported ($ bn) | (b) Petchem imports substituted if cracked ($ bn) |")
     L.append("|---|--:|--:|")
@@ -85,6 +103,10 @@ def main():
              f"(${e20['forex_petchem_usdbn']}–{e30['forex_petchem_usdbn']} bn) because polymers price above fuel — "
              "and it substitutes a dollar import instead of just earning a fuel margin.\n")
 
+
+def _sec_core(L, m):
+    """Section 3: rupee in, dollars out."""
+    e20, e30, petrol_fob_rs_l, premium = (m[k] for k in ("e20", "e30", "petrol_fob_rs_l", "premium"))
     L.append("## 3. The core — rupee in, dollars out (saved)\n")
     L.append("| | Currency | E20 | E30 |")
     L.append("|---|---|--:|--:|")
@@ -101,6 +123,9 @@ def main():
              "producers, not dollars to crude exporters, and shrinks or reverses when the freed feedstock is "
              "cracked into higher-value petrochemicals rather than sold as fuel.\n")
 
+
+def _sec_currency(L, m):
+    """Section 4: why the currency matters."""
     L.append("## 4. Why the currency matters (not just the number)\n")
     L.append("- **Crude** (~$137 bn/yr) and **petrochemicals** (~$15 bn substitutable) are India's largest "
              "dollar outflows — mineral fuels alone are ~54% of the trade deficit. Every unit shifted to "
@@ -113,6 +138,9 @@ def main():
              "into the very petrochemicals India imports → a *second* dollar import is substituted, at a higher "
              "value per tonne. Rupee feedstock displacing dollar polymers is the crude-to-chemicals endgame.\n")
 
+
+def _sec_caveats(L, m):
+    """Section 5: caveats."""
     L.append("## 5. Caveats\n")
     L.append("- **Unit conversions are PPAC Ready Reckoner Table 9.2/9.3** (official): 1 MT petrol = 1.411 KL "
              "= 8.88 bbl; 1 bbl = 159 L; 1 MMT = 1.411 bn L. PPAC **Table 9.6** designates naphtha as "
@@ -128,14 +156,36 @@ def main():
              "Feedstock (cane/grain) availability bounds how far blending — hence this substitution — can go.\n")
     L.append("---\n*Analytical estimate tying ethanol volume to petrochemical potential and the forex balance; "
              "editable assumptions, not a fiscal forecast.*\n")
-    (OUT / "ethanol_forex_substitution.md").write_text("\n".join(L))
 
+
+def render_md(m):
+    """Render the markdown report from the computed dict."""
+    L = []
+    _intro(L, m)
+    _sec_volume(L, m)
+    _sec_fates(L, m)
+    _sec_core(L, m)
+    _sec_currency(L, m)
+    _sec_caveats(L, m)
+    return "\n".join(L)
+
+
+def print_summary(m):
+    """Print the console summary."""
+    rows, e20, premium = (m[k] for k in ("rows", "e20", "premium"))
     print(f"{'blend':6s}{'freed MMT':>11s}{'petchem MMT':>13s}{'%subst.imports':>16s}{'$bn petrol':>12s}{'$bn petchem':>13s}{'₹cr ethanol':>14s}")
     for r in rows:
         print(f"{r['blend']:6s}{r['freed_MMT']:>11}{r['petchem_MMT']:>13}{r['petchem_import_share_pct']:>15}%"
               f"{r['forex_petrol_usdbn']:>12}{r['forex_petchem_usdbn']:>13}{r['ethanol_rupee_cr']:>14,}")
     print(f"\nRupee-vs-dollar: E20 spends ₹{e20['ethanol_rupee_cr']:,} cr (domestic) to free ~${e20['forex_petrol_usdbn']}-{e20['forex_petchem_usdbn']} bn forex")
     print(f"Ethanol premium over freed-petrol FOB value: ~₹{premium:.0f}/L (rupee, to Indian producers)")
+
+
+def main():
+    m = compute()
+    write_csvs(m)
+    (OUT / "ethanol_forex_substitution.md").write_text(render_md(m))
+    print_summary(m)
     print("Wrote outputs/ethanol_forex_substitution.md + .csv")
 
 
