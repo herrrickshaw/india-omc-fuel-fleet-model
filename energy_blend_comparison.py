@@ -166,14 +166,17 @@ def per_vehicle(drop: float) -> tuple[float, float]:
 # ────────────────────────────────────────────────────────────────────────────
 # 4. REPORT
 # ────────────────────────────────────────────────────────────────────────────
-def render_md() -> str:
-    """Render energy_blend_comparison.md from the module-level tables."""
-    L = ["# Energy density, blending dilution, and who profits per extra litre\n",
+def _header() -> list[str]:
+    """Title and framing paragraph as the initial line list."""
+    return ["# Energy density, blending dilution, and who profits per extra litre\n",
          "Companion to `omc_model.py` (OMC income) and `statewise_tax_impact.py` (tax\n"
          "differential). This note isolates the **volume effect**: lower-energy blends\n"
          "make vehicles buy more litres for the same km, and every per-litre levy\n"
          "(excise, effective VAT, dealer commission, OMC margin) scales with litres.\n"]
 
+
+def _sec_fuels(L: list[str]) -> None:
+    """Section 1: fuel energy content."""
     L.append("## 1. Energy content of the fuels themselves (LHV)\n")
     L.append("| Fuel | MJ/kg | MJ/litre | Sold by | vs its base |")
     L.append("|---|---|---|---|---|")
@@ -193,6 +196,10 @@ def render_md() -> str:
              "**CBG at IS 16087 spec is at or near CNG parity per kg** — pure methane is "
              "actually *above* typical pipeline CNG.\n")
 
+
+
+def _sec_dilution(L: list[str]) -> None:
+    """Section 2: blend dilution."""
     L.append("## 2. Blend energy dilution → extra litres for the same distance\n")
     L.append("| Blend | MJ/L | Energy vs base | Extra litres needed (energy basis) | Real-world mileage drop |")
     L.append("|---|---|---|---|---|")
@@ -205,6 +212,10 @@ def render_md() -> str:
              "buys the *same* kg for the same km. There is no volumetric pass-through to "
              "harvest.\n")
 
+
+
+def _sec_per_vehicle(L: list[str]) -> None:
+    """Section 3: per-vehicle cost."""
     L.append("## 3. Per-vehicle: what the dilution costs a petrol owner\n")
     L.append(f"Hatchback, {KMPL_E0:.0f} km/L on E0, {KM_YR:,} km/yr, pump ₹{PUMP_PRICE:.0f}/L "
              "(pump price per litre is the SAME for E0 and E20 — the energy cut is invisible "
@@ -215,6 +226,10 @@ def render_md() -> str:
         xl, xr = per_vehicle(d)
         L.append(f"| {tag} | +{xl:.0f} L | ₹{xr:,.0f} | {d/(1-d)*100:.1f}% on every km driven |")
 
+
+
+def _sec_national_pool(L: list[str]) -> None:
+    """Section 4: national petrol pool."""
     L.append("\n## 4. National petrol pool: where the extra litres' money goes (₹ cr/yr)\n")
     L.append(f"Base: FY24-25 petrol pool {MS_BLENDED_BNL:.1f} bn L (40 MMT). Distance demand "
              "held constant at its E0-equivalent; each blend's real-world drop pulls extra "
@@ -225,6 +240,10 @@ def render_md() -> str:
         L.append(f"| {r['blend']} | {r['extra_bnL']} | {r['consumer_extra_cr']:,} | "
                  f"{r['excise_extra_cr']:,} | {r['vat_extra_cr']:,} | "
                  f"{r['dealer_extra_cr']:,} | {r['omc_extra_cr']:,} |")
+
+
+def _sec_walk(L: list[str]) -> None:
+    """Section 4a: E20 to E30 walk."""
     L.append("\n### 4a. The E20 → E30 walk: what each NEXT step adds (vs today's E20)\n")
     L.append("India is already at ~E20, so the live policy question is the *increment*. "
              "Deltas below are each blend's extra litres/rupees **beyond what E20 already "
@@ -243,6 +262,10 @@ def render_md() -> str:
              "import-substitution at the same hidden-levy rate, with no efficiency "
              "recovery left (engines are calibrated for E20, not E30).\n")
 
+
+
+def _sec_diesel(L: list[str]) -> None:
+    """Section 4b: diesel pool."""
     L.append("### 4b. Diesel pool: B7 → B20 biodiesel walk\n")
     L.append(f"Diesel is the bigger prize by volume: {HSD_BNL:.0f} bn L/yr (91.4 MMT) — "
              "2× the petrol pool. FAME dilutes far less per litre (−8.5% vs ethanol's "
@@ -264,11 +287,19 @@ def render_md() -> str:
              "<1% in FY24-25; the NBP target is B5 by 2030) — B15/B20 rows are a "
              "what-if ceiling, and OEM warranties beyond B7 are unresolved.\n")
 
+
+
+def _sec_levy_note(L: list[str]) -> None:
+    """Closing note on the volume effect."""
     L.append("Every rupee column is a *per-litre* levy × extra litres: the volume effect "
              "alone hands the exchequer ~₹8,500 cr/yr at E20 (excise+VAT) and retail "
              "outlets ~₹900 cr/yr in commission — rising with the blend walk to E30. "
              "The OMC-margin column reconciles with omc_model.py's ₹757 cr E20 figure.\n")
 
+
+
+def _sec_cbg(L: list[str]) -> None:
+    """Section 5: CBG contrast."""
     L.append("## 5. The CBG contrast\n")
     L.append("- **Petrol+ethanol**: energy dilution is real, pump price/litre unchanged → "
              "consumer silently buys ~4% more litres; every per-litre stakeholder "
@@ -279,6 +310,10 @@ def render_md() -> str:
              "changing kg bought per km. As a decarbonisation lever it delivers the import "
              "substitution WITHOUT the hidden consumer levy — the fiscally honest blend.\n")
 
+
+
+def _sec_caveats(L: list[str]) -> None:
+    """Section 6: caveats."""
     L.append("## 6. Caveats\n")
     L.append("- Real-world E20 drop (4%) is below the pure energy math (6.8%): calibrated "
              "engines recover part of it via octane/combustion gains; older vehicles can "
@@ -292,7 +327,22 @@ def render_md() -> str:
              "appeal is precisely the smaller dilution per unit of renewable content.\n"
              "- CBG range 45-48.5 MJ/kg depends on purification; IS 16087 floor (CH4 90%) "
              "sits marginally below rich pipeline gas, well-purified CBG above it.\n")
+
+
+def render_md() -> str:
+    """Render energy_blend_comparison.md from the module-level tables."""
+    L = _header()
+    _sec_fuels(L)
+    _sec_dilution(L)
+    _sec_per_vehicle(L)
+    _sec_national_pool(L)
+    _sec_walk(L)
+    _sec_diesel(L)
+    _sec_levy_note(L)
+    _sec_cbg(L)
+    _sec_caveats(L)
     return "\n".join(L)
+
 
 
 def _write_dicts(path: Path, rows: list[dict]) -> None:
