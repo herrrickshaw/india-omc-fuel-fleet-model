@@ -163,6 +163,19 @@ def test_distillery_subvention_rule_picks_the_binding_cap(dist):
     assert dist["EFF_RATE"] == pytest.approx(0.0475)
 
 
+def test_distillery_equity_cashflow_tenor_boundary(dist):
+    """Equity flows service debt in years 1..TENOR inclusive and carry the full EBITDA afterwards."""
+    debt, bal, eq = 35.0, 35.0, [-15.0]
+    for y in range(1, 16):
+        e = dist["annual_ebitda"](0.6 if y == 1 else 1.0)
+        if y <= 8:
+            eq.append(e - (35 / 8 + bal * 0.0475)); bal -= 35 / 8
+        else:
+            eq.append(e)
+    assert dist["eq_irr"] == pytest.approx(dist["irr"](eq))
+    assert eq[8] == pytest.approx(dist["annual_ebitda"]() - (35 / 8 + 35 / 8 * 0.0475))   # final debt year still services debt
+
+
 def test_distillery_levered_return_and_stress_cases(dist):
     assert dist["debt"] == pytest.approx(35.0)
     assert dist["dscr"] == pytest.approx(dist["ebitda"] / (35 / 8 + 35 * (1 - 1 / 8) * 0.0475))

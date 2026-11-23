@@ -25,6 +25,7 @@ MS_ROWS = [
     ["Gamma", "1", "1", "1", "n/a", "x"],                      # non-numeric FY25 -> skipped
     ["Delta", "1", "1", "1", "300", "x"],                      # no VAT entry -> unmatched
     ["Short", "1", "2"],                                       # fewer than 6 cells -> skipped
+    ["Five", "1", "1", "1", "777"],                            # exactly 5 cells -> still skipped (needs 6)
     ["", "1", "1", "1", "5", "x"],                             # blank state -> skipped
     ["All-India Total", "1", "1", "1", "3800", "x"],           # 'total' rows are skipped
     ["MS (TMT)", "1", "1", "1", "7", "x"],                     # startswith('ms ') -> skipped
@@ -161,6 +162,9 @@ def test_statewise_leaders_and_small_state_floor(sfa, capsys):
     eligible = [r for r in data if r[6] >= 20000]
     best_ev = max(eligible, key=lambda r: r[4] / r[6])
     assert f"| **EV share** | {best_ev[0]} ({100 * best_ev[4] / best_ev[6]:.0f}%)" in md
+    diesel = sorted(eligible, key=lambda r: r[2] / r[6], reverse=True)[:3]
+    assert "| **Diesel share** | " + " | ".join(f"{r[0]} ({100 * r[2] / r[6]:.0f}%)" for r in diesel) in md
+    assert "Arunachal Pradesh" in md and "Nagaland" not in md.split("Diesel share")[1].splitlines()[0]
     small = [r[0] for r in data if r[6] < 20000]
     assert small and not any(f"| {s} (" in md for s in small)
     csvrows = rows(d / "vahan" / "outputs" / "statewise_fuel_cy2026.csv")
@@ -189,6 +193,8 @@ def test_concentration_metrics(conc):
     n50 = ns["cum_to"]("Total", 0.5)
     assert sum(v for _, v in ser[:n50]) / tot >= 0.5 > sum(v for _, v in ser[:n50 - 1]) / tot
     assert ns["cum_to"]("Total", 0.8) > n50
+    assert ns["cum_to"]("Total", ser[0][1] / tot) == 1          # share exactly met by the top state counts (>=)
+    assert ns["cum_to"]("Total", ser[0][1] / tot + 1e-9) == 2
     assert ns["cum_to"]("Total", 1.0) <= 36
     assert ns["cum_to"]("Total", 1.1) == 36                # unreachable threshold falls through to len
     assert ns["hhi"]("CNG") > ns["hhi"]("Petrol")          # CNG is the more concentrated fuel
@@ -215,6 +221,8 @@ def vf(tmp_path):
 
 
 @pytest.mark.parametrize("label,group", [
+    ("LPG ONLY", "LPG (dedicated)"),
+    ("CNG ONLY", "CNG/CBG (dedicated)"),
     ("DUAL DIESEL/CNG", "Diesel"),                   # diesel is tested before CNG
     ("DUAL DIESEL/LNG", "Diesel"),
     ("PETROL/METHANOL", "Petrol (mono, incl. E20 & hybrid)"),
