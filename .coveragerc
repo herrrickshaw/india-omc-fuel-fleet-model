@@ -1,0 +1,11 @@
+[run]
+source = .
+omit =
+    tests/*
+    */tests/*
+    from-global-market-research-platform/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
